@@ -53,22 +53,19 @@
               <img alt="logo" src="static/img/robozinho.png" class="fixed-image" style="width: 50px;">
           </a>
           <ul class="right hide-on-med-and-down">            
-            <li class="nav-icons"><a href="#"><i class="material-icons">play_circle_outline</i></a></li>
-            <li class="nav-icons"><a href="#"><i class="material-icons">stop </i></a></li>
-            <li class="nav-icons"><a href="#"><i class="material-icons">language</i></a></li>
+            <li class="nav-icons"><a href="/run_code" onclick="runCode()"><i class="material-icons">play_circle_outline</i></a></li>
+            <li class="nav-icons"><a href="#"><i class="material-icons">stop </i></a></li>          
+            
           </ul>
       </div>
   </nav>
-
-
-
-<!-- <button onclick="ejecutar('codigogerado')">Copiar</button>  <BR><BR> -->
-
 
   <div class="col s12" style="min-width: 680px; min-height: 400px; height: 100vh;">
     <div class="row" style="height: 100%;">
         <div class="col s8" style="height: 100%;">
             <div id="blocklyDiv" style="height: 80%; width: 100%; border: 5px solid #E5E7E9;">
+               <!-- Botão para executar o código gerado -->
+    
             </div>
         </div>
         <div class="col s4" style="height: 100%;">
@@ -77,7 +74,6 @@
         </div>
     </div>
 </div>
-
 
     <xml id="toolbox" style="display: none">
       <category name="Logic" colour="#5b80a5">
@@ -644,12 +640,12 @@ workspace.addChangeListener(function(event) {
    //     workspace.addChangeListener(update);
     </script>
     <!--JavaScript at end of body for optimized loading-->
-    <script type="text/javascript" src="js/materialize.min.js"></script>
-    <script type="text/javascript" src="js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="static/js/materialize.min.js"></script>
+    <script type="text/javascript" src="static/js/bootstrap.min.js"></script>
     <!--<script type="text/javascript" src="js/code.js"></script>-->
-    <script type="text/javascript" src="js/FileSaver.js"></script>
-    <script type="text/javascript" src="js/prettify.js"></script>
-    <script type="text/javascript" src="js/jquery.mousewheel.min.js"></script>
+    <script type="text/javascript" src="static/js/FileSaver.js"></script>
+    <script type="text/javascript" src="static/js/prettify.js"></script>
+    <script type="text/javascript" src="static/js/jquery.mousewheel.min.js"></script>
 </body>
 
 </html>

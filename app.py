@@ -6,15 +6,25 @@ app = Flask(__name__)
 def index():
     return render_template('index.html')
 
-@app.route('/executar_codigo', methods=['POST'])
-def executar_codigo():
-    codigo_python = request.form['codigo_python']
-    # Execute o código Python aqui
-    # ...
+@app.route('/run_code', methods=['POST'])
+def run_code():
+    # Receba o código gerado do Blockly
+    generated_code = request.form['code']
 
-    # Retorne o resultado para o Blockly
-    resultado = "Resultado da execução do código"
-    return resultado
+    # Salve o código em um arquivo (opcional)
+    with open('generated_code.py', 'w') as file:
+        file.write(generated_code)
+
+    try:
+        # Execute o código
+        exec(generated_code)
+        result = "Código executado com sucesso!"
+    except Exception as e:
+        # Trate exceções
+        result = f"Erro ao executar o código: {e}"
+
+    # Pode retornar resultados para o frontend se necessário
+    return result
 
 if __name__ == '__main__':
     app.run(debug=True)

@@ -17,13 +17,13 @@ Blockly.Blocks['run_python_file'] = {
 Blockly.Blocks.connectToRobot = {
   init: function() {
     this.appendDummyInput()
-        .appendField("Conectar ao robô")
-        .appendField("Endereço IP:")
+        .appendField("Connect to robot")
+        .appendField("IP:")
         .appendField(new Blockly.FieldTextInput("192.168.2.10"), "connection_ip");
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
     this.setColour(230);
-    this.setTooltip("Conectar à API do robô usando o endereço IP de conexão padrão.");
+    this.setTooltip("Connect to the robot API using the default connection IP address.");
     this.setHelpUrl("");
   }
 };
@@ -31,11 +31,11 @@ Blockly.Blocks.connectToRobot = {
 Blockly.Blocks.disconnectFromRobot = {
   init: function() {
     this.appendDummyInput()
-        .appendField("Desconectar do robô");
+        .appendField("Disconnect the robot");
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
     this.setColour(230);
-    this.setTooltip("Encerrar a conexão com o robô.");
+    this.setTooltip("Terminate the connection with the robot.");
     this.setHelpUrl("");
   }
 };
@@ -55,11 +55,11 @@ Blockly.Blocks.disconnectFromRobot = {
       this.setPreviousStatement(true, null);
       this.setNextStatement(true, null);
       this.appendDummyInput()
-          .appendField("Mover articulações do robô");
+          .appendField("Move Joints");
       this.appendValueInput("joints_list")
           .setCheck("Array")
-          .appendField("Lista de valores das articulações:");      
-      this.setTooltip("Configurar o movimento do robô com valores das articulações.");
+          .appendField("Joints:");      
+      this.setTooltip("Configure robot movement with joint values.");
       this.setHelpUrl("");
     }
   };
@@ -70,11 +70,11 @@ Blockly.Blocks.disconnectFromRobot = {
         this.setNextStatement(true, null);
         this.setColour(230);
         this.appendDummyInput()
-            .appendField("Mover em coordenadas cartesianas");
+            .appendField("Move to Cartesian");
         this.appendValueInput("pose_list")
             .setCheck("Array")
-            .appendField("Lista de poses [x, y, z, roll, pitch, yaw]:");
-        this.setTooltip("Configurar o movimento do robô com coordenadas cartesianas.");
+            .appendField("Poses [x, y, z, roll, pitch, yaw]:");
+        this.setTooltip("Configure the robot movement with Cartesian coordinates.");
         this.setHelpUrl("");
     }
 };
@@ -94,6 +94,7 @@ Blockly.Blocks.open_tool = {
     this.setHelpUrl("");
   }
 };
+
 
 Blockly.Blocks.close_tool = {
   init: function() {
@@ -150,7 +151,7 @@ Blockly.Blocks.close_tool = {
           .appendField("Password:");    
       this.setNextStatement(true, null);
       this.setColour(230);
-      this.setTooltip("Cria um banco de dados e tabelas no MySQL.");
+      this.setTooltip("Creates a database and tables in MySQL.");
       this.setHelpUrl("");
     }
   };
@@ -158,7 +159,7 @@ Blockly.Blocks.close_tool = {
   Blockly.Blocks.mysqlConnection = {
     init: function() {
       this.appendDummyInput()
-          .appendField("Conectar ao banco de dados MySQL");
+          .appendField("Connect to MySQL database");
       this.appendValueInput("host")
           .setCheck("String")
           .appendField("Host:");
@@ -174,7 +175,7 @@ Blockly.Blocks.close_tool = {
       this.setPreviousStatement(true, null);
       this.setNextStatement(true, null);
       this.setColour(230);
-      this.setTooltip("Conecta ao banco de dados MySQL.");
+      this.setTooltip("Connects to the MySQL database.");
       this.setHelpUrl("");
     }
   };
@@ -182,11 +183,11 @@ Blockly.Blocks.close_tool = {
   Blockly.Blocks.gerarTickets = {
     init: function() {
       this.appendDummyInput()
-          .appendField("Gerar Tickets");
+          .appendField("Generate Tickets");
       this.setPreviousStatement(true, null);
       this.setNextStatement(true, null);
       this.setColour(230);
-      this.setTooltip("Gera registros de tickets na base de dados da farmácia.");
+      this.setTooltip("Generates ticket records in the pharmacy database.");
       this.setHelpUrl("");
     }
   };
@@ -203,10 +204,11 @@ Blockly.Python['run_python_file'] = function(block) {
 
 // Bloco 'connectToRobot'
 Blockly.Python['connectToRobot'] = function(block) {
-  var value_connection_ip = block.getFieldValue('connection_ip');
-  var code = '<pre><code>def connect(self, connection_ip: str = "192.168.2.10"): self.device = RobotConnection.create_tcp_connection(connection_ip); self.router = self.device.connect(); self.base = BaseClient(self.router); self.gripper = GripperCyclicClient(self.router); self.base_cyclic = BaseCyclicClient(self.router); self.device_config = DeviceConfigClient(self.router); self.check_error(); if self.critical_error: self.clear_faults(); else: self.base_feedback = BaseCyclic_pb2.BaseFeedback(); self.open_tool(0.70)</code></pre>';
-  return [code, value_connection_ip, code];
+  var text_connection_ip = block.getFieldValue('connection_ip');
+  var code = 'connect(' + text_connection_ip + ')\n';
+  return code;
 };
+
 
 // Bloco 'disconnectFromRobot'
 Blockly.Python['disconnectFromRobot'] = function(block) {
@@ -244,7 +246,7 @@ Blockly.Python['open_tool'] = function(block) {
 };
 
 // Bloco 'close_tool'
-Blockly.Python['close_tool'] = function(block) {
+Blockly.Python['close_tool'] = function(block) {    
   var code = 'close_tool()\n';
   return code;
 };

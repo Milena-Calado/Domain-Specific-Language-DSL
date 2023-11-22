@@ -11,6 +11,9 @@
     <!--Import materialize.css-->
     <link type="text/css" rel="stylesheet" href="static/css/materialize.min.css" media="screen,projection" />
     <link type="text/css" rel="stylesheet" href="static/css/robotics.css" media="screen,projection" />
+    <!-- Import js-beautify.js -->
+    
+
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <!--Let browser know website is optimized for mobile-->
     <title>KiDSL</title>
@@ -597,13 +600,15 @@
 
       function update(event) {
         Blockly.Python.INFINITE_LOOP_TRAP = null;
-        var code = new String(Blockly.Python.workspaceToCode(workspace));
-        if (code != "") {
+        var code = Blockly.Python.workspaceToCode(workspace);
+        if (code !== "") {
+            // Atualize o código gerado diretamente
             mostrar = code;
             document.getElementById("codigogerado").innerHTML = mostrar;
-            cleanThanUp()
+            cleanThanUp();
         }
     }
+
 
       function cleanThanUp() {
           var list = document.getElementById("im");

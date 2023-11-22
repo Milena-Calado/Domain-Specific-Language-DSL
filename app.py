@@ -2,6 +2,29 @@ from flask import Flask, render_template, request
 
 app = Flask(__name__)
 
+
+# Funções de exemplo para cada bloco Blockly
+def connect():
+    robot.connect()
+
+def disconnect():
+    robot.disconnect()
+
+def move_to_home():
+    robot.move_to_home()
+
+def move_joints():
+    robot.move_joints()
+
+def move_cartesiann():
+    robot.move_cartesiann()
+
+def open_tool():
+    robot.open_tool()
+
+def close_tool():
+    robot.close_tool()
+
 @app.route('/')
 def index():
     return render_template('index.html')

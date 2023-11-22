@@ -43,7 +43,7 @@ Blockly.Python['retrieve_items'] = function(block) {
 Blockly.Blocks['move_to_home'] = {
     init: function() {
         this.appendDummyInput()
-            .appendField("Move robot to home");
+            .appendField("Move to home");
         this.setPreviousStatement(true, null);
         this.setNextStatement(true, null);
         this.setTooltip("Move the robot to its home position based on the robot type.");
@@ -51,7 +51,7 @@ Blockly.Blocks['move_to_home'] = {
     };
 
 Blockly.Python['move_to_home'] = function(block) {
-    var code = "def move_to_home(self): positions_dict = read_joints_from_json(); home = positions_dict['home']; self.move_joints(home); self.open_tool(0.70); move_to_home()\n";
+    var code = "def move_to_home(self): positions_dict = read_joints_from_json(); home = positions_dict['home']; self.move_joints(home); self.open_tool(0.70); move_to_home() \n";
 
     return [code, Blockly.Python.ORDER_NONE];
 };
@@ -165,7 +165,7 @@ Blockly.Python['mysqlConnection'] = function(block) {
 Blockly.Blocks.connectToRobot = {
     init: function() {
         this.appendDummyInput()
-            .appendField("Conectar ao robô")
+            .appendField("Connect to robot")
             .appendField("Endereço IP:")
             .appendField(new Blockly.FieldTextInput("192.168.2.10"), "connection_ip");
         this.setPreviousStatement(true, null);
@@ -178,8 +178,8 @@ Blockly.Blocks.connectToRobot = {
 // Bloco 'connectToRobot'
 Blockly.Python['connectToRobot'] = function(block) {
     var value_connection_ip = block.getFieldValue('connection_ip');
-    var code = 'connect_to_robot("' + value_connection_ip + '")\n';
-    return code;
+    var code = '<pre><code>def connect(self, connection_ip: str = "192.168.2.10"): self.device = RobotConnection.create_tcp_connection(connection_ip); self.router = self.device.connect(); self.base = BaseClient(self.router); self.gripper = GripperCyclicClient(self.router); self.base_cyclic = BaseCyclicClient(self.router); self.device_config = DeviceConfigClient(self.router); self.check_error(); if self.critical_error: self.clear_faults(); else: self.base_feedback = BaseCyclic_pb2.BaseFeedback(); self.open_tool(0.70)</code></pre>';
+    return [code, Blockly.Python.ORDER_NONE];
 };
 
     
@@ -197,7 +197,7 @@ Blockly.Blocks.disconnectFromRobot = {
 
 // Bloco 'disconnectFromRobot'
 Blockly.Python['disconnectFromRobot'] = function(block) {
-    var code = 'disconnect_from_robot()\n';
+    var code = 'disconnect()\n';
     return code;
 };    
 

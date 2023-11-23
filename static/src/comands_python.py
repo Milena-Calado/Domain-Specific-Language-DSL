@@ -1,6 +1,7 @@
 import threading
 from time import sleep
 
+
 from kortex_api.Exceptions.KException import KException
 from kortex_api.Exceptions.KServerException import KServerException
 from kortex_api.autogen.client_stubs.BaseClientRpc import BaseClient
@@ -14,13 +15,19 @@ from robot_api.robot.robot_connection import RobotConnection
 from robot_api.robot.utils.functions import read_joints_from_json
 
 class Robot(AbstractRobot):
+
+    def run_python_file(file_path):
+        try:
+            with open(file_path, 'r') as file:
+                code = file.read()
+                exec(code)
+                print(f"Python file '{file_path}' executed successfully.")
+        except FileNotFoundError:
+            print(f"Error: File '{file_path}' not found.")
+        except Exception as e:
+            print(f"Error: {e}")
     
-    def connect(self, connection_ip: str = "192.168.2.10"):
-        # TODO change this class for connect with cabe ethernet or use cabe
-        """
-        Connect api with the robot, using the ethernet connection ip as default connection
-        """
-        # Create a connection to the device and get the router
+    def connect(self, connection_ip: str = "192.168.2.10"):       
         self.device = RobotConnection.create_tcp_connection(connection_ip)
         self.router = self.device.connect()
 
@@ -36,10 +43,7 @@ class Robot(AbstractRobot):
             self.base_feedback = BaseCyclic_pb2.BaseFeedback()
             self.open_tool(0.70)
 
-    def disconnect(self):
-        """
-        Finish connection with robot
-        """
+    def disconnect(self):       
         if not self.device:
             return
         self.device.disconnect()
@@ -48,24 +52,13 @@ class Robot(AbstractRobot):
         self.device = None
         self.router = None
 
-    def move_to_home(self):
-        """
-        Move robot for home position
-        """
+    def move_to_home(self):       
         positions_dict = read_joints_from_json()
         home = positions_dict['home']
         self.move_joints(home)  # TODO positions from json, home
         self.open_tool(0.70)
 
-    def move_joints(self, joints_list):
-        """
-        Set movement for robot with joints values
-        Args:
-            (list) joints_list: lista with values for all joints for movement
-
-        Returns:
-            (bool) move is finished
-        """
+    def move_joints(self, joints_list):       
         feedback = self.base_cyclic.RefreshFeedback()
 
         # TODO: Essa checagem de erro tem que estar em outro canto, não deve estar aqui dentro dessa classe nem desse

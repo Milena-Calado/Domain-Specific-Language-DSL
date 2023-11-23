@@ -130,30 +130,20 @@
     }
 
     function runCode() {
-      // Generate JavaScript code and run it.
-      window.LoopTrap = 1000;
-      Blockly.JavaScript.INFINITE_LOOP_TRAP =
-          'if (--window.LoopTrap == 0) throw "Infinite loop.";\n';
-      var code = Blockly.JavaScript.workspaceToCode(demoWorkspace);
-      Blockly.JavaScript.INFINITE_LOOP_TRAP = null;
+              // Obtenha o código gerado da div
+        var generated_code = document.getElementById('codigogerado').innerText;
 
-      fetch('/run_code', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json', // Se você estiver enviando JSON, ajuste o cabeçalho
-        },
-        body: JSON.stringify({ code: latestCode }), // Envia o código gerado
-    })
-    .then(response => response.text())
-    .then(result => console.log(result))
-    .catch(error => console.error('Error:', error));
-}
-      try {
-        eval(code);
-      } catch (e) {
-        alert(e);
-      }
-    }
+        // Envie uma solicitação POST para o servidor Flask
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', '/run_code', true);
+        xhr.setRequestHeader('Content-Type', 'text/plain');
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4) {
+                console.log('Resposta do servidor:', xhr.responseText);
+            }
+        };
+        xhr.send(generated_code );
+        }
   </script>
 
 </body>

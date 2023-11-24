@@ -43,7 +43,7 @@
     .fixed-image {
             position: fixed;
             top: 10px; /* Ajuste a posição vertical conforme necessário */
-            left: 30px; /* Ajuste a posição horizontal conforme necessário */
+            left: 8px; /* Ajuste a posição horizontal conforme necessário */
         }
     .nav-icons {
       margin-right: 10px; /* Ajuste o valor conforme necessário */
@@ -52,13 +52,14 @@
 
 <body>
   <nav class="black darken-2">
-      <div class="nav-wrapper">
-          <a href="#!" class="brand-logo" style="margin-left: 5%; margin-top: 2%">
-              <img alt="logo" src="static/img/robozinho.png" class="fixed-image" style="width: 50px;">
+    <div class="nav-wrapper" style="width: 90%; margin: 0 auto;">
+          <a href="#!" class="brand-logo" style="margin-left: 5%; margin-top:0%">
+              <img alt="logo" src="static/img/KiDSL_logo.png" class="fixed-image" style="width: 120px;">
+              <!-- <img alt="logo" src="static/img/KiDLS__1_-removebg-preview.png" style="width: 100px; height: auto; margin-top: 10px;"> -->
           </a>
-          <ul class="right hide-on-med-and-down">                     
-            <li class="nav-icons"><a href="#" onclick="runCode()"><i class="material-icons">play_circle_outline</i></a></li>
-
+          <ul class="right hide-on-med-and-down">      
+            <button onclick="executarScriptPython()">Executar</button>
+            <li class="nav-icons"><a href="#" onclick="runCode()"><i class="material-icons">play_circle_outline</i></a></li>           
             <li class="nav-icons"><a href="#"><i class="material-icons">stop </i></a></li>          
             
           </ul>
@@ -75,6 +76,7 @@
         </div>
         <div class="col s4" style="height: 100%;">
             <div id="codigogerado" style="font-family: 'Courier New', Courier, monospace; height: 80%; width: 100%; padding-left: 2%; background-color: #FFFFFF; color: #000; border: 5px solid #E5E7E9;" class="clearfix">
+              
             </div>
         </div>
     </div>
@@ -657,6 +659,34 @@
                   });
           }
       }
+
+    function executarScriptPython() {
+        var code = Blockly.Python.workspaceToCode(workspace);
+
+        // Crie um novo arquivo Python com o código gerado
+        var scriptBlob = new Blob([code], { type: 'text/plain' });
+        var scriptFile = new File([scriptBlob], 'static/src/generated_code.py', { type: 'text/plain' });
+
+        // Crie um formulário e um campo de arquivo para enviar o script para o servidor
+        var formData = new FormData();
+        formData.append('script', scriptFile);
+
+        // Use AJAX para enviar o script para o servidor e executá-lo
+        $.ajax({
+            type: 'POST',
+            url: '/run_python_script',
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function (response) {
+                console.log(response);
+                // Lide com a resposta do servidor, se necessário
+            },
+            error: function (error) {
+                console.error(error);
+            }
+        });
+    }
 
 workspace.addChangeListener(function(event) {
     if (event.type == Blockly.Events.MOVE) {

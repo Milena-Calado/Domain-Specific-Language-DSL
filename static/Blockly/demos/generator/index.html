@@ -130,20 +130,23 @@
     }
 
     function runCode() {
-              // Obtenha o código gerado da div
-        var generated_code = document.getElementById('codigogerado').innerText;
+        var code = Blockly.Python.workspaceToCode(workspace);
 
-        // Envie uma solicitação POST para o servidor Flask
-        var xhr = new XMLHttpRequest();
-        xhr.open('POST', '/run_code', true);
-        xhr.setRequestHeader('Content-Type', 'text/plain');
-        xhr.onreadystatechange = function () {
-            if (xhr.readyState === 4) {
-                console.log('Resposta do servidor:', xhr.responseText);
+        // Envia o código gerado para o servidor usando AJAX
+        $.ajax({
+            type: "POST",
+            url: "/run_code",
+            contentType: "application/json;charset=UTF-8",
+            data: JSON.stringify({ code: code }),
+            success: function (response) {
+                console.log(response);
+                // Aqui você pode lidar com a resposta do servidor, se necessário
+            },
+            error: function (error) {
+                console.error(error);
             }
-        };
-        xhr.send(generated_code );
-        }
+        });
+    }
   </script>
 
 </body>

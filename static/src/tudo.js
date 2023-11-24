@@ -17,7 +17,7 @@ Blockly.Blocks['run_python_file'] = {
   // Bloco 'run_python_file'
   Blockly.Python['run_python_file'] = function(block) {
     var value_path_file = Blockly.Python.valueToCode(block, 'PATH FILE', Blockly.Python.ORDER_ATOMIC);
-    var code = 'run_python_file(' + value_path_file + ')\n';
+    var code = 'obj.run_python_file(' + value_path_file + ')\n';
     return code;
   };
  
@@ -27,7 +27,7 @@ Blockly.Blocks['run_python_file'] = {
       this.appendDummyInput()
           .appendField("Connect to robot")
           .appendField("IP:")
-          .appendField(new Blockly.FieldTextInput("192.168.2.10"), "connection_ip");
+          .appendField(new Blockly.FieldTextInput("'192.168.2.10'"), "connection_ip");
       this.setPreviousStatement(true, null);
       this.setNextStatement(true, null);
       this.setColour(230);
@@ -39,7 +39,7 @@ Blockly.Blocks['run_python_file'] = {
     // Bloco 'connectToRobot'
     Blockly.Python['connectToRobot'] = function(block) {
         var text_connection_ip = block.getFieldValue('connection_ip');
-        var code = 'connect(' + text_connection_ip + ')\n';
+        var code = 'obj.connect(' + text_connection_ip + ')\n';
         return code;
       };
       
@@ -58,7 +58,7 @@ Blockly.Blocks['run_python_file'] = {
 
   // Bloco 'disconnectFromRobot'
   Blockly.Python['disconnectFromRobot'] = function(block) {
-    var code = 'disconnect()\n';
+    var code = 'obj.disconnect()\n';
     return code;
   };
    
@@ -74,8 +74,7 @@ Blockly.Blocks['run_python_file'] = {
   
   // Bloco 'move_to_home'
   Blockly.Python['move_to_home'] = function(block) {
-    var code = "def move_to_home(self): positions_dict = read_joints_from_json(); home = positions_dict['home']; self.move_joints(home); self.open_tool(0.70); move_to_home()\n";
-  
+    var code = 'obj.move_to_home()\n';
     return code;
   };  
     
@@ -96,7 +95,7 @@ Blockly.Blocks['run_python_file'] = {
      // Bloco 'moveJoints'
   Blockly.Python['moveJoints'] = function(block) {
     var value_joints_list = Blockly.Python.valueToCode(block, 'joints_list', Blockly.Python.ORDER_ATOMIC);
-    var code = 'move_joints(' + value_joints_list + ')\n';
+    var code = 'obj.move_joints(' + value_joints_list + ')\n';
     return code;
   };
     
@@ -119,7 +118,7 @@ Blockly.Blocks['run_python_file'] = {
   // Bloco 'moveCartesian'
   Blockly.Python['moveCartesian'] = function(block) {
     var value_pose_list = Blockly.Python.valueToCode(block, 'pose_list', Blockly.Python.ORDER_ATOMIC);
-    var code = 'move_cartesian(' + value_pose_list + ')\n';
+    var code = 'obj.move_cartesian(' + value_pose_list + ')\n';
     return code;
   };
   
@@ -142,7 +141,7 @@ Blockly.Blocks['run_python_file'] = {
   // Bloco 'open_tool'
   Blockly.Python['open_tool'] = function(block) {
     var value_value = Blockly.Python.valueToCode(block, 'value', Blockly.Python.ORDER_ATOMIC);
-    var code = 'open_tool(' + value_value + ')\n';
+    var code = 'obj.open_tool(' + value_value + ')\n';
     return code;
 };
  
@@ -161,7 +160,7 @@ Blockly.Blocks['run_python_file'] = {
    
   // Bloco 'close_tool'
   Blockly.Python['close_tool'] = function(block) {
-    var code = 'close_tool()\n';
+    var code = 'obj.close_tool()\n';
     return code;
 };
   
@@ -184,7 +183,7 @@ Blockly.Blocks['run_python_file'] = {
    // Bloco 'retrieve_tickets'
    Blockly.Python['retrieve_tickets'] = function(block) {
     var value_retrieve_tickets = Blockly.Python.valueToCode(block, 'retrieve_tickets', Blockly.Python.ORDER_ATOMIC);
-    var code = 'retrieve_tickets(' + value_retrieve_tickets + ')\n';
+    var code = 'obj.retrieve_tickets(' + value_retrieve_tickets + ')\n';
     return code;
   };
   
@@ -205,7 +204,7 @@ Blockly.Blocks['run_python_file'] = {
       // Bloco 'retrieve_items'
   Blockly.Python['retrieve_items'] = function(block) {
     var value_name = Blockly.Python.valueToCode(block, 'NAME', Blockly.Python.ORDER_ATOMIC);
-    var code = 'retrieve_items(' + value_name + ')\n';
+    var code = 'obj.retrieve_items(' + value_name + ')\n';
     return code;
   };
       
@@ -236,7 +235,7 @@ Blockly.Blocks['run_python_file'] = {
     var value_host = Blockly.Python.valueToCode(block, 'host', Blockly.Python.ORDER_ATOMIC);
     var value_user = Blockly.Python.valueToCode(block, 'user', Blockly.Python.ORDER_ATOMIC);
     var value_password = Blockly.Python.valueToCode(block, 'password', Blockly.Python.ORDER_ATOMIC);
-    var code = 'create_database(' + value_host + ', ' + value_user + ', ' + value_password + ')\n';
+    var code = 'obj.create_database(' + value_host + ', ' + value_user + ', ' + value_password + ')\n';
     return code;
 };
 
@@ -271,7 +270,7 @@ Blockly.Python['mysqlConnection'] = function(block) {
     var value_user = Blockly.Python.valueToCode(block, 'user', Blockly.Python.ORDER_ATOMIC);
     var value_password = Blockly.Python.valueToCode(block, 'password', Blockly.Python.ORDER_ATOMIC);
     var value_database = Blockly.Python.valueToCode(block, 'database', Blockly.Python.ORDER_ATOMIC);
-    var code = 'mysql_connection(' + value_host + ', ' + value_user + ', ' + value_password + ', ' + value_database + ')\n';
+    var code = 'obj.mysql_connection(' + value_host + ', ' + value_user + ', ' + value_password + ', ' + value_database + ')\n';
     return code;
 };
     
@@ -289,7 +288,7 @@ Blockly.Python['mysqlConnection'] = function(block) {
 
     // Bloco 'gerarTickets'
 Blockly.Python['gerarTickets'] = function(block) {    
-    var code = 'gerar_tickets()\n';
+    var code = 'obj.gerar_tickets()\n';
     return code;
 };
     

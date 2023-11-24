@@ -9,26 +9,26 @@ def index():
     return render_template('index.html')
 
 
-@app.route('/run_code', methods=['GET'])
+@app.route('/run_code', methods=['POST'])
 def run_code():
     try:
-         # Receba o código gerado do Blockly
-        generated_code = str(request.data, 'utf-8')
+         # Receba o código gerado do corpo da solicitação
+        data = request.get_json()
+        generated_code = data.get('code')
 
       # Salve o código em um arquivo (opcional)
         with open('generated_code.py', 'w') as file:
-            file.write(generated_code)
-   
+            file.write('''from robot import Robot\n
+obj = Robot()\n\n''')
+
+            file.write(format(generated_code.rstrip('\n')))
+
+
+            
         # Execute o código
         ret = subprocess.run(['python', 'generated_code.py'], check=True, capture_output=True)
-        print(ret)
-        result = {
-            'stdout': ret.stdout.decode('utf-8'),
-            'stderr': ret.stderr.decode('utf-8'),
-            'returncode': ret.returncode
 
-        }
-
+      
     except Exception as e:
         # Trate exceções
         result = f"Erro ao executar o código: {e}"

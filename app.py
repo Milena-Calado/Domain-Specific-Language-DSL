@@ -17,7 +17,7 @@ def run_code():
         generated_code = data.get('code')
 
       # Salve o código em um arquivo (opcional)
-        with open('generated_code.py', 'w') as file:
+        with open('static/src/generated_code.py', 'w') as file:
             file.write('''from robot import Robot\n
 obj = Robot()\n\n''')
 

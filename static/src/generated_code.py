@@ -2,29 +2,14 @@ from robot import Robot
 
 obj = Robot()
 
-import random
-
-default = None
-
-"""Describe this function...
-"""
-def do_something():
-  global default
-  pass
-
-
-if False:
-  pass
-
-for count in range(10):
-  pass
-
-1 + 1
-
-[]
-
-print('abc')
-
-'#%06x' % random.randint(0, 2**24 - 1)
-
-default = default
+obj.connect('192.168.2.10')
+if True:
+  obj.move_to_home()
+  obj.open_tool(0.7)
+obj.move_cartesian([0, 0, 0, 0, 0, 0])
+obj.close_tool()
+obj.move_to_home()
+obj.move_cartesian([0, 0, 0, 0, 0, 0])
+obj.open_tool(0.7)
+obj.move_to_home()
+obj.disconnect()

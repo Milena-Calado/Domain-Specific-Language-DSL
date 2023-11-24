@@ -192,6 +192,51 @@ Blockly.Blocks.close_tool = {
     }
   };
 
+  Blockly.Blocks.colistemato = {
+    init: function () {
+        this.setPreviousStatement(true, null);
+        this.setNextStatement(true, null);
+        this.setColour(230);
+        this.appendDummyInput()
+            .appendField("Colistemato de sódio");
+        this.appendValueInput("pose_list")
+            .setCheck("Array")
+            .appendField("Poses [x, y, z, roll, pitch, yaw]:");
+        this.setTooltip("Configure the robot movement with Cartesian coordinates.");
+        this.setHelpUrl("");
+    }
+};
+
+Blockly.Blocks.fentanila = {
+  init: function () {
+      this.setPreviousStatement(true, null);
+      this.setNextStatement(true, null);
+      this.setColour(230);
+      this.appendDummyInput()
+          .appendField("Fentanila");
+      this.appendValueInput("pose_list")
+          .setCheck("Array")
+          .appendField("Poses [x, y, z, roll, pitch, yaw]:");
+      this.setTooltip("Configure the robot movement with Cartesian coordinates.");
+      this.setHelpUrl("");
+  }
+};
+
+Blockly.Blocks.tigeciclina = {
+  init: function () {
+      this.setPreviousStatement(true, null);
+      this.setNextStatement(true, null);
+      this.setColour(230);
+      this.appendDummyInput()
+          .appendField("Tigeciclina");
+      this.appendValueInput("pose_list")
+          .setCheck("Array")
+          .appendField("Poses [x, y, z, roll, pitch, yaw]:");
+      this.setTooltip("Configure the robot movement with Cartesian coordinates.");
+      this.setHelpUrl("");
+  }
+};
+
 // Generator Stubs
 
 // Bloco 'run_python_file'
@@ -292,3 +337,26 @@ Blockly.Python['retrieve_items'] = function(block) {
   var code = 'obj.retrieve_items(' + value_name + ')\n';
   return code;
 };
+
+// Bloco 'colistemato de sodio'
+Blockly.Python['colistemato'] = function(block) {
+  var value_pose_list = Blockly.Python.valueToCode(block, 'pose_list', Blockly.Python.ORDER_ATOMIC);
+  var code = 'obj.move_cartesian(' + value_pose_list + ')\n';
+  return code;
+};
+
+// Bloco 'fentanila'
+Blockly.Python['fentanila'] = function(block) {
+  var value_pose_list = Blockly.Python.valueToCode(block, 'pose_list', Blockly.Python.ORDER_ATOMIC);
+  var code = 'obj.move_cartesian(' + value_pose_list + ')\n';
+  return code;
+};
+
+// Bloco 'tigeciclina'
+Blockly.Python['tigeciclina'] = function(block) {
+  var value_pose_list = Blockly.Python.valueToCode(block, 'pose_list', Blockly.Python.ORDER_ATOMIC);
+  var code = 'obj.move_cartesian(' + value_pose_list + ')\n';
+  return code;
+};
+
+

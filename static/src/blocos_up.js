@@ -44,7 +44,7 @@ Blockly.Blocks['move_to_home'] = {
         .appendField("Move to home");
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour(100);
+    this.setColour(65);
     this.setTooltip("Move the robot to its home position based on the robot type.");
   }
 };
@@ -59,7 +59,7 @@ Blockly.Blocks.moveJoints = {
         .setCheck("Array")
         .appendField("Joints:");      
     this.setTooltip("Configure robot movement with joint values.");
-    this.setColour(100);
+    this.setColour(65);
     this.setHelpUrl("");
   }
 };
@@ -75,7 +75,7 @@ Blockly.Blocks.moveCartesian = {
           .setCheck("Array")
           .appendField("Poses [x, y, z, roll, pitch, yaw]:");
       this.setTooltip("Configure the robot movement with Cartesian coordinates.");
-      this.setColour(100);
+      this.setColour(65);
       this.setHelpUrl("");
   }
 };
@@ -87,7 +87,7 @@ Blockly.Blocks.open_tool = {
         .appendField("Open tool");                        
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour(30);
+    this.setColour(120);
     this.setTooltip("Open gripper with the specified value.");
     this.setHelpUrl("");
   }
@@ -100,7 +100,7 @@ Blockly.Blocks.close_tool = {
         .appendField("close tool");
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour(30);
+    this.setColour(120);
  this.setTooltip("This function closes the gripper and tries to detect an object.");
  this.setHelpUrl("");
   }
@@ -235,6 +235,21 @@ Blockly.Blocks.tigeciclina = {
   }
 };
 
+Blockly.Blocks.segurancy = {
+  init: function () {
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(65);
+    this.appendDummyInput()
+        .appendField("Segurancy Pose");
+    this.appendValueInput("pose_list")
+        .setCheck("Array")
+        .appendField("Poses [x, y, z, roll, pitch, yaw]:");
+    this.setTooltip("Configure the robot movement with Cartesian coordinates.");
+    this.setHelpUrl("");
+}
+};
+
 // Generator Stubs
 
 // Bloco 'run_python_file'
@@ -352,6 +367,12 @@ Blockly.Python['fentanila'] = function(block) {
 
 // Bloco 'tigeciclina'
 Blockly.Python['tigeciclina'] = function(block) {
+  var value_pose_list = Blockly.Python.valueToCode(block, 'pose_list', Blockly.Python.ORDER_ATOMIC);
+  var code = 'obj.move_cartesiann(' + value_pose_list + ')\n';
+  return code;
+};
+
+Blockly.Python['segurancy'] = function(block) {
   var value_pose_list = Blockly.Python.valueToCode(block, 'pose_list', Blockly.Python.ORDER_ATOMIC);
   var code = 'obj.move_cartesiann(' + value_pose_list + ')\n';
   return code;

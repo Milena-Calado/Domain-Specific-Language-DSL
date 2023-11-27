@@ -496,7 +496,7 @@
         <block type="disconnectFromRobot"></block>
       </category>
       
-      <category name="Moviments" colour="100">       
+      <category name="Moviments" colour="65">       
         <block type="move_to_home"></block>
         <block type="moveJoints">
           <value name="joints_list">
@@ -571,7 +571,45 @@
               </value>
             </block>
           </value>
-        </block>     
+        </block>    
+        
+        <block type="segurancy">
+          <value name="pose_list">
+            <block type="lists_create_with" inline="true">
+              <mutation items="6"></mutation>
+              <value name="ADD0">
+                <block type="math_number">
+                  <field name="NUM">0</field>
+                </block>
+              </value>
+              <value name="ADD1">
+                <block type="math_number">
+                  <field name="NUM">0</field>
+                </block>
+              </value>
+              <value name="ADD2">
+                <block type="math_number">
+                  <field name="NUM">0</field>
+                </block>
+              </value>
+              <value name="ADD3">
+                <block type="math_number">
+                  <field name="NUM">0</field>
+                </block>
+              </value>
+              <value name="ADD4">
+                <block type="math_number">
+                  <field name="NUM">0</field>
+                </block>
+              </value>
+              <value name="ADD5">
+                <block type="math_number">
+                  <field name="NUM">0</field>
+                </block>
+              </value>
+            </block>
+          </value>
+        </block>  
 
       </category>
       <category name="Medicines" colour="150">
@@ -689,7 +727,7 @@
       </category>
 
       
-      <category name="Gripper" colour="30">
+      <category name="Gripper" colour="120">
         <block type="open_tool"></block>
         <block type="close_tool"></block>        
       </category>

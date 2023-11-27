@@ -2,4 +2,6 @@ from robot import Robot
 
 obj = Robot()
 
-obj.retrieve_tickets(1)
+obj.connect('192.168.2.10')
+obj.move_to_home()
+obj.move_joints([0, 0, 0, 0, 0, 0])

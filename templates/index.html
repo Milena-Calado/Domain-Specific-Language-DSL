@@ -58,9 +58,12 @@
               <!-- <img alt="logo" src="static/img/KiDLS__1_-removebg-preview.png" style="width: 100px; height: auto; margin-top: 10px;"> -->
           </a>
           <ul class="right hide-on-med-and-down">      
-            <button onclick="executarScriptPython()">Executar</button>
-            <li class="nav-icons"><a href="#" onclick="runCode()"><i class="material-icons">play_circle_outline</i></a></li>           
-            <li class="nav-icons"><a href="#"><i class="material-icons">stop </i></a></li>          
+            <li class="nav-icons"><a href="#" onclick="runCode()">Gravar código</a></li>
+            <button onclick="executarScriptPython()">Executar no robô</button>            
+            <li class="nav-icons"><a href="#" onclick="pararExecucao()">Parar</a></li>
+
+            <!-- <li class="nav-icons"><a href="#" onclick="runCode()"><i class="material-icons">play_circle_outline</i></a></li>            -->
+            <!-- <li class="nav-icons"><a href="#"><i class="material-icons">stop </i></a></li>           -->
             
           </ul>
       </div>
@@ -760,6 +763,8 @@
             });
         }
 
+      
+
       var mostrar = "nada aqui";
       var toolbox = document.getElementById('toolbox');
 
@@ -851,11 +856,11 @@ workspace.addChangeListener(function(event) {
     </script>
     <!--JavaScript at end of body for optimized loading-->
     <script type="text/javascript" src="static/js/materialize.min.js"></script>
-    <!-- <script type="text/javascript" src="static/js/bootstrap.min.js"></script> -->
-    <!--<script type="text/javascript" src="js/code.js"></script>-->
-    <!-- <script type="text/javascript" src="static/js/FileSaver.js"></script> -->
-    <!-- <script type="text/javascript" src="static/js/prettify.js"></script> -->
-    <!-- <script type="text/javascript" src="static/js/jquery.mousewheel.min.js"></script> -->
+    <script type="text/javascript" src="static/js/bootstrap.min.js"></script> 
+    <script type="text/javascript" src="js/code.js"></script>
+    <script type="text/javascript" src="static/js/FileSaver.js"></script>
+    <script type="text/javascript" src="static/js/prettify.js"></script>
+    <script type="text/javascript" src="static/js/jquery.mousewheel.min.js"></script>
 </body>
 
 </html>

@@ -58,8 +58,7 @@
               <!-- <img alt="logo" src="static/img/KiDLS__1_-removebg-preview.png" style="width: 100px; height: auto; margin-top: 10px;"> -->
           </a>
           <ul class="right hide-on-med-and-down">      
-            <li class="nav-icons"><a href="#" onclick="runCode()">Gravar código</a></li>
-            <button onclick="executarScriptPython()">Executar no robô</button>            
+            <li class="nav-icons"><a href="#" onclick="runCode()">Executar</a></li>                     
             <li class="nav-icons"><a href="#" onclick="pararExecucao()">Parar</a></li>
 
             <!-- <li class="nav-icons"><a href="#" onclick="runCode()"><i class="material-icons">play_circle_outline</i></a></li>            -->
@@ -617,9 +616,9 @@
 
       </category>
       <category name="Medicines" colour="150">
-        <block type="colistemato"></block>         
-        <block type="fentanila"></block>            
         <block type="tigeciclina"></block>         
+        <block type="fentanila"></block>            
+        <block type="colistemato"></block>         
       </category>
 
       <category name="Gripper" colour="120">
@@ -709,34 +708,6 @@
                   });
           }
       }
-
-    function executarScriptPython() {
-        var code = Blockly.Python.workspaceToCode(workspace);
-
-        // Crie um novo arquivo Python com o código gerado
-        var scriptBlob = new Blob([code], { type: 'text/plain' });
-        var scriptFile = new File([scriptBlob], 'static/src/generated_code.py', { type: 'text/plain' });
-
-        // Crie um formulário e um campo de arquivo para enviar o script para o servidor
-        var formData = new FormData();
-        formData.append('script', scriptFile);
-
-        // Use AJAX para enviar o script para o servidor e executá-lo
-        $.ajax({
-            type: 'POST',
-            url: '/run_python_script',
-            data: formData,
-            processData: false,
-            contentType: false,
-            success: function (response) {
-                console.log(response);
-                // Lide com a resposta do servidor, se necessário
-            },
-            error: function (error) {
-                console.error(error);
-            }
-        });
-    }
 
 workspace.addChangeListener(function(event) {
     if (event.type == Blockly.Events.MOVE) {

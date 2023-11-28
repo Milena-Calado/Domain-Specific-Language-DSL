@@ -18,16 +18,15 @@ def run_code():
 
       # Salve o código em um arquivo (opcional)
         with open('static/src/generated_code.py', 'w') as file:
-            file.write('''from robot import Robot\n
-obj = Robot()\n\n''')
+            file.write('''from robot import Robot \nobj = Robot()\n\n''')
 
             file.write(format(generated_code.rstrip('\n')))
 
-
+        print('matheus')
             
         # Execute o código
-        ret = subprocess.run(['python', 'generated_code.py'], check=True, capture_output=True)
-
+        ret = subprocess.run(['python', 'static\src\generated_code.py'], shell=False)
+      
       
     except Exception as e:
         # Trate exceções
@@ -37,4 +36,4 @@ obj = Robot()\n\n''')
     return jsonify(result)
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=False)

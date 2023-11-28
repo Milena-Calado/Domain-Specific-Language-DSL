@@ -20,9 +20,7 @@ def run_code():
         with open('static/src/generated_code.py', 'w') as file:
             file.write('''from robot import Robot \nobj = Robot()\n\n''')
 
-            file.write(format(generated_code.rstrip('\n')))
-
-        print('matheus')
+            file.write(format(generated_code.rstrip('\n')))       
             
         # Execute o código
         ret = subprocess.run(['python', 'static\src\generated_code.py'], shell=False)

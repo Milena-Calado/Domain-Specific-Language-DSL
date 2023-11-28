@@ -73,9 +73,9 @@ Blockly.Python['disconnectFromRobot'] = function(block) {
 
 // Bloco 'move_to_home'
 Blockly.Python['move_to_home'] = function(block) {
-  var code = 'obj.move_to_home()\n';
+  var code = 'obj.move_joints([10.291,42.895,106.288,267.739,332.335,92.869])\nobj.move_joints([8.789, 340.573, 144.698, 269.934, 71.139, 90.942])\nobj.move_joints([295.18951416015625, 309.2252197265625, 116.1842041015625, 295.02618408203125, 80.2393798828125, 85.50155639648438])\n';
   return code;
-};  
+};
   
   Blockly.Blocks.moveJoints = {
     init: function() {
@@ -293,38 +293,30 @@ Blockly.Python['gerarTickets'] = function(block) {
 
 
 Blockly.Blocks.colistemato = {
-init: function () {
-    this.setPreviousStatement(true, null);
-    this.setNextStatement(true, null);
-    this.setColour(230);
-    this.appendDummyInput()
-        .appendField("Colistemnato de sódio");
-    this.appendValueInput("pose_list")
-        .setCheck("Array")        
-    this.setTooltip("Configure the robot movement with Cartesian coordinates.");
-    this.setHelpUrl("");
-}
+  init: function () {
+      this.setPreviousStatement(true, null);
+      this.setNextStatement(true, null);
+      this.setColour(150);
+      this.appendDummyInput()
+          .appendField("Medicamento - Colistemato de sódio");
+      this.setTooltip("Configure the robot movement with Cartesian coordinates.");
+      this.setHelpUrl("");
+  }
 };
-
 
 Blockly.Python['colistemato'] = function(block) {
-var value_pose_list = Blockly.Python.valueToCode(block, 'pose_list', Blockly.Python.ORDER_ATOMIC);
-var code = 'obj.move_cartesiann(' + value_pose_list + ')\n';
-return code;
+  var value_pose_list = Blockly.Python.valueToCode(block, 'pose_list', Blockly.Python.ORDER_ATOMIC);
+  var code = 'obj.move_cartesiann([0.1557641625404358, -0.44633567333221436, 0.12219314277172089, 87.29951477050781, -0.5001964569091797, 15.019988059997559])\nobj.move_cartesiann([0.20072071254253387, -0.5997055172920227, 0.12531529366970062, 88.035400390625, -0.2923136055469513, 14.742742538452148])\nobj.close_tool()\nobj.move_joints([308.3565368652344, 293.7962341308594, 114.3787841796875, 293.5994873046875, 93.23373413085938, 90.71200561523438])\nobj.move_joints([15.547500610351562, 293.7962341308594, 114.3787841796875, 293.5994873046875, 93.23373413085938, 90.71200561523438])\nobj.move_joints([5.11016845703125, 338.84356689453125, 99.62835693359375, 266.817138671875, 325.823486328125, 12.781982421875])\nobj.move_joints([5.1771087646484375, 315.9814453125, 96.06057739257812, 262.8784484863281, 345.0887756347656, 17.115264892578125])\nobj.open_tool(0.60)\n';
+  return code;
 };
-
-
 
 Blockly.Blocks.fentanila = {
 init: function () {
   this.setPreviousStatement(true, null);
   this.setNextStatement(true, null);
-  this.setColour(230);
+  this.setColour(150);
   this.appendDummyInput()
-      .appendField("Fentanila");
-  this.appendValueInput("pose_list")
-      .setCheck("Array")
-      .appendField("Poses [x, y, z, roll, pitch, yaw]:");
+      .appendField("Medicamento - Fentanila");
   this.setTooltip("Configure the robot movement with Cartesian coordinates.");
   this.setHelpUrl("");
 }
@@ -332,33 +324,30 @@ init: function () {
 
 // Bloco 'fentanila'
 Blockly.Python['fentanila'] = function(block) {
-var value_pose_list = Blockly.Python.valueToCode(block, 'pose_list', Blockly.Python.ORDER_ATOMIC);
-var code = 'obj.move_cartesiann(' + value_pose_list + ')\n';
-return code;
+  var value_pose_list = Blockly.Python.valueToCode(block, 'pose_list', Blockly.Python.ORDER_ATOMIC);
+  var code = 'obj.move_cartesiann([-0.011559383943676949, -0.42786967754364014, 0.2772851288318634, 88.28321075439453, -0.8314085602760315, 0.5609025359153748])\nobj.move_cartesiann([-0.01142274122685194, -0.6069214344024658, 0.28211238980293274, 87.37435913085938, -0.9280807971954346, 0.5559726357460022])\nobj.close_tool()\nobj.move_joints([285.50921630859375, 338.14031982421875, 135.8863525390625, 285.9048156738281, 70.42501831054688, 84.9200439453125])\nobj.move_joints([15.547500610351562, 338.14031982421875, 135.8863525390625, 285.9048156738281, 70.42501831054688, 84.9200439453125])\nobj.move_joints([5.11016845703125, 338.84356689453125, 99.62835693359375, 266.817138671875, 325.823486328125, 12.781982421875])\nobj.move_joints([5.1771087646484375, 315.9814453125, 96.06057739257812, 262.8784484863281, 345.0887756347656, 17.115264892578125])\nobj.open_tool(0.60)\n';
+  return code;
 };
 
 Blockly.Blocks.tigeciclina = {
-init: function () {
-  this.setPreviousStatement(true, null);
-  this.setNextStatement(true, null);
-  this.setColour(230);
-  this.appendDummyInput()
-      .appendField("Tigeciclina");
-  this.appendValueInput("pose_list")
-      .setCheck("Array")
-      .appendField("Poses [x, y, z, roll, pitch, yaw]:");
-  this.setTooltip("Configure the robot movement with Cartesian coordinates.");
-  this.setHelpUrl("");
-}
-};
-  
+  init: function () {
+      this.setPreviousStatement(true, null);
+      this.setNextStatement(true, null);
+      this.setColour(150);
+      this.appendDummyInput()
+          .appendField("Medicamento - Tigeciclina");     
+      this.setTooltip("Configure the robot movement with Cartesian coordinates.");
+      this.setHelpUrl("");
+  }
+};  
 
 // Bloco 'tigeciclina'
 Blockly.Python['tigeciclina'] = function(block) {
-var value_pose_list = Blockly.Python.valueToCode(block, 'pose_list', Blockly.Python.ORDER_ATOMIC);
-var code = 'obj.move_cartesiann(' + value_pose_list + ')\n';
-return code;
+  var value_pose_list = Blockly.Python.valueToCode(block, 'pose_list', Blockly.Python.ORDER_ATOMIC);
+  var code = 'obj.move_cartesiann([0.29209989309310913, -0.3715454936027527, 0.1221068799495697, 87.32437133789062, -0.294109970331192, 33.949493408203125])\nobj.move_cartesiann([0.3670244812965393, -0.5136098861694336, 0.13054290413856506, 87.66592407226562, -0.3523963987827301, 34.886573791503906])\nobj.close_tool()\nobj.move_joints([327.1998291015625, 293.797119140625, 114.38198852539062, 293.6026611328125, 93.2352294921875, 90.56344604492188])\nobj.move_joints([15.547500610351562, 293.797119140625, 114.38198852539062, 293.6026611328125, 93.2352294921875, 90.56344604492188])\nobj.move_joints([5.11016845703125, 338.84356689453125, 99.62835693359375, 266.817138671875, 325.823486328125, 12.781982421875])\nobj.move_joints([5.1771087646484375, 315.9814453125, 96.06057739257812, 262.8784484863281, 345.0887756347656, 17.115264892578125])\nobj.open_tool(0.60)\n';
+  return code;
 };
+
 
 Blockly.Blocks.segurancy = {
   init: function () {
@@ -381,6 +370,23 @@ Blockly.Python['segurancy'] = function(block) {
   return code;
 };
 
+
+Blockly.Blocks['move_to_end'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Move to end of trajectory");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setTooltip("Move the robot to its home position based on the robot type.");
+    this.setColour(65);
+  }
+};    
+
+// Bloco 'move_to_end'
+Blockly.Python['move_to_end'] = function(block) {
+var code = 'obj.move_joints([10.291,42.895,106.288,267.739,332.335,92.869])\n';
+return code;
+};
 
 
 

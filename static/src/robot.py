@@ -415,7 +415,7 @@ class Robot(AbstractRobot):
         joint_angles_list = joint_angles_obj.joint_angles
         joint_angles = []
         for joint in joint_angles_list:
-            joint_angles.append(round(joint.value), 3)
+            joint_angles.append(joint.value)
 
         return joint_angles
 

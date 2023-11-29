@@ -9,12 +9,10 @@ def gerar_localizacao():
 
 def gerar_medicamentos_unicos():
     medicamentos = [
-        f"02 - colistimetato de sódio - 1.000.000 UI - {random.randint(1, 2)}",
-        f"03 - cloridrato de lidocaina - 20mg - {random.randint(1, 2)}",
-        f"04 - fosfato dissódico de dexametasona - 4mg - {random.randint(1, 2)}",
-        f"05 - tigeciclina - 50mg - {random.randint(1, 2)}",
-        f"1220 - Fentanila - 0.05mg/ml - {random.randint(1, 2)}",
-        f"1434 - Haloperidol - 5mg/ml - {random.randint(1, 2)}"
+        f"02 - colistimetato de sódio - {random.randint(1, 2)}",        
+        f"05 - tigeciclina - {random.randint(1, 2)}",
+        f"1220 - Fentanila - {random.randint(1, 2)}",
+       
     ]
     medicamentos_unicos = random.sample(medicamentos, 3)
     return medicamentos_unicos
@@ -49,8 +47,7 @@ for setor in setores:
     for _ in range(15):
         prontuario = random.randint(10000, 99999)
         paciente = gerar_nome_aleatorio()
-        localizacao = gerar_localizacao()
-        emissao = "ALEXANDRE DE ALMEIDA"
+        localizacao = gerar_localizacao()        
         medicamentos_unicos = gerar_medicamentos_unicos()
 
         consulta_nome_setor = "SELECT nome FROM setor WHERE id = %s"

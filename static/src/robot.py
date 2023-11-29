@@ -61,10 +61,11 @@ class Robot(AbstractRobot):
         self.feedback_list = []
         self.action_list = []
 
-    def run_python_file(file_path):
+    def execute_python_script(self, file_path):
         try:
+            print(f"Reading file: {file_path}")
             with open(file_path, 'r') as file:
-                code = file.read()
+                code = file.read()               
                 exec(code)
                 print(f"Python file '{file_path}' executed successfully.")
         except FileNotFoundError:

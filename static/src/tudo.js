@@ -1,23 +1,23 @@
-Blockly.Blocks['run_python_file'] = {
+Blockly.Blocks['execute_python_script'] = {
   init: function() {
     this.appendDummyInput()
-        .appendField("Run Python file");
+        .appendField("Execute Python script");
     this.appendValueInput("PATH FILE")
-        .setCheck("String")
-        .appendField("Path file");
+        .setCheck("String")      
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
     this.setColour(230);
-    this.setTooltip("Run a Python file specified by the user.");
+    this.setTooltip("Run a path Python script specified by the user.");
     this.setHelpUrl("");
   }
 };
 
+
   
 // Bloco 'run_python_file'
-Blockly.Python['run_python_file'] = function(block) {
+Blockly.Python['execute_python_script'] = function(block) {
   var value_path_file = Blockly.Python.valueToCode(block, 'PATH FILE', Blockly.Python.ORDER_ATOMIC);
-  var code = 'obj.run_python_file(' + value_path_file + ')\n';
+  var code = 'obj.execute_python_script(' + value_path_file + ')\n';
   return code;
 };
 

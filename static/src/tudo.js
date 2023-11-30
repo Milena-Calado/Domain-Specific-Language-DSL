@@ -1,7 +1,7 @@
 Blockly.Blocks['execute_python_script'] = {
   init: function() {
     this.appendDummyInput()
-        .appendField("Execute Python script");
+        .appendField("Execute python script");
     this.appendValueInput("PATH FILE")
         .setCheck("String")      
     this.setPreviousStatement(true, null);
@@ -83,7 +83,7 @@ Blockly.Python['move_to_home'] = function(block) {
       this.setNextStatement(true, null);
       this.setColour(65);
       this.appendDummyInput()
-          .appendField("Move Joints");
+          .appendField("Move joints");
       this.appendValueInput("joints_list")
           .setCheck("Array")
           .appendField("Joints:");      
@@ -105,7 +105,7 @@ Blockly.Python['moveJoints'] = function(block) {
         this.setNextStatement(true, null);
         this.setColour(65);
         this.appendDummyInput()
-            .appendField("Move to Cartesian");
+            .appendField("Move to cartesian");
         this.appendValueInput("pose_list")
             .setCheck("Array")
             .appendField("Poses [x, y, z, roll, pitch, yaw]:");
@@ -147,7 +147,7 @@ Blockly.Python['open_tool'] = function(block) {
 Blockly.Blocks.close_tool = {
   init: function() {
     this.appendDummyInput()
-        .appendField("close tool");
+        .appendField("Close tool");
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
     this.setColour(120);
@@ -169,7 +169,7 @@ Blockly.Python['close_tool'] = function(block) {
     init: function() {
       this.appendValueInput("retrieve_tickets")
           .setCheck(null)
-          .appendField("retrieve tickets ID");
+          .appendField("Retrieve tickets ID");
       this.setPreviousStatement(true, null);
       this.setNextStatement(true, null);
       this.setColour(230);
@@ -191,7 +191,7 @@ Blockly.Python['close_tool'] = function(block) {
     init: function() {
       this.appendValueInput("NAME")
           .setCheck(null)
-          .appendField("retrieve items");
+          .appendField("Retrieve items");
       this.setPreviousStatement(true, null);
       this.setNextStatement(true, null);
       this.setColour(330);
@@ -276,7 +276,7 @@ Blockly.Python['mysqlConnection'] = function(block) {
   Blockly.Blocks.gerarTickets = {
     init: function() {
       this.appendDummyInput()
-          .appendField("Generate Tickets");
+          .appendField("Generate tickets");
       this.setPreviousStatement(true, null);
       this.setNextStatement(true, null);
       this.setColour(230);
@@ -349,26 +349,27 @@ Blockly.Python['colistemato'] = function(block) {
 };
 
 
-Blockly.Blocks.segurancy = {
+Blockly.Blocks.safety = {
   init: function () {
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
     this.setColour(65);
     this.appendDummyInput()
-        .appendField("Segurancy Pose");
-    this.appendValueInput("pose_list")
+        .appendField("Safety pose");
+        this.appendValueInput("joints_list")
         .setCheck("Array")
-        .appendField("Poses [x, y, z, roll, pitch, yaw]:");
-    this.setTooltip("Configure the robot movement with Cartesian coordinates.");
+        .appendField("Joints:");      
+    this.setTooltip("Configure robot movement with joint values.");
     this.setHelpUrl("");
 }
 };
 
-Blockly.Python['segurancy'] = function(block) {
-  var value_pose_list = Blockly.Python.valueToCode(block, 'pose_list', Blockly.Python.ORDER_ATOMIC);
-  var code = 'obj.move_cartesiann(' + value_pose_list + ')\n';
+Blockly.Python['safety'] = function(block) {
+  var value_joints_list = Blockly.Python.valueToCode(block, 'joints_list', Blockly.Python.ORDER_ATOMIC);
+  var code = 'obj.move_joints(' + value_joints_list + ')\n';
   return code;
 };
+
 
 
 Blockly.Blocks['move_to_end'] = {

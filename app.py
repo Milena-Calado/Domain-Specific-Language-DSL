@@ -19,7 +19,7 @@ def run_code():
       # Salve o código em um arquivo (opcional)
         with open('static/src/generated_code.py', 'w') as file:
             
-            file.write('''from robot import Robot \n\nobj = Robot()\n\n''')
+            file.write('''from robot import Robot \n\nobj = Robot()\n\n''') #comente essa linha e descomente a debaixo para usar o robô de teste 
             #file.write('''from test_robot import TestRobot \n\nobj = TestRobot()\n\n''')
 
             file.write(format(generated_code.rstrip('\n')))       

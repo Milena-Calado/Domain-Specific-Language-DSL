@@ -19,8 +19,8 @@ def run_code():
       # Salve o código em um arquivo (opcional)
         with open('static/src/generated_code.py', 'w') as file:
             
-            #file.write('''from robot import Robot \n\nobj = Robot()\n\n''')
-            file.write('''from test_robot import TestRobot \n\nobj = TestRobot()\n\n''')
+            file.write('''from robot import Robot \n\nobj = Robot()\n\n''')
+            #file.write('''from test_robot import TestRobot \n\nobj = TestRobot()\n\n''')
 
             file.write(format(generated_code.rstrip('\n')))       
             
@@ -33,7 +33,7 @@ def run_code():
         result = f"Erro ao executar o código: {e}"
 
     # Pode retornar resultados para o frontend se necessário
-    return jsonify(result)
+        #return jsonify(result)
 
 if __name__ == '__main__':
     app.run(debug=False)

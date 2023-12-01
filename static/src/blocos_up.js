@@ -281,6 +281,8 @@ Blockly.Python['move_to_home'] = function(block) {
   var code = 'obj.move_joints([10.291,42.895,106.288,267.739,332.335,92.869])\nobj.move_joints([8.789, 340.573, 144.698, 269.934, 71.139, 90.942])\n';
   return code;
 };
+
+
   
 // Bloco 'moveJoints'
 Blockly.Python['moveJoints'] = function(block) {

@@ -28,7 +28,7 @@ pip install -r requirements.txt
 <p align="left"> No terminal do computador, execute o comando abaixo: </p>
 
 ```
-git clone https://github.com/Curso-de-Robotica-e-IA/sistema-farmacia_time-2.git
+git clone 'aqui digite e URL do repositório'
 ```
 
 <p align="left">Execute os arquivos a seguir com o comando abaixo para iniciar o programa diretamente no terminal da IDE:</p>

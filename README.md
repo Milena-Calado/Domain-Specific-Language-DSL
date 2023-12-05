@@ -18,7 +18,7 @@ um IDE, como o [VSCode](https://code.visualstudio.com/download).
 
 [Python versão 3.9.13](https://www.python.org)
 
-<p align="left">4º Em uma IDE, Instale os requerimentos via pip:</p>
+<p align="left">Em uma IDE, Instale os requerimentos via pip:</p>
 
 ```
 pip install -r requirements.txt
@@ -28,10 +28,10 @@ pip install -r requirements.txt
 <p align="left"> No terminal do computador, execute o comando abaixo: </p>
 
 ```
-git clone https://github.com/Curso-de-Robotica-e-IA/sistema-farmacia_time-2.git```
+git clone https://github.com/Curso-de-Robotica-e-IA/sistema-farmacia_time-2.git
+```
 
-
-<p align="left"> 5º Execute os arquivos a seguir com o comando abaixo para iniciar o programa diretamente no terminal da IDE:</p>
+<p align="left">Execute os arquivos a seguir com o comando abaixo para iniciar o programa diretamente no terminal da IDE:</p>
 
 ```
 app.py

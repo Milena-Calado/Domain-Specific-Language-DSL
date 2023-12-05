@@ -50,10 +50,14 @@ para verificar acesse o arquivo app.py e verifique se a linha 22 e 23 está come
 
 <h3 align="center">📌 Informações relevantes</h3>
 
-```
+Algumas imagens referente a execução do projeto pode ser encontrada na pasta: milena_almeida/KiDSL/static/src/images
 O video de execução da aplicação pode ser acessado no arquivo milena_almeida/KiDSL/KiDSL Demo.mp4
-```
+
 <h3 align="center">🛠️ Ferramentas utilizadas</h3>
+* HTML5
+* CSS3
+* JS
+* Google Blockly
 
 <h3 align="center">👩‍💻🧑‍💻 Autores</h3>
 

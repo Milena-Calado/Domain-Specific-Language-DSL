@@ -43,17 +43,17 @@ app.py
 Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
 ```
 <p align="left"> OBS.: Caso o sistema apresente falha de execução, verifique se está utlizando um robô de teste ou o robô Kinova Gen3 lite</p>
-```
-para verificar acesse o arquivo app.py e verifique se a linha 22 e 23 está comentada ou descomentada, faça isso de acordo com a sua neccessidade.``
 
+```
+para verificar acesse o arquivo app.py e verifique se a linha 22 e 23 está comentada ou descomentada, faça isso de acordo com a sua neccessidade.
+```
 
 <h3 align="center">📌 Informações relevantes</h3>
 
-O video de execução da aplicação pode ser acessado [aqui](milena_almeida/KiDSL/KiDSL Demo.mp4).
-
+```
+O video de execução da aplicação pode ser acessado no arquivo milena_almeida/KiDSL/KiDSL Demo.mp4
+```
 <h3 align="center">🛠️ Ferramentas utilizadas</h3>
-
-<p align="left"> <a href="https://github.com" target="_blank" rel="noreferrer"> <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original-wordmark.svg" alt="Github" width="40" height="40"/> </a> </p>
 
 <h3 align="center">👩‍💻🧑‍💻 Autores</h3>
 

@@ -1,6 +1,5 @@
 import subprocess
 from flask import Flask, render_template, request, jsonify
-import database
 
 app = Flask(__name__)
 
@@ -37,8 +36,5 @@ def run_code():
         #return jsonify(result)
 
 if __name__ == '__main__':
-    # Execute a função para criar e popular o banco de dados
-    database.create_and_populate_database()
-
     # Inicie o servidor Flask
     app.run(debug=False)

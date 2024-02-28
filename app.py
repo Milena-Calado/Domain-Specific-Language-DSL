@@ -1,5 +1,6 @@
 import subprocess
 from flask import Flask, render_template, request, jsonify
+import database
 
 app = Flask(__name__)
 
@@ -19,8 +20,8 @@ def run_code():
       # Salve o código em um arquivo (opcional)
         with open('static/src/generated_code.py', 'w') as file:
             #comente essa linha e descomente a debaixo para usar o robô de teste 
-            file.write('''from robot import Robot \n\nobj = Robot()\n\n''') 
-            #file.write('''from test_robot import TestRobot \n\nobj = TestRobot()\n\n''')
+            # file.write('''from robot import Robot \n\nobj = Robot()\n\n''') 
+            file.write('''from test_robot import TestRobot \n\nobj = TestRobot()\n\n''')
 
             file.write(format(generated_code.rstrip('\n')))       
             
@@ -36,4 +37,8 @@ def run_code():
         #return jsonify(result)
 
 if __name__ == '__main__':
+    # Execute a função para criar e popular o banco de dados
+    database.create_and_populate_database()
+
+    # Inicie o servidor Flask
     app.run(debug=False)

@@ -16,9 +16,18 @@ class TestRobot(AbstractRobot, ABC):
     def __init__(self):
         super().__init__()
         self.count = 0
-
-    def execute_python_script(self, file_path):
+        
+def execute_python_script(self, file_path):
+    try:
+        with open(file_path, 'r') as file:
+            script_code = file.read()
+            exec(script_code)
         print(f"Python file '{file_path}' executed successfully.")
+    except FileNotFoundError:
+        print(f"File '{file_path}' not found.")
+    except Exception as e:
+        print(f"An error occurred while executing the script: {str(e)}")
+
        
     def connect(self, connection_ip: str = "192.168.2.10"):
         print("using Test Robot")

@@ -1,7 +1,7 @@
 Blockly.Blocks['execute_python_script'] = {
   init: function() {
     this.appendDummyInput()
-        .appendField("Execute python script");
+        .appendField("Create Database");
     this.appendValueInput("PATH FILE")
         .setCheck("String")      
     this.setPreviousStatement(true, null);
@@ -12,8 +12,6 @@ Blockly.Blocks['execute_python_script'] = {
   }
 };
 
-
-  
 // Bloco 'run_python_file'
 Blockly.Python['execute_python_script'] = function(block) {
   var value_path_file = Blockly.Python.valueToCode(block, 'PATH FILE', Blockly.Python.ORDER_ATOMIC);
@@ -212,7 +210,7 @@ Blockly.Python['retrieve_items'] = function(block) {
   Blockly.Blocks.createDatabase = {
     init: function() {
       this.appendDummyInput()
-          .appendField("Connected to DBMS");
+          .appendField("DBMS");
       this.appendValueInput("host")
           .setCheck("String")
           .appendField("Host:");
@@ -223,7 +221,7 @@ Blockly.Python['retrieve_items'] = function(block) {
           .setCheck("String")
           .appendField("Password:");    
       this.setNextStatement(true, null);
-      this.setColour(330);
+      this.setColour(230);
       this.setTooltip("Creates a database and tables in MySQL.");
       this.setHelpUrl("");
     }
@@ -240,29 +238,30 @@ Blockly.Python['createDatabase'] = function(block) {
 };
 
 
-  Blockly.Blocks.mysqlConnection = {
-    init: function() {
-      this.appendDummyInput()
-          .appendField("Connect to MySQL database");
-      this.appendValueInput("host")
-          .setCheck("String")
-          .appendField("Host:");
-      this.appendValueInput("user")
-          .setCheck("String")
-          .appendField("Usuário:");
-      this.appendValueInput("password")
-          .setCheck("String")
-          .appendField("Senha:");
-      this.appendValueInput("database")
-          .setCheck("String")
-          .appendField("Banco de Dados:");
-      this.setPreviousStatement(true, null);
-      this.setNextStatement(true, null);
-      this.setColour(230);
-      this.setTooltip("Connects to the MySQL database.");
-      this.setHelpUrl("");
-    }
-  };
+Blockly.Blocks.mysqlConnection = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Connect to MySQL database");
+    this.appendValueInput("host")
+        .setCheck("String")
+        .appendField("Host:");
+    this.appendValueInput("user")
+        .setCheck("String")
+        .appendField("User:");
+    this.appendValueInput("password")
+        .setCheck("String")
+        .appendField("Password:");
+    this.appendValueInput("database")
+        .setCheck("String")
+        .appendField("Database:");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Connects to the MySQL database.");
+    this.setHelpUrl("");
+  }
+};
+
 
   // Bloco 'mysqlConnection'
 Blockly.Python['mysqlConnection'] = function(block) {

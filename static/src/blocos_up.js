@@ -1,7 +1,7 @@
 Blockly.Blocks['execute_python_script'] = {
   init: function() {
     this.appendDummyInput()
-        .appendField("Execute python script");
+        .appendField("Create database");
     this.appendValueInput("PATH FILE")
         .setCheck("String")        
     this.setPreviousStatement(true, null);
@@ -10,8 +10,7 @@ Blockly.Blocks['execute_python_script'] = {
     this.setTooltip("Run a path Python script specified by the user.");
     this.setHelpUrl("");
   }
-};
-
+};  
 
 Blockly.Blocks.connectToRobot = {
   init: function() {
@@ -137,7 +136,7 @@ Blockly.Blocks['retrieve_items'] = {
 Blockly.Blocks.createDatabase = {
   init: function() {
     this.appendDummyInput()
-        .appendField("Connected to DBMS");
+        .appendField("DBMS");
     this.appendValueInput("host")
         .setCheck("String")
         .appendField("Host:");
@@ -163,13 +162,13 @@ Blockly.Blocks.mysqlConnection = {
         .appendField("Host:");
     this.appendValueInput("user")
         .setCheck("String")
-        .appendField("Usuário:");
+        .appendField("User:");
     this.appendValueInput("password")
         .setCheck("String")
-        .appendField("Senha:");
+        .appendField("Password:");
     this.appendValueInput("database")
         .setCheck("String")
-        .appendField("Banco de Dados:");
+        .appendField("Database:");
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
     this.setColour(230);

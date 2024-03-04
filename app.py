@@ -12,28 +12,27 @@ def index():
 @app.route('/run_code', methods=['POST'])
 def run_code():
     try:
-         # Receba o código gerado do corpo da solicitação
+        # Receba o código gerado do corpo da solicitação
         data = request.get_json()
         generated_code = data.get('code')
 
-      # Salve o código em um arquivo (opcional)
-        with open('static/src/generated_code.py', 'w') as file:
+        # Salve o código em um arquivo (opcional)
+        with open('KiDSL//static//src//generated_code.py', 'w') as file:
             #comente essa linha e descomente a debaixo para usar o robô de teste 
-            # file.write('''from robot import Robot \n\nobj = Robot()\n\n''') 
+            #file.write('''from robot import Robot \n\nobj = Robot()\n\n''') 
             file.write('''from test_robot import TestRobot \n\nobj = TestRobot()\n\n''')
-
             file.write(format(generated_code.rstrip('\n')))       
-            
+
         # Execute o código
-        ret = subprocess.run(['python', 'static\src\generated_code.py'], shell=False)
-      
-      
+        ret = subprocess.run(['python', 'KiDSL//static//src//generated_code.py'], shell=False)
+        result = ret.stdout.decode()  # Obtenha a saída do processo
+        
     except Exception as e:
         # Trate exceções
         result = f"Erro ao executar o código: {e}"
 
-    # Pode retornar resultados para o frontend se necessário
-        #return jsonify(result)
+    # Retorne o resultado ao frontend
+    return jsonify({'result': result})
 
 if __name__ == '__main__':
     # Inicie o servidor Flask

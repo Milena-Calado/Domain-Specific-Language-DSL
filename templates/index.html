@@ -10,7 +10,7 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <!--Import materialize.css-->
     <link type="text/css" rel="stylesheet" href="static/css/materialize.min.css" media="screen,projection" />
-    <link type="text/css" rel="stylesheet" href="static/css/robotics.css" media="screen,projection" />
+    <!-- <link type="text/css" rel="stylesheet" href="static/css/robotics.css" media="screen,projection" /> -->
     <!-- Import js-beautify.js -->
     <!--Import jQuery library-->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -28,7 +28,8 @@
     <script src="static/blockly/msg/js/en.js"></script>
     <script src="static/src/tudo.js"></script>
     <script src="static/src/blocos_up.js"></script>   
-    <script src="static/blockly/wo.js"></script>    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <!-- <script src="static/blockly/wo.js"></script>     -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
         AOS.init();
     </script>
@@ -444,15 +445,15 @@
       <category name="Functions" colour="#995ba5" custom="PROCEDURE"></category>
       <sep></sep>
     
-      <category name="MySQL" colour="230">
+      <category name="Database" colour="230">
         <block type="execute_python_script">
           <value name="PATH FILE">
             <shadow type="text">
               <field name="TEXT">Path file</field>
             </shadow>
           </value>
-        </block>
-        <block type="createDatabase">
+        </block>       
+        <!-- <block type="createDatabase">
         <value name="host">
           <block type="text">
             <field name="TEXT">localhost</field>
@@ -467,7 +468,7 @@
           <block type="text">
             <field name="TEXT">Softex2023</field>
           </block>
-        </block>
+        </block> -->
         <block type="mysqlConnection">
           <value name="host">
             <block type="text">
@@ -490,8 +491,9 @@
             </block>
           </value>
         </block>
-        <block type="gerarTickets"></block>
+        <!-- <block type="gerarTickets"></block> -->
       </category>
+      <sep></sep>
 
       <category name="Connection" colour="500">
         <block type="connectToRobot"></block>
@@ -719,11 +721,11 @@ workspace.addChangeListener(function(event) {
     </script>
     <!--JavaScript at end of body for optimized loading-->
     <script type="text/javascript" src="static/js/materialize.min.js"></script>
-    <script type="text/javascript" src="static/js/bootstrap.min.js"></script> 
-    <script type="text/javascript" src="js/code.js"></script>
-    <script type="text/javascript" src="static/js/FileSaver.js"></script>
+    <!-- <script type="text/javascript" src="static/js/bootstrap.min.js"></script>  -->
+    <script type="text/javascript" src="static\Blockly\tests\jsunit\connection_db_test.js"></script>
+    <!-- <script type="text/javascript" src="static/js/FileSaver.js"></script>
     <script type="text/javascript" src="static/js/prettify.js"></script>
-    <script type="text/javascript" src="static/js/jquery.mousewheel.min.js"></script>
+    <script type="text/javascript" src="static/js/jquery.mousewheel.min.js"></script> -->
 </body>
 
 </html>

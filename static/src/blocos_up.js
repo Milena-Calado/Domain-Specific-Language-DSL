@@ -1,3 +1,26 @@
+Blockly.Blocks['create_ticket'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Create Ticket");
+    this.appendValueInput("medicamentos")
+        .setCheck("Array")
+        .appendField("Medicamentos");
+    this.appendValueInput("nomePaciente")
+        .setCheck("String")
+        .appendField("Nome do Paciente");
+    this.appendValueInput("doseMedicamento")
+        .setCheck("String")
+        .appendField("Pose do Medicamento");
+    this.appendValueInput("quantidade")
+        .setCheck("Number")
+        .appendField("Quantidade");
+    this.setOutput(true, null);
+    this.setColour(230);
+    this.setTooltip('');
+    this.setHelpUrl('');
+  }
+};
+
 Blockly.Blocks['execute_python_script'] = {
   init: function() {
     this.appendDummyInput()
@@ -253,6 +276,34 @@ Blockly.Blocks['move_to_end'] = {
 };
 
 // Generator Stubs
+
+
+// Definindo a função JavaScript gerada pelo bloco Blockly
+Blockly.JavaScript['create_ticket'] = function(block) {
+  var value_medicamentos = Blockly.JavaScript.valueToCode(block, 'medicamentos', Blockly.JavaScript.ORDER_ATOMIC);
+  var value_nomePaciente = Blockly.JavaScript.valueToCode(block, 'nomePaciente', Blockly.JavaScript.ORDER_ATOMIC);
+  var value_poseMedicamento = Blockly.JavaScript.valueToCode(block, 'poseMedicamento', Blockly.JavaScript.ORDER_ATOMIC);
+  var value_quantidade = Blockly.JavaScript.valueToCode(block, 'quantidade', Blockly.JavaScript.ORDER_ATOMIC);
+  
+  // Código JavaScript para criar um ticket usando os dados fornecidos
+  var code = `
+    // Criar um ticket com os dados fornecidos
+    var ticket = {
+      bloco: 'create ticket',
+      medicamentos: ${value_medicamentos},
+      nomePaciente: ${value_nomePaciente},
+      poseMedicamento: ${value_poseMedicamento},
+      quantidade: ${value_quantidade}
+    };
+
+    // Retornar o ticket criado
+    JSON.stringify(ticket);
+  `;
+  return [code, Blockly.JavaScript.ORDER_NONE];
+};
+
+
+
 
 // Bloco 'run_python_file'
 Blockly.Python['execute_python_script'] = function(block) {

@@ -26,14 +26,20 @@ def run_code():
             
         # Execute o código
         ret = subprocess.run(['python', 'static\src\generated_code.py'], shell=False)
+
+         # Verifique se a execução foi bem-sucedida
+        if ret.returncode == 0:
+            result = "Código executado com sucesso."
+        else:
+            result = "Erro ao executar o código."
       
       
     except Exception as e:
         # Trate exceções
         result = f"Erro ao executar o código: {e}"
 
-    # Pode retornar resultados para o frontend se necessário
-        #return jsonify(result)
+     # Pode retornar resultados para o frontend se necessário
+    return jsonify(result)
 
 if __name__ == '__main__':
     # Inicie o servidor Flask

@@ -137,16 +137,7 @@ Blockly.Blocks['retrieve_items'] = {
 Blockly.Blocks.createDatabase = {
   init: function() {
     this.appendDummyInput()
-        .appendField("Connected to DBMS");
-    this.appendValueInput("host")
-        .setCheck("String")
-        .appendField("Host:");
-    this.appendValueInput("user")
-        .setCheck("String")
-        .appendField("User:");
-    this.appendValueInput("password")
-        .setCheck("String")
-        .appendField("Password:");    
+        .appendField("Create Database");  
     this.setNextStatement(true, null);
     this.setColour(230);
     this.setTooltip("Creates a database and tables in MySQL.");
@@ -181,23 +172,11 @@ Blockly.Blocks.mysqlConnection = {
 Blockly.Blocks['createTickets'] = {
   init: function() {
     this.appendDummyInput()
-        .appendField("Create ticket");
-    this.appendValueInput("id")
-        .setCheck("Number")
-        .setAlign(Blockly.ALIGN_RIGHT)
-        .appendField("ID:");
+        .appendField("Create ticket");   
     this.appendValueInput("paciente")
         .setCheck("String")
         .setAlign(Blockly.ALIGN_RIGHT)
-        .appendField("Paciente:");
-    this.appendValueInput("localizacao")
-        .setCheck("String")
-        .setAlign(Blockly.ALIGN_RIGHT)
-        .appendField("Localização:");
-    this.appendValueInput("setorID")
-        .setCheck("Number")
-        .setAlign(Blockly.ALIGN_RIGHT)
-        .appendField("Setor ID:");
+        .appendField("Paciente:");    
     this.appendValueInput("setorNome")
         .setCheck("String")
         .setAlign(Blockly.ALIGN_RIGHT)
@@ -214,23 +193,15 @@ Blockly.Blocks['createTickets'] = {
 Blockly.Blocks['createMedicines'] = {
   init: function() {
     this.appendDummyInput()
-        .appendField("Create Medicines");
-    this.appendValueInput("id")
-        .setCheck("Number")
-        .setAlign(Blockly.ALIGN_RIGHT)
-        .appendField("ID:");
+        .appendField("Create Medicines");    
     this.appendValueInput("name")
         .setCheck("String")
         .setAlign(Blockly.ALIGN_RIGHT)
         .appendField("Name:");
     this.appendValueInput("quantity")
-        .setCheck("Number")
-        .setAlign(Blockly.ALIGN_RIGHT)
-        .appendField("Quantity:");
-    this.appendValueInput("pose")
         .setCheck("String")
         .setAlign(Blockly.ALIGN_RIGHT)
-        .appendField("Pose:");
+        .appendField("Quantity:");   
     this.setInputsInline(false);
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
@@ -365,10 +336,7 @@ Blockly.Python['close_tool'] = function(block) {
 
 // Bloco 'createDatabase'
 Blockly.Python['createDatabase'] = function(block) {
-    var value_host = Blockly.Python.valueToCode(block, 'host', Blockly.Python.ORDER_ATOMIC);
-    var value_user = Blockly.Python.valueToCode(block, 'user', Blockly.Python.ORDER_ATOMIC);
-    var value_password = Blockly.Python.valueToCode(block, 'password', Blockly.Python.ORDER_ATOMIC);
-    var code = 'obj.create_database(' + value_host + ', ' + value_user + ', ' + value_password + ')\n';
+    var code = 'obj.create_database()\n';
     return code;
 };
 
@@ -383,25 +351,20 @@ Blockly.Python['mysqlConnection'] = function(block) {
 };
 
 // Bloco 'gerarTickets'
-Blockly.JavaScript['createTickets'] = function(block) {
-  var value_id = Blockly.JavaScript.valueToCode(block, 'id', Blockly.JavaScript.ORDER_ATOMIC);
-  var value_paciente = Blockly.JavaScript.valueToCode(block, 'paciente', Blockly.JavaScript.ORDER_ATOMIC);
-  var value_localizacao = Blockly.JavaScript.valueToCode(block, 'localizacao', Blockly.JavaScript.ORDER_ATOMIC);
-  var value_setorID = Blockly.JavaScript.valueToCode(block, 'setorID', Blockly.JavaScript.ORDER_ATOMIC);
-  var value_setorNome = Blockly.JavaScript.valueToCode(block, 'setorNome', Blockly.JavaScript.ORDER_ATOMIC);
-  // Generate JavaScript code to create ticket with provided data
-  var code = 'createTicket(' + value_id + ', ' + value_paciente + ', ' + value_localizacao + ', ' + value_setorID + ', ' + value_setorNome + ');\n';
+Blockly.Python['createTickets'] = function(block) {
+  var value_paciente = Blockly.Python.valueToCode(block, 'paciente', Blockly.Python.ORDER_ATOMIC);
+  var value_setorNome = Blockly.Python.valueToCode(block, 'setorNome', Blockly.Python.ORDER_ATOMIC);
+  // Generate Python code to create ticket with provided data
+  var code = 'obj.create_ticket(' + value_paciente + ', ' + value_setorNome + ');\n';
   return code;
 };
 
 // Bloco 'createTickets'
-Blockly.JavaScript['createMedicines'] = function(block) {
-  var value_id = Blockly.JavaScript.valueToCode(block, 'id', Blockly.JavaScript.ORDER_ATOMIC);
-  var value_name = Blockly.JavaScript.valueToCode(block, 'name', Blockly.JavaScript.ORDER_ATOMIC);
-  var value_quantity = Blockly.JavaScript.valueToCode(block, 'quantity', Blockly.JavaScript.ORDER_ATOMIC);
-  var value_pose = Blockly.JavaScript.valueToCode(block, 'pose', Blockly.JavaScript.ORDER_ATOMIC);
-  // Generate JavaScript code to create medicine with provided data
-  var code = 'createMedicine(' + value_id + ', ' + value_name + ', ' + value_quantity + ', ' + value_pose + ');\n';
+Blockly.Python['createMedicines'] = function(block) { 
+  var value_name = Blockly.Python.valueToCode(block, 'name', Blockly.Python.ORDER_ATOMIC);
+  var value_quantity = Blockly.Python.valueToCode(block, 'quantity', Blockly.Python.ORDER_ATOMIC);   
+  // Generate Python code to create medicine with provided data
+  var code = 'obj.create_medicamento(' + value_name + ', ' + value_quantity + ');\n';
   return code;
 };
 

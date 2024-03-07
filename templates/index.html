@@ -15,7 +15,6 @@
     <!--Import jQuery library-->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
-
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <!--Let browser know website is optimized for mobile-->
     <title>KiDSL</title>
@@ -446,6 +445,7 @@
       <sep></sep>
     
       <category name="Tickets" colour="230">
+        <block type="createDatabase"> </block>
         <block type="execute_python_script">
           <value name="PATH FILE">
             <shadow type="text">
@@ -453,71 +453,30 @@
             </shadow>
           </value>
         </block>
-        <block type="createTickets" id="^Cm{8!^Yj[QcncBhv=Qw" x="88" y="63">
-          <value name="id">
-            <block type="math_number" id="4X7Gj5#o=oU:et7c@M;(">
-              <field name="NUM">0</field>
-            </block>
-          </value>
+        <block type="createTickets" id="^Cm{8!^Yj[QcncBhv=Qw" x="88" y="63">         
           <value name="paciente">
             <block type="text" id="Z;U:C^Sw.~iSo=|j4RGr">
               <field name="TEXT"></field>
             </block>
-          </value>
-          <value name="localizacao">
-            <block type="text" id="B9dVG7oNQa%=~nEx:Fc3">
-              <field name="TEXT"></field>
-            </block>
-          </value>
-          <value name="setorID">
-            <block type="math_number" id="Wg32@CStc0|WaNqgl,3b">
-              <field name="NUM">0</field>
-            </block>
-          </value>
+          </value>          
           <value name="setorNome">
             <block type="text" id="vW0@1$[;a5h+@Fg8Xq$[">
               <field name="TEXT"></field>
             </block>
           </value>
         </block>
-        <block type="createMedicines" id="^Cm{8!^Yj[QcncBhv=Qw" x="88" y="63">
-          <value name="id">
-            <block type="math_number" id="4X7Gj5#o=oU:et7c@M;(">
-              <field name="NUM">0</field>
-            </block>
-          </value>
+        <block type="createMedicines" id="^Cm{8!^Yj[QcncBhv=Qw" x="88" y="63">          
           <value name="name">
             <block type="text" id="Z;U:C^Sw.~iSo=|j4RGr">
               <field name="TEXT"></field>
             </block>
           </value>
           <value name="quantity">
-            <block type="math_number" id="Wg32@CStc0|WaNqgl,3b">
+            <block type="text" id="Wg32@CStc0|WaNqgl,3b">
               <field name="NUM">0</field>
             </block>
-          </value>
-          <value name="pose">
-            <block type="text" id="vW0@1$[;a5h+@Fg8Xq$[">
-              <field name="TEXT"></field>
-            </block>
-          </value>
-        </block>
-        <!-- <block type="createDatabase">
-        <value name="host">
-          <block type="text">
-            <field name="TEXT">localhost</field>
-          </block>
-        </value>
-        <value name="user">
-          <block type="text">
-            <field name="TEXT">root</field>
-          </block>
-        </value>
-        <value name="password">
-          <block type="text">
-            <field name="TEXT">Softex2023</field>
-          </block>
-        </block> -->
+          </value>        
+        </block>        
         <block type="mysqlConnection">
           <value name="host">
             <block type="text">
@@ -687,25 +646,24 @@
     </xml>
    
     <script>
-    function runCode() {
-            var code = Blockly.Python.workspaceToCode(workspace);
+   function runCode() {
+    var code = Blockly.Python.workspaceToCode(workspace);
 
-            // Envia o código gerado para o servidor usando AJAX
-            $.ajax({
-                type: "POST",
-                url: "/run_code",
-                contentType: "application/json;charset=UTF-8",
-                data: JSON.stringify({ code: code }),
-                success: function (response) {
-                    console.log(response);
-                    // Aqui você pode lidar com a resposta do servidor, se necessário
-                },
-                error: function (error) {
-                    console.error(error);
-                }
-            });
+    // Envia o código gerado para o servidor usando AJAX
+    $.ajax({
+        type: "POST",
+        url: "/run_code", // Altere para o endpoint que manipula o salvamento do código no servidor
+        contentType: "application/json;charset=UTF-8",
+        data: JSON.stringify({ code: code }),
+        success: function (response) {
+            console.log(response);
+            // Aqui você pode lidar com a resposta do servidor, se necessário
+        },
+        error: function (error) {
+            console.error(error);
         }
-
+    });
+}
       
 
       var mostrar = "nada aqui";
@@ -767,7 +725,7 @@ workspace.addChangeListener(function(event) {
     }
 });
 
-   //     workspace.addChangeListener(update);
+       workspace.addChangeListener(update);
     </script>
     <!--JavaScript at end of body for optimized loading-->
     <script type="text/javascript" src="static/js/materialize.min.js"></script>

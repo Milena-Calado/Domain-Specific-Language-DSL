@@ -1,6 +1,7 @@
 from abc import ABC
 from time import sleep
 import subprocess
+import mysql.connector
 
 from abstract_robot import AbstractRobot
 
@@ -108,6 +109,136 @@ class TestRobot(AbstractRobot, ABC):
         sleep(0.001)
         return [0, 0, 0, 0, 0, 0]
 
+    
+    def create_database(self):
+        try:
+            # Conectar ao MySQL
+            conexao = mysql.connector.connect(
+                host="localhost",
+                user="root",
+                password="Softex2023"
+            )
+
+            cursor = conexao.cursor()
+
+            # Remover o banco de dados caso ele exista
+            cursor.execute("DROP DATABASE IF EXISTS farmacia")
+
+            # Criar o banco de dados
+            cursor.execute("CREATE DATABASE IF NOT EXISTS farmacia")
+
+            # Selecionar o banco de dados
+            cursor.execute("USE farmacia")          
+            
+                    # Criar a tabela 'tickets' se não existir
+            cursor.execute("""
+                CREATE TABLE IF NOT EXISTS tickets (
+                    id INT AUTO_INCREMENT PRIMARY KEY,
+                    paciente VARCHAR(255) NOT NULL,                   
+                    setor_nome VARCHAR(255),
+                    status_processo BOOLEAN DEFAULT FALSE
+                )
+            """)
+
+            # Criar a tabela 'medicamentos' se não existir
+            cursor.execute("""
+                CREATE TABLE IF NOT EXISTS medicamentos (
+                    id INT AUTO_INCREMENT PRIMARY KEY,
+                    nome VARCHAR(255) NOT NULL,
+                    quantidade INT,
+                    pose VARCHAR(50)
+                )
+            """)
+
+            # Criar a tabela 'medicamentos_tickets' para armazenar os medicamentos associados aos tickets
+            cursor.execute("""
+                CREATE TABLE IF NOT EXISTS medicamentos_tickets (
+                    id_ticket INT,
+                    id_medicamento INT,
+                    qtd_medicamento INT,
+                    pose_medicamento VARCHAR(50),
+                    FOREIGN KEY (id_ticket) REFERENCES tickets(id),
+                    FOREIGN KEY (id_medicamento) REFERENCES medicamentos(id)
+                )
+            """)
+
+            # Commit para salvar as alterações
+            conexao.commit()
+
+            # Fechar o cursor e a conexão
+            cursor.close()
+            conexao.close()
+
+            print("Banco de dados e tabelas criados com sucesso.")
+
+        except Exception as e:
+            print(f"Erro ao criar banco de dados e tabelas: {e}")
+
+    def create_ticket(self, paciente,setor_nome):
+        try:
+            conexao = mysql.connector.connect(
+                host="localhost",
+                user="root",
+                password="Softex2023",
+                database="farmacia"
+            )
+
+            cursor = conexao.cursor()
+
+            # Inserir os dados do ticket na tabela 'tickets'
+            cursor.execute("""
+                INSERT INTO tickets (paciente, setor_nome)
+                VALUES (%s, %s)
+            """, (paciente, setor_nome))
+
+            # Commit para salvar as alterações
+            conexao.commit()
+
+            print("Ticket criado com sucesso.")
+
+        except Exception as e:
+            print(f"Erro ao criar ticket: {e}")
+
+        finally:
+            # Fechar o cursor e a conexão
+            cursor.close()
+            conexao.close()   
+  
+
+    def create_medicamento(self, nome, quantidade):
+        try:
+            conexao = mysql.connector.connect(
+                host="localhost",
+                user="root",
+                password="Softex2023",
+                database="farmacia"
+            )
+
+            cursor = conexao.cursor()
+
+            # Valor fixo para a pose do medicamento
+            pose = "ValorFixo"
+
+            # Inserir os dados do medicamento na tabela 'medicamentos' com a pose fixa
+            cursor.execute("""
+                INSERT INTO medicamentos (nome, quantidade, pose)
+                VALUES (%s, %s, %s)
+            """, (nome, quantidade, pose))
+
+            # Commit para salvar as alterações
+            conexao.commit()
+
+            print("Medicamento criado com sucesso.")
+
+        except Exception as e:
+            print(f"Erro ao criar medicamento: {e}")
+        finally:
+            # Fechar cursor e conexão
+            cursor.close()
+            conexao.close()
+    
+    
 
 if __name__ == "__main__":
     robot = TestRobot()
+    

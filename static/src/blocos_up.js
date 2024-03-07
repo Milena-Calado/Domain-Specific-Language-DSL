@@ -1,7 +1,7 @@
 Blockly.Blocks['execute_python_script'] = {
   init: function() {
     this.appendDummyInput()
-        .appendField("Execute python script");
+        .appendField("Execute script create database");
     this.appendValueInput("PATH FILE")
         .setCheck("String")        
     this.setPreviousStatement(true, null);
@@ -178,14 +178,64 @@ Blockly.Blocks.mysqlConnection = {
   }
 };
 
-Blockly.Blocks.gerarTickets = {
+Blockly.Blocks['createTickets'] = {
   init: function() {
     this.appendDummyInput()
-        .appendField("Generate tickets");
+        .appendField("Create ticket");
+    this.appendValueInput("id")
+        .setCheck("Number")
+        .setAlign(Blockly.ALIGN_RIGHT)
+        .appendField("ID:");
+    this.appendValueInput("paciente")
+        .setCheck("String")
+        .setAlign(Blockly.ALIGN_RIGHT)
+        .appendField("Paciente:");
+    this.appendValueInput("localizacao")
+        .setCheck("String")
+        .setAlign(Blockly.ALIGN_RIGHT)
+        .appendField("Localização:");
+    this.appendValueInput("setorID")
+        .setCheck("Number")
+        .setAlign(Blockly.ALIGN_RIGHT)
+        .appendField("Setor ID:");
+    this.appendValueInput("setorNome")
+        .setCheck("String")
+        .setAlign(Blockly.ALIGN_RIGHT)
+        .appendField("Setor Nome:");
+    this.setInputsInline(false);
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
     this.setColour(230);
-    this.setTooltip("Generates ticket records in the pharmacy database.");
+    this.setTooltip("Cria registros de tickets no banco de dados da farmácia.");
+    this.setHelpUrl("");
+  }
+};
+
+Blockly.Blocks['createMedicines'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Create Medicines");
+    this.appendValueInput("id")
+        .setCheck("Number")
+        .setAlign(Blockly.ALIGN_RIGHT)
+        .appendField("ID:");
+    this.appendValueInput("name")
+        .setCheck("String")
+        .setAlign(Blockly.ALIGN_RIGHT)
+        .appendField("Name:");
+    this.appendValueInput("quantity")
+        .setCheck("Number")
+        .setAlign(Blockly.ALIGN_RIGHT)
+        .appendField("Quantity:");
+    this.appendValueInput("pose")
+        .setCheck("String")
+        .setAlign(Blockly.ALIGN_RIGHT)
+        .appendField("Pose:");
+    this.setInputsInline(false);
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Creates medicine records in the pharmacy database.");
     this.setHelpUrl("");
   }
 };
@@ -333,9 +383,26 @@ Blockly.Python['mysqlConnection'] = function(block) {
 };
 
 // Bloco 'gerarTickets'
-Blockly.Python['gerarTickets'] = function(block) {    
-    var code = 'obj.gerar_tickets()\n';
-    return code;
+Blockly.JavaScript['createTickets'] = function(block) {
+  var value_id = Blockly.JavaScript.valueToCode(block, 'id', Blockly.JavaScript.ORDER_ATOMIC);
+  var value_paciente = Blockly.JavaScript.valueToCode(block, 'paciente', Blockly.JavaScript.ORDER_ATOMIC);
+  var value_localizacao = Blockly.JavaScript.valueToCode(block, 'localizacao', Blockly.JavaScript.ORDER_ATOMIC);
+  var value_setorID = Blockly.JavaScript.valueToCode(block, 'setorID', Blockly.JavaScript.ORDER_ATOMIC);
+  var value_setorNome = Blockly.JavaScript.valueToCode(block, 'setorNome', Blockly.JavaScript.ORDER_ATOMIC);
+  // Generate JavaScript code to create ticket with provided data
+  var code = 'createTicket(' + value_id + ', ' + value_paciente + ', ' + value_localizacao + ', ' + value_setorID + ', ' + value_setorNome + ');\n';
+  return code;
+};
+
+// Bloco 'createTickets'
+Blockly.JavaScript['createMedicines'] = function(block) {
+  var value_id = Blockly.JavaScript.valueToCode(block, 'id', Blockly.JavaScript.ORDER_ATOMIC);
+  var value_name = Blockly.JavaScript.valueToCode(block, 'name', Blockly.JavaScript.ORDER_ATOMIC);
+  var value_quantity = Blockly.JavaScript.valueToCode(block, 'quantity', Blockly.JavaScript.ORDER_ATOMIC);
+  var value_pose = Blockly.JavaScript.valueToCode(block, 'pose', Blockly.JavaScript.ORDER_ATOMIC);
+  // Generate JavaScript code to create medicine with provided data
+  var code = 'createMedicine(' + value_id + ', ' + value_name + ', ' + value_quantity + ', ' + value_pose + ');\n';
+  return code;
 };
 
  // Bloco 'retrieve_tickets'

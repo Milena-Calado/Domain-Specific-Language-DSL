@@ -445,7 +445,7 @@
       <category name="Functions" colour="#995ba5" custom="PROCEDURE"></category>
       <sep></sep>
     
-      <category name="MySQL" colour="230">
+      <category name="Tickets" colour="230">
         <block type="execute_python_script">
           <value name="PATH FILE">
             <shadow type="text">
@@ -453,7 +453,56 @@
             </shadow>
           </value>
         </block>
-        <block type="createDatabase">
+        <block type="createTickets" id="^Cm{8!^Yj[QcncBhv=Qw" x="88" y="63">
+          <value name="id">
+            <block type="math_number" id="4X7Gj5#o=oU:et7c@M;(">
+              <field name="NUM">0</field>
+            </block>
+          </value>
+          <value name="paciente">
+            <block type="text" id="Z;U:C^Sw.~iSo=|j4RGr">
+              <field name="TEXT"></field>
+            </block>
+          </value>
+          <value name="localizacao">
+            <block type="text" id="B9dVG7oNQa%=~nEx:Fc3">
+              <field name="TEXT"></field>
+            </block>
+          </value>
+          <value name="setorID">
+            <block type="math_number" id="Wg32@CStc0|WaNqgl,3b">
+              <field name="NUM">0</field>
+            </block>
+          </value>
+          <value name="setorNome">
+            <block type="text" id="vW0@1$[;a5h+@Fg8Xq$[">
+              <field name="TEXT"></field>
+            </block>
+          </value>
+        </block>
+        <block type="createMedicines" id="^Cm{8!^Yj[QcncBhv=Qw" x="88" y="63">
+          <value name="id">
+            <block type="math_number" id="4X7Gj5#o=oU:et7c@M;(">
+              <field name="NUM">0</field>
+            </block>
+          </value>
+          <value name="name">
+            <block type="text" id="Z;U:C^Sw.~iSo=|j4RGr">
+              <field name="TEXT"></field>
+            </block>
+          </value>
+          <value name="quantity">
+            <block type="math_number" id="Wg32@CStc0|WaNqgl,3b">
+              <field name="NUM">0</field>
+            </block>
+          </value>
+          <value name="pose">
+            <block type="text" id="vW0@1$[;a5h+@Fg8Xq$[">
+              <field name="TEXT"></field>
+            </block>
+          </value>
+        </block>
+        <!-- <block type="createDatabase">
         <value name="host">
           <block type="text">
             <field name="TEXT">localhost</field>
@@ -468,7 +517,7 @@
           <block type="text">
             <field name="TEXT">Softex2023</field>
           </block>
-        </block>
+        </block> -->
         <block type="mysqlConnection">
           <value name="host">
             <block type="text">
@@ -491,13 +540,15 @@
             </block>
           </value>
         </block>
-        <block type="gerarTickets"></block>
+       
       </category>
+      <sep></sep>
 
       <category name="Connection" colour="500">
         <block type="connectToRobot"></block>
         <block type="disconnectFromRobot"></block>
       </category>
+      <sep></sep>
       
       <category name="Movements" colour="65">    
         <block type="move_to_home"></block>
@@ -615,22 +666,22 @@
           </value>
         </block>
 
-      </category>
+      <!-- </category>
       <category name="Medicines" colour="150">
         <block type="tigeciclina"></block>         
         <block type="fentanila"></block>            
         <block type="colistemato"></block>         
-      </category>
+      </category> -->
 
-      <category name="Gripper" colour="120">
+      <!-- <category name="Gripper" colour="120">
         <block type="open_tool"></block>
         <block type="close_tool"></block>        
-      </category>
+      </category> -->
 
-      <category name="Retrieve" colour="330">      
+      <!-- <category name="Retrieve" colour="330">      
         <block type="retrieve_tickets" ></block>
         <block type="retrieve_items" ></block>   
-      </category>
+      </category> -->
       
      
     </xml>

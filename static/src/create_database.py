@@ -26,25 +26,55 @@ def create_database():
             nome VARCHAR(255) NOT NULL
         )
     """)
+    
+# # Criar a tabela 'tickets' se não existir
+#     cursor.execute("""
+#         CREATE TABLE IF NOT EXISTS tickets (
+#             id INT PRIMARY KEY,
+#             paciente VARCHAR(255) NOT NULL,
+#             localizacao VARCHAR(255) NOT NULL,
+#             setor INT,
+#             setor_nome VARCHAR(255),        
+#             medicamento1 VARCHAR(255),
+#             qtd_medicamento1 INT,  -- Nova coluna para quantidade de medicamento1
+#             pose_medicamento1 VARCHAR(50),  -- Nova coluna para a pose do medicamento1
+#             medicamento2 VARCHAR(255),
+#             qtd_medicamento2 INT,  -- Nova coluna para quantidade de medicamento2
+#             pose_medicamento2 VARCHAR(50),  -- Nova coluna para a pose do medicamento2
+#             medicamento3 VARCHAR(255),
+#             qtd_medicamento3 INT,  -- Nova coluna para quantidade de medicamento3
+#             pose_medicamento3 VARCHAR(50),  -- Nova coluna para a pose do medicamento3
+#             status_processo BOOLEAN DEFAULT FALSE,
+#             FOREIGN KEY (setor) REFERENCES setor(id)
+#         )
+#     """)
 
     # Criar a tabela 'tickets' se não existir
     cursor.execute("""
         CREATE TABLE IF NOT EXISTS tickets (
-            prontuario INT PRIMARY KEY,
+            id INT PRIMARY KEY,
             paciente VARCHAR(255) NOT NULL,
             localizacao VARCHAR(255) NOT NULL,
             setor INT,
-            setor_nome VARCHAR(255),        
-            medicamento1 VARCHAR(255),
-            qtd_medicamento1 INT,  -- Nova coluna para quantidade de medicamento1
-            medicamento2 VARCHAR(255),
-            qtd_medicamento2 INT,  -- Nova coluna para quantidade de medicamento2
-            medicamento3 VARCHAR(255),
-            qtd_medicamento3 INT,  -- Nova coluna para quantidade de medicamento3
+            setor_nome VARCHAR(255),
             status_processo BOOLEAN DEFAULT FALSE,
             FOREIGN KEY (setor) REFERENCES setor(id)
         )
     """)
+
+    # Criar a tabela 'medicamentos_tickets' para armazenar os medicamentos associados aos tickets
+    cursor.execute("""
+        CREATE TABLE IF NOT EXISTS medicamentos_tickets (
+            id_ticket INT,
+            id_medicamento INT,
+            qtd_medicamento INT,
+            pose_medicamento VARCHAR(50),
+            FOREIGN KEY (id_ticket) REFERENCES tickets(id),
+            FOREIGN KEY (id_medicamento) REFERENCES medicamentos(id)
+        )
+    """)
+
+
 
     # Commit para salvar as alterações
     conexao.commit()

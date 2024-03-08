@@ -211,6 +211,26 @@ Blockly.Blocks['createMedicines'] = {
   }
 };
 
+Blockly.Blocks['adicionar_medicamento_ao_ticket'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("adicionar medicamento ao ticket");
+    this.appendValueInput("id_ticket")
+        .setCheck("Number")
+        .appendField("ID do Ticket");
+    this.appendValueInput("id_medicamento")
+        .setCheck("Number")
+        .appendField("ID do Medicamento");
+    this.setInputsInline(true);
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("");
+    this.setHelpUrl("");
+  }
+};
+
+
 Blockly.Blocks.tigeciclina = {
   init: function () {
       this.setPreviousStatement(true, null);
@@ -355,7 +375,7 @@ Blockly.Python['createTickets'] = function(block) {
   var value_paciente = Blockly.Python.valueToCode(block, 'paciente', Blockly.Python.ORDER_ATOMIC);
   var value_setorNome = Blockly.Python.valueToCode(block, 'setorNome', Blockly.Python.ORDER_ATOMIC);
   // Generate Python code to create ticket with provided data
-  var code = 'obj.create_ticket(' + value_paciente + ', ' + value_setorNome + ');\n';
+  var code = 'obj.create_ticket(' + value_paciente + ', ' + value_setorNome + ')\n';
   return code;
 };
 
@@ -364,7 +384,15 @@ Blockly.Python['createMedicines'] = function(block) {
   var value_name = Blockly.Python.valueToCode(block, 'name', Blockly.Python.ORDER_ATOMIC);
   var value_quantity = Blockly.Python.valueToCode(block, 'quantity', Blockly.Python.ORDER_ATOMIC);   
   // Generate Python code to create medicine with provided data
-  var code = 'obj.create_medicamento(' + value_name + ', ' + value_quantity + ');\n';
+  var code = 'obj.create_medicamento(' + value_name + ', ' + value_quantity + ')\n';
+  return code;
+};
+
+Blockly.Python['adicionar_medicamento_ao_ticket'] = function(block) {
+  var value_ticket_id = Blockly.Python.valueToCode(block, 'id_ticket', Blockly.Python.ORDER_ATOMIC);
+  var value_medicamento_id = Blockly.Python.valueToCode(block, 'id_medicamento', Blockly.Python.ORDER_ATOMIC);
+  // Gerar o código Python
+  var code = 'obj.adicionar_medicamento_ao_ticket(' + value_ticket_id + ', ' + value_medicamento_id + ')\n';
   return code;
 };
 

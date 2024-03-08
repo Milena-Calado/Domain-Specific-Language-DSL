@@ -154,9 +154,13 @@ class TestRobot(AbstractRobot, ABC):
             cursor.execute("""
                 CREATE TABLE IF NOT EXISTS medicamentos_tickets (
                     id_ticket INT,
+                    paciente VARCHAR(255),
+                    setor_nome VARCHAR(255),
                     id_medicamento INT,
-                    qtd_medicamento INT,
-                    pose_medicamento VARCHAR(50),
+                    nome VARCHAR(255),
+                    quantidade INT,
+                    pose VARCHAR(50),
+                    status_processo BOOLEAN DEFAULT FALSE,
                     FOREIGN KEY (id_ticket) REFERENCES tickets(id),
                     FOREIGN KEY (id_medicamento) REFERENCES medicamentos(id)
                 )
@@ -236,7 +240,65 @@ class TestRobot(AbstractRobot, ABC):
             # Fechar cursor e conexão
             cursor.close()
             conexao.close()
-    
+
+    def adicionar_medicamento_ao_ticket(self, id_ticket, id_medicamento):
+        try:
+            conexao = mysql.connector.connect(
+                host="localhost",
+                user="root",
+                password="Softex2023",
+                database="farmacia"
+            )
+
+            cursor = conexao.cursor()
+
+            # Buscar informações do medicamento
+            cursor.execute("""
+                SELECT quantidade, pose, nome FROM medicamentos WHERE id = %s
+            """, (id_medicamento,))
+            medicamento_info = cursor.fetchone()  # Recupera a primeira linha do resultado
+
+            # Verificar se o medicamento foi encontrado
+            if medicamento_info:
+                quantidade = medicamento_info[0]
+                pose = medicamento_info[1]
+                nome = medicamento_info[2]
+
+                # Buscar informações do ticket
+                cursor.execute("""
+                    SELECT paciente, setor_nome, status_processo FROM tickets WHERE id = %s
+                """, (id_ticket,))
+                ticket_info = cursor.fetchone()
+
+                # Verificar se o ticket foi encontrado
+                if ticket_info:
+                    paciente = ticket_info[0]
+                    setor_nome = ticket_info[1]
+                    status_processo = ticket_info[2]
+
+                    # Inserir a associação entre o ticket e o medicamento na tabela 'medicamento_'
+                    cursor.execute("""
+                        INSERT INTO medicamentos_tickets (id_ticket, paciente, setor_nome, id_medicamento, nome, quantidade, pose, status_processo)
+                        VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
+                    """, (id_ticket, paciente, setor_nome, id_medicamento, nome, quantidade, pose, status_processo))
+
+                    # Commit para salvar as alterações
+                    conexao.commit()
+
+                    print("Medicamento adicionado ao ticket com sucesso.")
+                else:
+                    print("Ticket não encontrado.")
+            else:
+                print("Medicamento não encontrado.")
+
+        except Exception as e:
+            print(f"Erro ao adicionar medicamento ao ticket: {e}")
+        finally:
+            # Fechar cursor e conexão
+            cursor.close()
+            conexao.close()
+
+
     
 
 if __name__ == "__main__":

@@ -444,15 +444,8 @@
       <category name="Functions" colour="#995ba5" custom="PROCEDURE"></category>
       <sep></sep>
     
-      <category name="Tickets" colour="230">
-        <block type="createDatabase"> </block>
-        <block type="execute_python_script">
-          <value name="PATH FILE">
-            <shadow type="text">
-              <field name="TEXT">Path file</field>
-            </shadow>
-          </value>
-        </block>
+      <category name="Farmácia" colour="230">
+        <block type="createDatabase"> </block>        
         <block type="createTickets" id="^Cm{8!^Yj[QcncBhv=Qw" x="88" y="63">         
           <value name="paciente">
             <block type="text" id="Z;U:C^Sw.~iSo=|j4RGr">
@@ -465,31 +458,50 @@
             </block>
           </value>
         </block>
-        <block type="createMedicines" id="^Cm{8!^Yj[QcncBhv=Qw" x="88" y="63">          
-          <value name="name">
-            <block type="text" id="Z;U:C^Sw.~iSo=|j4RGr">
+        <block type="createMedicines">
+          <value name="nome">
+            <block type="text" id="vW0@1$[;a5h+@Fg8Xq$[">
               <field name="TEXT"></field>
             </block>
           </value>
-          <value name="quantity">
-            <block type="text" id="Wg32@CStc0|WaNqgl,3b">
-              <field name="NUM">0</field>
+          <value name="quantidade">
+            <block type="math_number">
+                <field name="NUM">0</field>
             </block>
-          </value>        
-        </block>        
+        </value>
+          <value name="pose">
+            <block type="text">
+                <field name="TEXT"></field>
+            </block>
+        </value>
+        
+        </block>         
         <block type="adicionar_medicamento_ao_ticket">
-          <value name="id_ticket">
-              <shadow type="math_number">
-                  <field name="NUM">1</field>
-              </shadow>
+          <value name="paciente">
+              <block type="text">
+                  <field name="TEXT"></field>
+              </block>
           </value>
-          <value name="id_medicamento">
-              <shadow type="math_number">
-                  <field name="NUM">1</field>
-              </shadow>
+          <value name="nome">
+              <block type="text">
+                  <field name="TEXT"></field>
+              </block>
           </value>
-      </block>      
-        <block type="mysqlConnection">
+          <value name="quantidade">
+              <block type="math_number">
+                  <field name="NUM">0</field>
+              </block>
+          </value>
+        </block>    
+        <block type="execute_python_script">
+          <value name="PATH FILE">
+            <block type="text">
+              <field name="TEXT">Path file</field>
+          </block>
+          </value>
+      </block>
+      
+        <!-- <block type="mysqlConnection">
           <value name="host">
             <block type="text">
               <field name="TEXT">localhost</field>
@@ -510,12 +522,12 @@
               <field name="TEXT">farmacia</field>
             </block>
           </value>
-        </block>
+        </block> -->
        
       </category>
       <sep></sep>
 
-      <category name="Connection" colour="500">
+      <category name="Robótica" colour="500">
         <block type="connectToRobot"></block>
         <block type="disconnectFromRobot"></block>
       </category>

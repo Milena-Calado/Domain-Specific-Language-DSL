@@ -3,7 +3,8 @@ Blockly.Blocks['execute_python_script'] = {
     this.appendDummyInput()
         .appendField("Execute script create database");
     this.appendValueInput("PATH FILE")
-        .setCheck("String")      
+        .setCheck("String") 
+    this.setInputsInline(true);  
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
     this.setColour(230);
@@ -295,15 +296,19 @@ Blockly.Python['createTickets'] = function(block) {
 Blockly.Blocks['createMedicines'] = {
   init: function() {
     this.appendDummyInput()
-        .appendField("Create Medicines");   
-    this.appendValueInput("name")
+        .appendField("Create Medicines");    
+    this.appendValueInput("nome")
         .setCheck("String")
         .setAlign(Blockly.ALIGN_RIGHT)
-        .appendField("Name:");
-    this.appendValueInput("quantity")
+        .appendField("Nome do medicamento:"); 
+    this.appendValueInput("quantidade")
+        .setCheck("Number")
+        .setAlign(Blockly.ALIGN_RIGHT)
+        .appendField("Quantity:");
+    this.appendValueInput("pose")
         .setCheck("String")
         .setAlign(Blockly.ALIGN_RIGHT)
-        .appendField("Quantity:");       
+        .appendField("Pose:");   
     this.setInputsInline(false);
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
@@ -313,27 +318,33 @@ Blockly.Blocks['createMedicines'] = {
   }
 };
 
-
 // Bloco 'createTickets'
 Blockly.Python['createMedicines'] = function(block) { 
-  var value_name = Blockly.Python.valueToCode(block, 'name', Blockly.Python.ORDER_ATOMIC);
-  var value_quantity = Blockly.Python.valueToCode(block, 'quantity', Blockly.Python.ORDER_ATOMIC);    
+  var value_nome = Blockly.Python.valueToCode(block, 'nome', Blockly.Python.ORDER_ATOMIC);
+  var value_quantidade = Blockly.Python.valueToCode(block, 'quantidade', Blockly.Python.ORDER_ATOMIC);   
+  var value_pose = Blockly.Python.valueToCode(block, 'pose', Blockly.Python.ORDER_ATOMIC);  
   // Generate Python code to create medicine with provided data
-  var code = 'obj.create_medicamento(' + value_name + ', ' + value_quantity + ')\n';
+  var code = 'obj.create_medicamento(' + value_nome + ', ' + value_quantidade + ', ' + value_pose + ')\n';
   return code;
 };
 
 Blockly.Blocks['adicionar_medicamento_ao_ticket'] = {
   init: function() {
     this.appendDummyInput()
-        .appendField("adicionar medicamento ao ticket");
-    this.appendValueInput("id_ticket")
+        .appendField("Add medicine in ticket:");
+    this.appendValueInput("paciente")
+        .setCheck("String")
+        .setAlign(Blockly.ALIGN_RIGHT)
+        .appendField("Paciente");
+    this.appendValueInput("nome")
+        .setCheck("String")
+        .setAlign(Blockly.ALIGN_RIGHT)
+        .appendField("Nome do Medicamento");
+    this.appendValueInput("quantidade")
         .setCheck("Number")
-        .appendField("ID do Ticket");
-    this.appendValueInput("id_medicamento")
-        .setCheck("Number")
-        .appendField("ID do Medicamento");
-    this.setInputsInline(true);
+        .setAlign(Blockly.ALIGN_RIGHT)
+        .appendField("Quantidade do medicamento");
+    this.setInputsInline(false);
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
     this.setColour(230);
@@ -343,10 +354,11 @@ Blockly.Blocks['adicionar_medicamento_ao_ticket'] = {
 };
 
 Blockly.Python['adicionar_medicamento_ao_ticket'] = function(block) {
-  var value_ticket_id = Blockly.Python.valueToCode(block, 'id_ticket', Blockly.Python.ORDER_ATOMIC);
-  var value_medicamento_id = Blockly.Python.valueToCode(block, 'id_medicamento', Blockly.Python.ORDER_ATOMIC);
+  var value_paciente = Blockly.Python.valueToCode(block, 'paciente', Blockly.Python.ORDER_ATOMIC);
+  var value_nome = Blockly.Python.valueToCode(block, 'nome', Blockly.Python.ORDER_ATOMIC);
+  var value_quantidade = Blockly.Python.valueToCode(block, 'quantidade', Blockly.Python.ORDER_ATOMIC);
   // Gerar o código Python
-  var code = 'obj.adicionar_medicamento_ao_ticket(' + value_ticket_id + ', ' + value_medicamento_id + ')\n';
+  var code = 'obj.adicionar_medicamento_ao_ticket(' + value_paciente + ', ' + value_nome + ', ' + value_quantidade + ')\n';
   return code;
 };
 

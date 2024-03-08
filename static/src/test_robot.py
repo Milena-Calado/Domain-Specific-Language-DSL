@@ -144,8 +144,8 @@ class TestRobot(AbstractRobot, ABC):
             cursor.execute("""
                 CREATE TABLE IF NOT EXISTS medicamentos (
                     id INT AUTO_INCREMENT PRIMARY KEY,
-                    nome VARCHAR(255) NOT NULL,
-                    quantidade INT,
+                    nome VARCHAR(255) NOT NULL,   
+                    quantidade INT NOT NULL,                 
                     pose VARCHAR(50)
                 )
             """)
@@ -209,7 +209,7 @@ class TestRobot(AbstractRobot, ABC):
             conexao.close()   
   
 
-    def create_medicamento(self, nome, quantidade):
+    def create_medicamento(self, nome, quantidade, pose):
         try:
             conexao = mysql.connector.connect(
                 host="localhost",
@@ -220,10 +220,6 @@ class TestRobot(AbstractRobot, ABC):
 
             cursor = conexao.cursor()
 
-            # Valor fixo para a pose do medicamento
-            pose = "ValorFixo"
-
-            # Inserir os dados do medicamento na tabela 'medicamentos' com a pose fixa
             cursor.execute("""
                 INSERT INTO medicamentos (nome, quantidade, pose)
                 VALUES (%s, %s, %s)
@@ -241,7 +237,7 @@ class TestRobot(AbstractRobot, ABC):
             cursor.close()
             conexao.close()
 
-    def adicionar_medicamento_ao_ticket(self, id_ticket, id_medicamento):
+    def adicionar_medicamento_ao_ticket(self, nome, quantidade):
         try:
             conexao = mysql.connector.connect(
                 host="localhost",
@@ -254,29 +250,28 @@ class TestRobot(AbstractRobot, ABC):
 
             # Buscar informações do medicamento
             cursor.execute("""
-                SELECT quantidade, pose, nome FROM medicamentos WHERE id = %s
-            """, (id_medicamento,))
+                SELECT id, pose FROM medicamentos WHERE nome = %s
+            """, (nome,))
             medicamento_info = cursor.fetchone()  # Recupera a primeira linha do resultado
 
             # Verificar se o medicamento foi encontrado
             if medicamento_info:
-                quantidade = medicamento_info[0]
+                id_medicamento = medicamento_info[0]
                 pose = medicamento_info[1]
-                nome = medicamento_info[2]
 
                 # Buscar informações do ticket
                 cursor.execute("""
-                    SELECT paciente, setor_nome, status_processo FROM tickets WHERE id = %s
-                """, (id_ticket,))
+                    SELECT id, paciente, setor_nome, status_processo FROM tickets WHERE paciente = %s
+                """, (paciente,))
                 ticket_info = cursor.fetchone()
 
                 # Verificar se o ticket foi encontrado
                 if ticket_info:
-                    paciente = ticket_info[0]
+                    id_ticket = ticket_info[0]
                     setor_nome = ticket_info[1]
                     status_processo = ticket_info[2]
 
-                    # Inserir a associação entre o ticket e o medicamento na tabela 'medicamento_'
+                    # Inserir a associação entre o ticket e o medicamento na tabela 'medicamentos_tickets'
                     cursor.execute("""
                         INSERT INTO medicamentos_tickets (id_ticket, paciente, setor_nome, id_medicamento, nome, quantidade, pose, status_processo)
                         VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
@@ -297,8 +292,6 @@ class TestRobot(AbstractRobot, ABC):
             # Fechar cursor e conexão
             cursor.close()
             conexao.close()
-
-
     
 
 if __name__ == "__main__":

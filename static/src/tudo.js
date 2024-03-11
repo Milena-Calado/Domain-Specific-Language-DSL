@@ -1,7 +1,7 @@
 Blockly.Blocks['execute_python_script'] = {
   init: function() {
     this.appendDummyInput()
-        .appendField("Execute script create database");
+        .appendField("Create database");
     this.appendValueInput("PATH FILE")
         .setCheck("String") 
     this.setInputsInline(true);  
@@ -331,11 +331,11 @@ Blockly.Python['createMedicines'] = function(block) {
 Blockly.Blocks['adicionar_medicamento_ao_ticket'] = {
   init: function() {
     this.appendDummyInput()
-        .appendField("Add medicine in ticket:");
-    this.appendValueInput("paciente")
-        .setCheck("String")
+        .appendField("Adicionar medicamento no ticket:");
+    this.appendValueInput("id_ticket")
+        .setCheck("Number")
         .setAlign(Blockly.ALIGN_RIGHT)
-        .appendField("Paciente");
+        .appendField("ID do Ticket");
     this.appendValueInput("nome")
         .setCheck("String")
         .setAlign(Blockly.ALIGN_RIGHT)
@@ -343,7 +343,7 @@ Blockly.Blocks['adicionar_medicamento_ao_ticket'] = {
     this.appendValueInput("quantidade")
         .setCheck("Number")
         .setAlign(Blockly.ALIGN_RIGHT)
-        .appendField("Quantidade do medicamento");
+        .appendField("Quantidade do Medicamento");
     this.setInputsInline(false);
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
@@ -354,13 +354,14 @@ Blockly.Blocks['adicionar_medicamento_ao_ticket'] = {
 };
 
 Blockly.Python['adicionar_medicamento_ao_ticket'] = function(block) {
-  var value_paciente = Blockly.Python.valueToCode(block, 'paciente', Blockly.Python.ORDER_ATOMIC);
+  var value_id_ticket = Blockly.Python.valueToCode(block, 'id_ticket', Blockly.Python.ORDER_ATOMIC);
   var value_nome = Blockly.Python.valueToCode(block, 'nome', Blockly.Python.ORDER_ATOMIC);
   var value_quantidade = Blockly.Python.valueToCode(block, 'quantidade', Blockly.Python.ORDER_ATOMIC);
   // Gerar o código Python
-  var code = 'obj.adicionar_medicamento_ao_ticket(' + value_paciente + ', ' + value_nome + ', ' + value_quantidade + ')\n';
+  var code = 'obj.adicionar_medicamento_ao_ticket(' + value_id_ticket + ', ' + value_nome + ', ' + value_quantidade + ')\n';
   return code;
 };
+
 
 
 Blockly.Blocks.tigeciclina = {

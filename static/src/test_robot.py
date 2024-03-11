@@ -107,76 +107,8 @@ class TestRobot(AbstractRobot, ABC):
         print(f'Calculating inverse kinematics from position: {pose_list[0]}, {pose_list[1]}, {pose_list[2]}, '
               f'{pose_list[3]}, {pose_list[4]}, {pose_list[5]}')
         sleep(0.001)
-        return [0, 0, 0, 0, 0, 0]
-
-    
-    def create_database(self):
-        try:
-            # Conectar ao MySQL
-            conexao = mysql.connector.connect(
-                host="localhost",
-                user="root",
-                password="Softex2023"
-            )
-
-            cursor = conexao.cursor()
-
-            # Remover o banco de dados caso ele exista
-            cursor.execute("DROP DATABASE IF EXISTS farmacia")
-
-            # Criar o banco de dados
-            cursor.execute("CREATE DATABASE IF NOT EXISTS farmacia")
-
-            # Selecionar o banco de dados
-            cursor.execute("USE farmacia")          
-            
-                    # Criar a tabela 'tickets' se não existir
-            cursor.execute("""
-                CREATE TABLE IF NOT EXISTS tickets (
-                    id INT AUTO_INCREMENT PRIMARY KEY,
-                    paciente VARCHAR(255) NOT NULL,                   
-                    setor_nome VARCHAR(255),
-                    status_processo BOOLEAN DEFAULT FALSE
-                )
-            """)
-
-            # Criar a tabela 'medicamentos' se não existir
-            cursor.execute("""
-                CREATE TABLE IF NOT EXISTS medicamentos (
-                    id INT AUTO_INCREMENT PRIMARY KEY,
-                    nome VARCHAR(255) NOT NULL,   
-                    quantidade INT NOT NULL,                 
-                    pose VARCHAR(50)
-                )
-            """)
-
-            # Criar a tabela 'medicamentos_tickets' para armazenar os medicamentos associados aos tickets
-            cursor.execute("""
-                CREATE TABLE IF NOT EXISTS medicamentos_tickets (
-                    id_ticket INT,
-                    paciente VARCHAR(255),
-                    setor_nome VARCHAR(255),
-                    id_medicamento INT,
-                    nome VARCHAR(255),
-                    quantidade INT,
-                    pose VARCHAR(50),
-                    status_processo BOOLEAN DEFAULT FALSE,
-                    FOREIGN KEY (id_ticket) REFERENCES tickets(id),
-                    FOREIGN KEY (id_medicamento) REFERENCES medicamentos(id)
-                )
-            """)
-
-            # Commit para salvar as alterações
-            conexao.commit()
-
-            # Fechar o cursor e a conexão
-            cursor.close()
-            conexao.close()
-
-            print("Banco de dados e tabelas criados com sucesso.")
-
-        except Exception as e:
-            print(f"Erro ao criar banco de dados e tabelas: {e}")
+        return [0, 0, 0, 0, 0, 0]   
+  
 
     def create_ticket(self, paciente,setor_nome):
         try:
@@ -237,7 +169,7 @@ class TestRobot(AbstractRobot, ABC):
             cursor.close()
             conexao.close()
 
-    def adicionar_medicamento_ao_ticket(self, nome, quantidade):
+    def adicionar_medicamento_ao_ticket(self, id_ticket, nome, quantidade):
         try:
             conexao = mysql.connector.connect(
                 host="localhost",
@@ -250,7 +182,7 @@ class TestRobot(AbstractRobot, ABC):
 
             # Buscar informações do medicamento
             cursor.execute("""
-                SELECT id, pose FROM medicamentos WHERE nome = %s
+                SELECT id, pose, quantidade FROM medicamentos WHERE nome = %s
             """, (nome,))
             medicamento_info = cursor.fetchone()  # Recupera a primeira linha do resultado
 
@@ -258,16 +190,26 @@ class TestRobot(AbstractRobot, ABC):
             if medicamento_info:
                 id_medicamento = medicamento_info[0]
                 pose = medicamento_info[1]
+                estoque_atual = medicamento_info[2]
 
-                # Buscar informações do ticket
+                if estoque_atual < quantidade:
+                    raise ValueError("Quantidade insuficiente em estoque.")
+
+                # Subtrair a quantidade do estoque
+                novo_estoque = estoque_atual - quantidade
                 cursor.execute("""
-                    SELECT id, paciente, setor_nome, status_processo FROM tickets WHERE paciente = %s
-                """, (paciente,))
+                    UPDATE medicamentos SET quantidade = %s WHERE id = %s
+                """, (novo_estoque, id_medicamento))
+
+                # Buscar informações do ticket com base no ID fornecido
+                cursor.execute("""
+                    SELECT paciente, setor_nome, status_processo FROM tickets WHERE id = %s
+                """, (id_ticket,))
                 ticket_info = cursor.fetchone()
 
                 # Verificar se o ticket foi encontrado
                 if ticket_info:
-                    id_ticket = ticket_info[0]
+                    paciente = ticket_info[0]
                     setor_nome = ticket_info[1]
                     status_processo = ticket_info[2]
 
@@ -292,7 +234,8 @@ class TestRobot(AbstractRobot, ABC):
             # Fechar cursor e conexão
             cursor.close()
             conexao.close()
-    
+
+
 
 if __name__ == "__main__":
     robot = TestRobot()

@@ -445,19 +445,14 @@
       <sep></sep>
     
       <category name="Farmácia" colour="230">
-        <block type="createDatabase"> </block>        
-        <block type="createTickets" id="^Cm{8!^Yj[QcncBhv=Qw" x="88" y="63">         
-          <value name="paciente">
-            <block type="text" id="Z;U:C^Sw.~iSo=|j4RGr">
-              <field name="TEXT"></field>
-            </block>
-          </value>          
-          <value name="setorNome">
-            <block type="text" id="vW0@1$[;a5h+@Fg8Xq$[">
-              <field name="TEXT"></field>
-            </block>
+        <!-- <block type="createDatabase"> </block>         -->
+        <block type="execute_python_script">
+          <value name="PATH FILE">
+            <block type="text">
+              <field name="TEXT">Path file</field>
+          </block>
           </value>
-        </block>
+      </block>       
         <block type="createMedicines">
           <value name="nome">
             <block type="text" id="vW0@1$[;a5h+@Fg8Xq$[">
@@ -473,15 +468,26 @@
             <block type="text">
                 <field name="TEXT"></field>
             </block>
-        </value>
-        
-        </block>         
-        <block type="adicionar_medicamento_ao_ticket">
+        </value>        
+        </block>
+        <block type="createTickets" id="^Cm{8!^Yj[QcncBhv=Qw" x="88" y="63">         
           <value name="paciente">
-              <block type="text">
-                  <field name="TEXT"></field>
-              </block>
+            <block type="text" id="Z;U:C^Sw.~iSo=|j4RGr">
+              <field name="TEXT"></field>
+            </block>
+          </value>          
+          <value name="setorNome">
+            <block type="text" id="vW0@1$[;a5h+@Fg8Xq$[">
+              <field name="TEXT"></field>
+            </block>
           </value>
+        </block>         
+        <block type="adicionar_medicamento_ao_ticket">    
+          <value name="id_ticket">
+            <block type="math_number" id="]MY:Xkrs*%Z^?ve)Tx9U">
+              <field name="NUM">0</field>
+            </block>
+          </value>     
           <value name="nome">
               <block type="text">
                   <field name="TEXT"></field>
@@ -492,15 +498,7 @@
                   <field name="NUM">0</field>
               </block>
           </value>
-        </block>    
-        <block type="execute_python_script">
-          <value name="PATH FILE">
-            <block type="text">
-              <field name="TEXT">Path file</field>
-          </block>
-          </value>
-      </block>
-      
+        </block>       
         <!-- <block type="mysqlConnection">
           <value name="host">
             <block type="text">

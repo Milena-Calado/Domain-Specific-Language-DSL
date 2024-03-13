@@ -522,8 +522,6 @@
       
       <category name="Robotic" colour="500">
         <block type="connectToRobot"></block>
-        <block type="retrieve_tickets"></block>
-        <block type="retrieve_medicines"></block>      
         <block type="connectToDatabase">
           <value name="PATH FILE">
             <block type="text">
@@ -531,13 +529,56 @@
             </block>
           </value>
         </block>
+        <block type="retrieve_tickets"></block>
+        <block type="retrieve_medicines"></block> 
+        <block type="retrieve_pose"></block>    
+        <block type="retrieve_quantity"></block>
+        <block type="wait_dispensed"></block> 
+        
         <block type="disconnectFromRobot"></block>
       </category>
       
                   
       </category>     
       
-      <category name="Movements" colour="65">    
+      <category name="Movements" colour="65">  
+        <block type="movePose">
+          <value name="pose_list">
+            <block type="lists_create_with" inline="true">
+              <mutation items="6"></mutation>
+              <value name="ADD0">
+                <block type="math_number">
+                  <field name="NUM">0</field>
+                </block>
+              </value>
+              <value name="ADD1">
+                <block type="math_number">
+                  <field name="NUM">0</field>
+                </block>
+              </value>
+              <value name="ADD2">
+                <block type="math_number">
+                  <field name="NUM">0</field>
+                </block>
+              </value>
+              <value name="ADD3">
+                <block type="math_number">
+                  <field name="NUM">0</field>
+                </block>
+              </value>
+              <value name="ADD4">
+                <block type="math_number">
+                  <field name="NUM">0</field>
+                </block>
+              </value>
+              <value name="ADD5">
+                <block type="math_number">
+                  <field name="NUM">0</field>
+                </block>
+              </value>
+            </block>
+          </value>
+        </block>            
         <block type="move_to_home"></block>
         <block type="move_to_end"></block>
         <block type="moveJoints">

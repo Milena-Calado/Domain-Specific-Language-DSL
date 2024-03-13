@@ -94,6 +94,22 @@ Blockly.Blocks.moveCartesian = {
   }
 };
 
+Blockly.Blocks.movePose = {
+  init: function () {
+      this.setPreviousStatement(true, null);
+      this.setNextStatement(true, null);
+      this.setColour(230);
+      this.appendDummyInput()
+          .appendField("Move to Pose");
+      this.appendValueInput("pose_list")
+          .setCheck("Array")
+          .appendField("Poses [x, y, z, roll, pitch, yaw]:");
+      this.setTooltip("Configure the robot movement with Cartesian coordinates.");
+      this.setColour(65);
+      this.setHelpUrl("");
+  }
+};
+
 // Bloco 'open_tool'
 Blockly.Blocks.open_tool = {
   init: function() {
@@ -135,6 +151,39 @@ Blockly.Blocks.retrieve_medicines = {
   init: function() {
     this.appendDummyInput()         
         .appendField("Retrieve Medicines");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);      
+  this.setTooltip("");
+  this.setHelpUrl("");
+  }
+};
+
+Blockly.Blocks.retrieve_pose = {
+  init: function() {
+    this.appendDummyInput()            
+        .appendField("Retrieve Pose");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);      
+  this.setTooltip("");
+  this.setHelpUrl("");
+  }
+};
+
+Blockly.Blocks.retrieve_quantity = {
+  init: function() {
+    this.appendDummyInput()            
+        .appendField("Retrieve Quantity");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);      
+  this.setTooltip("");
+  this.setHelpUrl("");
+  }
+};
+
+Blockly.Blocks.wait_dispensed = {
+  init: function() {
+    this.appendDummyInput()            
+        .appendField("Wait for the dispensed signal");
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);      
   this.setTooltip("");
@@ -364,6 +413,13 @@ Blockly.Python['moveCartesian'] = function(block) {
   return code;
 };
 
+// Bloco 'movePose'
+Blockly.Python['movePose'] = function(block) {
+  var value_pose_list = Blockly.Python.valueToCode(block, 'pose_list', Blockly.Python.ORDER_ATOMIC);
+  var code = 'obj.move_cartesiann(' + value_pose_list + ')\n';
+  return code;
+};
+
 // Bloco de geração 'open_tool'
 Blockly.Python['open_tool'] = function(block) {
   var value_value = Blockly.Python.valueToCode(block, 'value', Blockly.Python.ORDER_ATOMIC) || '0.60';
@@ -445,6 +501,24 @@ Blockly.Python['retrieve_tickets'] = function(block) {
 // Bloco 'retrieve_medicines'
 Blockly.Python['retrieve_medicines'] = function(block) {  
   var code = 'obj.retrieve_medicines()\n';
+  return code;
+};
+
+// Bloco 'retrieve_pose'
+Blockly.Python['retrieve_pose'] = function(block) {  
+  var code = 'obj.retrieve_pose()\n';
+  return code;
+};
+
+// Bloco 'retrieve_quantity'
+Blockly.Python['retrieve_quantity'] = function(block) {  
+  var code = 'obj.retrieve_quantity()\n';
+  return code;
+};
+
+// Bloco 'wait_dispensed' 
+Blockly.Python['wait_dispensed'] = function(block) {  
+  var code = 'obj.wait_dispensed()\n';
   return code;
 };
 

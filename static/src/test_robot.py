@@ -2,6 +2,8 @@ from abc import ABC
 from time import sleep
 import subprocess
 import mysql.connector
+import tkinter as tk
+from tkinter import messagebox
 
 from abstract_robot import AbstractRobot
 
@@ -107,7 +109,13 @@ class TestRobot(AbstractRobot, ABC):
         print(f'Calculating inverse kinematics from position: {pose_list[0]}, {pose_list[1]}, {pose_list[2]}, '
               f'{pose_list[3]}, {pose_list[4]}, {pose_list[5]}')
         sleep(0.001)
-        return [0, 0, 0, 0, 0, 0]       
+        return [0, 0, 0, 0, 0, 0]  
+
+    def alerta_operacao_terminou(self):
+        root = tk.Tk()
+        root.withdraw()  
+
+        messagebox.showinfo("Atenção", "A operação terminou.")    
 
     def retrieve_tickets(self):
         try:

@@ -292,7 +292,7 @@ Blockly.Blocks.wait_dispensed = {
 
 // Bloco 'wait_dispensed' 
 Blockly.Python['wait_dispensed'] = function(block) {  
-  var code = 'obj.wait_dispensed()\n';
+  var code = 'obj.alerta_operacao_terminou()\n';
   return code;
 };
 

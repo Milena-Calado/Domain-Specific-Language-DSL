@@ -518,7 +518,7 @@ Blockly.Python['retrieve_quantity'] = function(block) {
 
 // Bloco 'wait_dispensed' 
 Blockly.Python['wait_dispensed'] = function(block) {  
-  var code = 'obj.wait_dispensed()\n';
+  var code = 'obj.alerta_operacao_terminou()\n';
   return code;
 };
 

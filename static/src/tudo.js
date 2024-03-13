@@ -12,8 +12,6 @@ Blockly.Blocks['execute_python_script'] = {
     this.setHelpUrl("");
   }
 };
-
-
   
 // Bloco 'run_python_file'
 Blockly.Python['execute_python_script'] = function(block) {
@@ -21,6 +19,28 @@ Blockly.Python['execute_python_script'] = function(block) {
   var code = 'obj.execute_python_script(' + value_path_file + ')\n';
   return code;
 };
+
+Blockly.Blocks['connectToDatabase'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Connect database");
+    this.appendValueInput("PATH FILE")
+        .setCheck("String")  
+    this.setInputsInline(true);    
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);  
+    this.setTooltip("Run a path Python script specified by the user.");
+    this.setHelpUrl("");
+  }
+};
+// Bloco 'run_python_file'
+Blockly.Python['connectToDatabase'] = function(block) {
+  var value_path_file = Blockly.Python.valueToCode(block, 'PATH FILE', Blockly.Python.ORDER_ATOMIC);
+  var code = 'obj.execute_python_script(' + value_path_file + ')\n';
+  return code;
+};
+
+
 
 
 Blockly.Blocks.connectToRobot = {
@@ -167,49 +187,41 @@ Blockly.Python['close_tool'] = function(block) {
 
 
   
-  Blockly.Blocks['retrieve_tickets'] = {
-    init: function() {
-      this.appendValueInput("retrieve_tickets")
-          .setCheck(null)
-          .appendField("Retrieve tickets ID");
-      this.setPreviousStatement(true, null);
-      this.setNextStatement(true, null);
-      this.setColour(230);
+Blockly.Blocks.retrieve_tickets = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Retrieve tickets");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);    
     this.setTooltip("");
     this.setHelpUrl("");
-    }
-  };
-
+  }
+};
     
-  // Bloco 'retrieve_tickets'
-  Blockly.Python['retrieve_tickets'] = function(block) {
-  var value_retrieve_tickets = Blockly.Python.valueToCode(block, 'retrieve_tickets', Blockly.Python.ORDER_ATOMIC);
-  var code = 'obj.retrieve_tickets(' + value_retrieve_tickets + ')\n';
+// Bloco 'retrieve_tickets'
+Blockly.Python['retrieve_tickets'] = function(block) {  
+  var code = 'obj.retrieve_tickets()\n';
   return code;
 };
 
 
-  Blockly.Blocks['retrieve_items'] = {
-    init: function() {
-      this.appendValueInput("NAME")
-          .setCheck(null)
-          .appendField("Retrieve items");
-      this.setPreviousStatement(true, null);
-      this.setNextStatement(true, null);
-      this.setColour(330);
-    this.setTooltip("");
-    this.setHelpUrl("");
-    }
-  };
+Blockly.Blocks.retrieve_medicines = {
+  init: function() {
+    this.appendDummyInput()            
+        .appendField("Retrieve Medicines");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);      
+  this.setTooltip("");
+  this.setHelpUrl("");
+  }
+};
   
-    // Bloco 'retrieve_items'
-Blockly.Python['retrieve_items'] = function(block) {
-  var value_name = Blockly.Python.valueToCode(block, 'NAME', Blockly.Python.ORDER_ATOMIC);
-  var code = 'obj.retrieve_items(' + value_name + ')\n';
+// Bloco 'retrieve_medicines'
+Blockly.Python['retrieve_medicines'] = function(block) {  
+  var code = 'obj.retrieve_medicines()\n';
   return code;
 };
-    
-  
+      
 Blockly.Blocks.createDatabase = {
   init: function() {
     this.appendDummyInput()
@@ -266,15 +278,19 @@ Blockly.Python['mysqlConnection'] = function(block) {
 Blockly.Blocks['createTickets'] = {
   init: function() {
     this.appendDummyInput()
-        .appendField("Create ticket");   
+        .appendField("Create ticket");
     this.appendValueInput("paciente")
         .setCheck("String")
         .setAlign(Blockly.ALIGN_RIGHT)
-        .appendField("Paciente:");    
+        .appendField("Pacient:");
     this.appendValueInput("setorNome")
         .setCheck("String")
         .setAlign(Blockly.ALIGN_RIGHT)
-        .appendField("Setor Nome:");
+        .appendField("Sector Name:");
+    this.appendStatementInput("medicamentos")
+        .setCheck(["addMedicines"]) // Permitir 'addMedicines'
+        .setAlign(Blockly.ALIGN_RIGHT)
+        .appendField("Medicines:");
     this.setInputsInline(false);
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
@@ -288,19 +304,21 @@ Blockly.Blocks['createTickets'] = {
 Blockly.Python['createTickets'] = function(block) {
   var value_paciente = Blockly.Python.valueToCode(block, 'paciente', Blockly.Python.ORDER_ATOMIC);
   var value_setorNome = Blockly.Python.valueToCode(block, 'setorNome', Blockly.Python.ORDER_ATOMIC);
+  var statements_medicamentos = Blockly.JavaScript.statementToCode(block, 'medicamentos');
+
   // Generate Python code to create ticket with provided data
-  var code = 'obj.create_ticket(' + value_paciente + ', ' + value_setorNome + ')\n';
+  var code = 'obj.create_ticket(' + value_paciente + ', ' + value_setorNome + ', ' + statements_medicamentos + ')\n';
   return code;
 };
 
 Blockly.Blocks['createMedicines'] = {
   init: function() {
     this.appendDummyInput()
-        .appendField("Create Medicines");    
+        .appendField("Create Medicine");    
     this.appendValueInput("nome")
         .setCheck("String")
         .setAlign(Blockly.ALIGN_RIGHT)
-        .appendField("Nome do medicamento:"); 
+        .appendField("Medicine name:"); 
     this.appendValueInput("quantidade")
         .setCheck("Number")
         .setAlign(Blockly.ALIGN_RIGHT)
@@ -328,22 +346,18 @@ Blockly.Python['createMedicines'] = function(block) {
   return code;
 };
 
-Blockly.Blocks['adicionar_medicamento_ao_ticket'] = {
+Blockly.Blocks['addMedicines'] = {
   init: function() {
     this.appendDummyInput()
-        .appendField("Adicionar medicamento no ticket:");
-    this.appendValueInput("id_ticket")
-        .setCheck("Number")
-        .setAlign(Blockly.ALIGN_RIGHT)
-        .appendField("ID do Ticket");
+        .appendField("Add medicine:");   
     this.appendValueInput("nome")
         .setCheck("String")
         .setAlign(Blockly.ALIGN_RIGHT)
-        .appendField("Nome do Medicamento");
+        .appendField("Name");
     this.appendValueInput("quantidade")
         .setCheck("Number")
         .setAlign(Blockly.ALIGN_RIGHT)
-        .appendField("Quantidade do Medicamento");
+        .appendField("Quantity");
     this.setInputsInline(false);
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
@@ -353,14 +367,27 @@ Blockly.Blocks['adicionar_medicamento_ao_ticket'] = {
   }
 };
 
-Blockly.Python['adicionar_medicamento_ao_ticket'] = function(block) {
-  var value_id_ticket = Blockly.Python.valueToCode(block, 'id_ticket', Blockly.Python.ORDER_ATOMIC);
+Blockly.Python['addMedicines'] = function(block) {  
   var value_nome = Blockly.Python.valueToCode(block, 'nome', Blockly.Python.ORDER_ATOMIC);
   var value_quantidade = Blockly.Python.valueToCode(block, 'quantidade', Blockly.Python.ORDER_ATOMIC);
+  
+  var parentBlock = block.getParent();
+  var id_ticket = ''; // Inicializar o ID do ticket
+  while (parentBlock != null) {
+    if (parentBlock.type == 'createTickets') { // Verificar se o bloco pai é do tipo createTickets
+      id_ticket = parentBlock.id; // Capturar o ID do bloco
+      break; // Parar o loop se o bloco pai for encontrado
+    }
+    parentBlock = parentBlock.getParent(); // Obter o bloco pai do bloco pai atual
+  }  
+
+  // Se não encontrarmos um bloco do tipo 'createTickets', o ID do ticket permanece vazio
+
   // Gerar o código Python
-  var code = 'obj.adicionar_medicamento_ao_ticket(' + value_id_ticket + ', ' + value_nome + ', ' + value_quantidade + ')\n';
+  var code = 'obj.addMedicines("' + id_ticket + '", ' + value_nome + ', ' + value_quantidade + ')\n';
   return code;
 };
+
 
 
 

@@ -444,7 +444,7 @@
       <category name="Functions" colour="#995ba5" custom="PROCEDURE"></category>
       <sep></sep>
     
-      <category name="Farmácia" colour="230">
+      <category name="Tickets" colour="230">
         <!-- <block type="createDatabase"> </block>         -->
         <block type="execute_python_script">
           <value name="PATH FILE">
@@ -482,12 +482,7 @@
             </block>
           </value>
         </block>         
-        <block type="adicionar_medicamento_ao_ticket">    
-          <value name="id_ticket">
-            <block type="math_number" id="]MY:Xkrs*%Z^?ve)Tx9U">
-              <field name="NUM">0</field>
-            </block>
-          </value>     
+        <block type="addMedicines">              
           <value name="nome">
               <block type="text">
                   <field name="TEXT"></field>
@@ -524,12 +519,23 @@
        
       </category>
       <sep></sep>
-
-      <category name="Robótica" colour="500">
+      
+      <category name="Robotic" colour="500">
         <block type="connectToRobot"></block>
+        <block type="retrieve_tickets"></block>
+        <block type="retrieve_medicines"></block>      
+        <block type="connectToDatabase">
+          <value name="PATH FILE">
+            <block type="text">
+              <field name="TEXT">Path file</field>
+            </block>
+          </value>
+        </block>
         <block type="disconnectFromRobot"></block>
       </category>
-      <sep></sep>
+      
+                  
+      </category>     
       
       <category name="Movements" colour="65">    
         <block type="move_to_home"></block>
@@ -661,7 +667,7 @@
 
       <!-- <category name="Retrieve" colour="330">      
         <block type="retrieve_tickets" ></block>
-        <block type="retrieve_items" ></block>   
+        <block type="retrieve_medicines" ></block>   
       </category> -->
       
      

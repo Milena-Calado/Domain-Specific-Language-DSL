@@ -15,10 +15,8 @@ cursor.execute("SELECT * FROM tickets WHERE status_processo = FALSE")
 tickets = cursor.fetchall()
 
 # Iterar sobre os tickets
-for ticket in tickets:
-    prontuario = ticket['prontuario']
-    paciente = ticket['paciente']
-    localizacao = ticket['localizacao']
+for ticket in tickets:    
+    paciente = ticket['paciente']    
     setor_nome = ticket['setor_nome']
 
     # Adapte a lógica para os medicamentos específicos que você possui
@@ -27,10 +25,10 @@ for ticket in tickets:
 
     if medicamento and quantidade:
         # Mover o robô com base no medicamento e quantidade
-        mover_robo(medicamento, quantidade)
+        mover_para_medicamentos(medicamento, quantidade)
         
         # Marcar o ticket como processado
-        cursor.execute("UPDATE tickets SET status_processo = TRUE WHERE prontuario = %s", (prontuario,))
+        cursor.execute("UPDATE tickets SET status_processo = TRUE WHERE prontuario = %s", (paciente,))
         conexao.commit()
 
 # Fechar o cursor e a conexão

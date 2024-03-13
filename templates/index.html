@@ -15,7 +15,6 @@
     <!--Import jQuery library-->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
-
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <!--Let browser know website is optimized for mobile-->
     <title>KiDSL</title>
@@ -445,31 +444,57 @@
       <category name="Functions" colour="#995ba5" custom="PROCEDURE"></category>
       <sep></sep>
     
-      <category name="MySQL" colour="230">
+      <category name="Tickets" colour="230">
+        <!-- <block type="createDatabase"> </block>         -->
         <block type="execute_python_script">
           <value name="PATH FILE">
-            <shadow type="text">
+            <block type="text">
               <field name="TEXT">Path file</field>
-            </shadow>
+          </block>
           </value>
-        </block>
-        <block type="createDatabase">
-        <value name="host">
-          <block type="text">
-            <field name="TEXT">localhost</field>
-          </block>
+      </block>       
+        <block type="createMedicines">
+          <value name="nome">
+            <block type="text" id="vW0@1$[;a5h+@Fg8Xq$[">
+              <field name="TEXT"></field>
+            </block>
+          </value>
+          <value name="quantidade">
+            <block type="math_number">
+                <field name="NUM">0</field>
+            </block>
         </value>
-        <value name="user">
-          <block type="text">
-            <field name="TEXT">root</field>
-          </block>
-        </value>
-        <value name="password">
-          <block type="text">
-            <field name="TEXT">Softex2023</field>
-          </block>
+          <value name="pose">
+            <block type="text">
+                <field name="TEXT"></field>
+            </block>
+        </value>        
         </block>
-        <block type="mysqlConnection">
+        <block type="createTickets" id="^Cm{8!^Yj[QcncBhv=Qw" x="88" y="63">         
+          <value name="paciente">
+            <block type="text" id="Z;U:C^Sw.~iSo=|j4RGr">
+              <field name="TEXT"></field>
+            </block>
+          </value>          
+          <value name="setorNome">
+            <block type="text" id="vW0@1$[;a5h+@Fg8Xq$[">
+              <field name="TEXT"></field>
+            </block>
+          </value>
+        </block>         
+        <block type="addMedicines">              
+          <value name="nome">
+              <block type="text">
+                  <field name="TEXT"></field>
+              </block>
+          </value>
+          <value name="quantidade">
+              <block type="math_number">
+                  <field name="NUM">0</field>
+              </block>
+          </value>
+        </block>       
+        <!-- <block type="mysqlConnection">
           <value name="host">
             <block type="text">
               <field name="TEXT">localhost</field>
@@ -490,16 +515,70 @@
               <field name="TEXT">farmacia</field>
             </block>
           </value>
-        </block>
-        <block type="gerarTickets"></block>
+        </block> -->
+       
       </category>
-
-      <category name="Connection" colour="500">
+      <sep></sep>
+      
+      <category name="Robotic" colour="500">
         <block type="connectToRobot"></block>
+        <block type="connectToDatabase">
+          <value name="PATH FILE">
+            <block type="text">
+              <field name="TEXT">Path file</field>
+            </block>
+          </value>
+        </block>
+        <block type="retrieve_tickets"></block>
+        <block type="retrieve_medicines"></block> 
+        <block type="retrieve_pose"></block>    
+        <block type="retrieve_quantity"></block>
+        <block type="wait_dispensed"></block> 
+        
         <block type="disconnectFromRobot"></block>
       </category>
       
-      <category name="Movements" colour="65">    
+                  
+      </category>     
+      
+      <category name="Movements" colour="65">  
+        <block type="movePose">
+          <value name="pose_list">
+            <block type="lists_create_with" inline="true">
+              <mutation items="6"></mutation>
+              <value name="ADD0">
+                <block type="math_number">
+                  <field name="NUM">0</field>
+                </block>
+              </value>
+              <value name="ADD1">
+                <block type="math_number">
+                  <field name="NUM">0</field>
+                </block>
+              </value>
+              <value name="ADD2">
+                <block type="math_number">
+                  <field name="NUM">0</field>
+                </block>
+              </value>
+              <value name="ADD3">
+                <block type="math_number">
+                  <field name="NUM">0</field>
+                </block>
+              </value>
+              <value name="ADD4">
+                <block type="math_number">
+                  <field name="NUM">0</field>
+                </block>
+              </value>
+              <value name="ADD5">
+                <block type="math_number">
+                  <field name="NUM">0</field>
+                </block>
+              </value>
+            </block>
+          </value>
+        </block>            
         <block type="move_to_home"></block>
         <block type="move_to_end"></block>
         <block type="moveJoints">
@@ -615,46 +694,45 @@
           </value>
         </block>
 
-      </category>
+      <!-- </category>
       <category name="Medicines" colour="150">
         <block type="tigeciclina"></block>         
         <block type="fentanila"></block>            
         <block type="colistemato"></block>         
-      </category>
+      </category> -->
 
-      <category name="Gripper" colour="120">
+      <!-- <category name="Gripper" colour="120">
         <block type="open_tool"></block>
         <block type="close_tool"></block>        
-      </category>
+      </category> -->
 
-      <category name="Retrieve" colour="330">      
+      <!-- <category name="Retrieve" colour="330">      
         <block type="retrieve_tickets" ></block>
-        <block type="retrieve_items" ></block>   
-      </category>
+        <block type="retrieve_medicines" ></block>   
+      </category> -->
       
      
     </xml>
    
     <script>
-    function runCode() {
-            var code = Blockly.Python.workspaceToCode(workspace);
+   function runCode() {
+    var code = Blockly.Python.workspaceToCode(workspace);
 
-            // Envia o código gerado para o servidor usando AJAX
-            $.ajax({
-                type: "POST",
-                url: "/run_code",
-                contentType: "application/json;charset=UTF-8",
-                data: JSON.stringify({ code: code }),
-                success: function (response) {
-                    console.log(response);
-                    // Aqui você pode lidar com a resposta do servidor, se necessário
-                },
-                error: function (error) {
-                    console.error(error);
-                }
-            });
+    // Envia o código gerado para o servidor usando AJAX
+    $.ajax({
+        type: "POST",
+        url: "/run_code", // Altere para o endpoint que manipula o salvamento do código no servidor
+        contentType: "application/json;charset=UTF-8",
+        data: JSON.stringify({ code: code }),
+        success: function (response) {
+            console.log(response);
+            // Aqui você pode lidar com a resposta do servidor, se necessário
+        },
+        error: function (error) {
+            console.error(error);
         }
-
+    });
+}
       
 
       var mostrar = "nada aqui";
@@ -716,7 +794,7 @@ workspace.addChangeListener(function(event) {
     }
 });
 
-   //     workspace.addChangeListener(update);
+       workspace.addChangeListener(update);
     </script>
     <!--JavaScript at end of body for optimized loading-->
     <script type="text/javascript" src="static/js/materialize.min.js"></script>

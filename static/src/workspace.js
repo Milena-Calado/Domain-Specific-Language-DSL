@@ -32,13 +32,8 @@ var options = {
 	}
 };
 
-/* Inject your workspace */ 
 var workspace = Blockly.inject("blocklyDiv", {toolbox: toolbox});
 
-/* Load Workspace Blocks from XML to workspace. Remove all code below if no blocks to load */
-
-/* TODO: Change workspace blocks XML ID if necessary. Can export workspace blocks XML from Workspace Factory. */
 var workspaceBlocks = document.getElementById("workspaceBlocks"); 
 
-/* Load blocks to workspace. */
 Blockly.Xml.domToWorkspace(workspaceBlocks, workspace);

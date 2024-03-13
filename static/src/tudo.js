@@ -1,9 +1,10 @@
 Blockly.Blocks['execute_python_script'] = {
   init: function() {
     this.appendDummyInput()
-        .appendField("Execute python script");
+        .appendField("Create database");
     this.appendValueInput("PATH FILE")
-        .setCheck("String")      
+        .setCheck("String") 
+    this.setInputsInline(true);  
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
     this.setColour(230);
@@ -11,8 +12,6 @@ Blockly.Blocks['execute_python_script'] = {
     this.setHelpUrl("");
   }
 };
-
-
   
 // Bloco 'run_python_file'
 Blockly.Python['execute_python_script'] = function(block) {
@@ -20,6 +19,28 @@ Blockly.Python['execute_python_script'] = function(block) {
   var code = 'obj.execute_python_script(' + value_path_file + ')\n';
   return code;
 };
+
+Blockly.Blocks['connectToDatabase'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Connect database");
+    this.appendValueInput("PATH FILE")
+        .setCheck("String")  
+    this.setInputsInline(true);    
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);  
+    this.setTooltip("Run a path Python script specified by the user.");
+    this.setHelpUrl("");
+  }
+};
+// Bloco 'run_python_file'
+Blockly.Python['connectToDatabase'] = function(block) {
+  var value_path_file = Blockly.Python.valueToCode(block, 'PATH FILE', Blockly.Python.ORDER_ATOMIC);
+  var code = 'obj.execute_python_script(' + value_path_file + ')\n';
+  return code;
+};
+
+
 
 
 Blockly.Blocks.connectToRobot = {
@@ -123,6 +144,29 @@ Blockly.Python['moveCartesian'] = function(block) {
   return code;
 };
 
+Blockly.Blocks.movePose = {
+  init: function () {
+      this.setPreviousStatement(true, null);
+      this.setNextStatement(true, null);
+      this.setColour(230);
+      this.appendDummyInput()
+          .appendField("Move to Pose");
+      this.appendValueInput("pose_list")
+          .setCheck("Array")
+          .appendField("Poses [x, y, z, roll, pitch, yaw]:");
+      this.setTooltip("Configure the robot movement with Cartesian coordinates.");
+      this.setColour(65);
+      this.setHelpUrl("");
+  }
+};
+
+// Bloco 'movePose'
+Blockly.Python['movePose'] = function(block) {
+  var value_pose_list = Blockly.Python.valueToCode(block, 'pose_list', Blockly.Python.ORDER_ATOMIC);
+  var code = 'obj.move_cartesiann(' + value_pose_list + ')\n';
+  return code;
+};
+
 // Bloco 'open_tool'
 Blockly.Blocks.open_tool = {
   init: function() {
@@ -166,76 +210,108 @@ Blockly.Python['close_tool'] = function(block) {
 
 
   
-  Blockly.Blocks['retrieve_tickets'] = {
-    init: function() {
-      this.appendValueInput("retrieve_tickets")
-          .setCheck(null)
-          .appendField("Retrieve tickets ID");
-      this.setPreviousStatement(true, null);
-      this.setNextStatement(true, null);
-      this.setColour(230);
+Blockly.Blocks.retrieve_tickets = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Retrieve tickets");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);    
     this.setTooltip("");
     this.setHelpUrl("");
-    }
-  };
-
+  }
+};
     
-  // Bloco 'retrieve_tickets'
-  Blockly.Python['retrieve_tickets'] = function(block) {
-  var value_retrieve_tickets = Blockly.Python.valueToCode(block, 'retrieve_tickets', Blockly.Python.ORDER_ATOMIC);
-  var code = 'obj.retrieve_tickets(' + value_retrieve_tickets + ')\n';
+// Bloco 'retrieve_tickets'
+Blockly.Python['retrieve_tickets'] = function(block) {  
+  var code = 'obj.retrieve_tickets()\n';
   return code;
 };
 
 
-  Blockly.Blocks['retrieve_items'] = {
-    init: function() {
-      this.appendValueInput("NAME")
-          .setCheck(null)
-          .appendField("Retrieve items");
-      this.setPreviousStatement(true, null);
-      this.setNextStatement(true, null);
-      this.setColour(330);
-    this.setTooltip("");
-    this.setHelpUrl("");
-    }
-  };
+Blockly.Blocks.retrieve_medicines = {
+  init: function() {
+    this.appendDummyInput()            
+        .appendField("Retrieve Medicines");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);      
+  this.setTooltip("");
+  this.setHelpUrl("");
+  }
+};
   
-    // Bloco 'retrieve_items'
-Blockly.Python['retrieve_items'] = function(block) {
-  var value_name = Blockly.Python.valueToCode(block, 'NAME', Blockly.Python.ORDER_ATOMIC);
-  var code = 'obj.retrieve_items(' + value_name + ')\n';
+// Bloco 'retrieve_medicines'
+Blockly.Python['retrieve_medicines'] = function(block) {  
+  var code = 'obj.retrieve_medicines()\n';
   return code;
 };
-    
-  
-  Blockly.Blocks.createDatabase = {
-    init: function() {
-      this.appendDummyInput()
-          .appendField("Connected to DBMS");
-      this.appendValueInput("host")
-          .setCheck("String")
-          .appendField("Host:");
-      this.appendValueInput("user")
-          .setCheck("String")
-          .appendField("User:");
-      this.appendValueInput("password")
-          .setCheck("String")
-          .appendField("Password:");    
-      this.setNextStatement(true, null);
-      this.setColour(330);
-      this.setTooltip("Creates a database and tables in MySQL.");
-      this.setHelpUrl("");
-    }
-  };
+
+Blockly.Blocks.retrieve_pose = {
+  init: function() {
+    this.appendDummyInput()            
+        .appendField("Retrieve Pose");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);      
+  this.setTooltip("");
+  this.setHelpUrl("");
+  }
+};
+
+// Bloco 'retrieve_pose'
+Blockly.Python['retrieve_pose'] = function(block) {  
+  var code = 'obj.retrieve_pose()\n';
+  return code;
+};
+
+Blockly.Blocks.retrieve_quantity = {
+  init: function() {
+    this.appendDummyInput()            
+        .appendField("Retrieve Quantity");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);      
+  this.setTooltip("");
+  this.setHelpUrl("");
+  }
+};
+
+// Bloco 'retrieve_quantity'
+Blockly.Python['retrieve_quantity'] = function(block) {  
+  var code = 'obj.retrieve_quantity()\n';
+  return code;
+};
+
+Blockly.Blocks.wait_dispensed = {
+  init: function() {
+    this.appendDummyInput()            
+        .appendField("Wait for the dispensed signal");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);      
+  this.setTooltip("");
+  this.setHelpUrl("");
+  }
+};
+
+// Bloco 'wait_dispensed' 
+Blockly.Python['wait_dispensed'] = function(block) {  
+  var code = 'obj.wait_dispensed()\n';
+  return code;
+};
+
+      
+Blockly.Blocks.createDatabase = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Create Database");  
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Creates a database and tables in MySQL.");
+    this.setHelpUrl("");
+  }
+};
   
 
 // Bloco 'createDatabase'
 Blockly.Python['createDatabase'] = function(block) {
-  var value_host = Blockly.Python.valueToCode(block, 'host', Blockly.Python.ORDER_ATOMIC);
-  var value_user = Blockly.Python.valueToCode(block, 'user', Blockly.Python.ORDER_ATOMIC);
-  var value_password = Blockly.Python.valueToCode(block, 'password', Blockly.Python.ORDER_ATOMIC);
-  var code = 'obj.create_database(' + value_host + ', ' + value_user + ', ' + value_password + ')\n';
+  var code = 'obj.create_database()\n';
   return code;
 };
 
@@ -274,23 +350,120 @@ Blockly.Python['mysqlConnection'] = function(block) {
   return code;
 };
   
-  Blockly.Blocks.gerarTickets = {
-    init: function() {
-      this.appendDummyInput()
-          .appendField("Generate tickets");
-      this.setPreviousStatement(true, null);
-      this.setNextStatement(true, null);
-      this.setColour(230);
-      this.setTooltip("Generates ticket records in the pharmacy database.");
-      this.setHelpUrl("");
-    }
-  };
+Blockly.Blocks['createTickets'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Create ticket");
+    this.appendValueInput("paciente")
+        .setCheck("String")
+        .setAlign(Blockly.ALIGN_RIGHT)
+        .appendField("Pacient:");
+    this.appendValueInput("setorNome")
+        .setCheck("String")
+        .setAlign(Blockly.ALIGN_RIGHT)
+        .appendField("Sector Name:");
+    this.appendStatementInput("medicamentos")
+        .setCheck(["addMedicines"]) // Permitir 'addMedicines'
+        .setAlign(Blockly.ALIGN_RIGHT)
+        .appendField("Medicines:");
+    this.setInputsInline(false);
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Cria registros de tickets no banco de dados da farmácia.");
+    this.setHelpUrl("");
+  }
+};
 
-  // Bloco 'gerarTickets'
-Blockly.Python['gerarTickets'] = function(block) {    
-  var code = 'obj.gerar_tickets()\n';
+// Bloco 'gerarTickets'
+Blockly.Python['createTickets'] = function(block) {
+  var value_paciente = Blockly.Python.valueToCode(block, 'paciente', Blockly.Python.ORDER_ATOMIC);
+  var value_setorNome = Blockly.Python.valueToCode(block, 'setorNome', Blockly.Python.ORDER_ATOMIC);
+  var statements_medicamentos = Blockly.JavaScript.statementToCode(block, 'medicamentos');
+
+  // Generate Python code to create ticket with provided data
+  var code = 'obj.create_ticket(' + value_paciente + ', ' + value_setorNome + ', ' + statements_medicamentos + ')\n';
   return code;
 };
+
+Blockly.Blocks['createMedicines'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Create Medicine");    
+    this.appendValueInput("nome")
+        .setCheck("String")
+        .setAlign(Blockly.ALIGN_RIGHT)
+        .appendField("Medicine name:"); 
+    this.appendValueInput("quantidade")
+        .setCheck("Number")
+        .setAlign(Blockly.ALIGN_RIGHT)
+        .appendField("Quantity:");
+    this.appendValueInput("pose")
+        .setCheck("String")
+        .setAlign(Blockly.ALIGN_RIGHT)
+        .appendField("Pose:");   
+    this.setInputsInline(false);
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Creates medicine records in the pharmacy database.");
+    this.setHelpUrl("");
+  }
+};
+
+// Bloco 'createTickets'
+Blockly.Python['createMedicines'] = function(block) { 
+  var value_nome = Blockly.Python.valueToCode(block, 'nome', Blockly.Python.ORDER_ATOMIC);
+  var value_quantidade = Blockly.Python.valueToCode(block, 'quantidade', Blockly.Python.ORDER_ATOMIC);   
+  var value_pose = Blockly.Python.valueToCode(block, 'pose', Blockly.Python.ORDER_ATOMIC);  
+  // Generate Python code to create medicine with provided data
+  var code = 'obj.create_medicamento(' + value_nome + ', ' + value_quantidade + ', ' + value_pose + ')\n';
+  return code;
+};
+
+Blockly.Blocks['addMedicines'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Add medicine:");   
+    this.appendValueInput("nome")
+        .setCheck("String")
+        .setAlign(Blockly.ALIGN_RIGHT)
+        .appendField("Name");
+    this.appendValueInput("quantidade")
+        .setCheck("Number")
+        .setAlign(Blockly.ALIGN_RIGHT)
+        .appendField("Quantity");
+    this.setInputsInline(false);
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("");
+    this.setHelpUrl("");
+  }
+};
+
+Blockly.Python['addMedicines'] = function(block) {  
+  var value_nome = Blockly.Python.valueToCode(block, 'nome', Blockly.Python.ORDER_ATOMIC);
+  var value_quantidade = Blockly.Python.valueToCode(block, 'quantidade', Blockly.Python.ORDER_ATOMIC);
+  
+  var parentBlock = block.getParent();
+  var id_ticket = ''; // Inicializar o ID do ticket
+  while (parentBlock != null) {
+    if (parentBlock.type == 'createTickets') { // Verificar se o bloco pai é do tipo createTickets
+      id_ticket = parentBlock.id; // Capturar o ID do bloco
+      break; // Parar o loop se o bloco pai for encontrado
+    }
+    parentBlock = parentBlock.getParent(); // Obter o bloco pai do bloco pai atual
+  }  
+
+  // Se não encontrarmos um bloco do tipo 'createTickets', o ID do ticket permanece vazio
+
+  // Gerar o código Python
+  var code = 'obj.addMedicines("' + id_ticket + '", ' + value_nome + ', ' + value_quantidade + ')\n';
+  return code;
+};
+
+
 
 
 Blockly.Blocks.tigeciclina = {

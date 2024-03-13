@@ -1,6 +1,7 @@
 from abc import ABC
 from time import sleep
 import subprocess
+import mysql.connector
 
 from abstract_robot import AbstractRobot
 
@@ -106,8 +107,188 @@ class TestRobot(AbstractRobot, ABC):
         print(f'Calculating inverse kinematics from position: {pose_list[0]}, {pose_list[1]}, {pose_list[2]}, '
               f'{pose_list[3]}, {pose_list[4]}, {pose_list[5]}')
         sleep(0.001)
-        return [0, 0, 0, 0, 0, 0]
+        return [0, 0, 0, 0, 0, 0]       
 
+    def retrieve_tickets(self):
+        try:
+            conexao = mysql.connector.connect(
+                host="localhost",
+                user="root",
+                password="Softex2023",
+                database="farmacia"
+            )
+
+            cursor = conexao.cursor()
+
+            cursor.execute("SELECT * FROM medicamentos_tickets")
+            medicamentos_tickets = cursor.fetchall()
+
+            print("medicamentos_tickets", medicamentos_tickets)
+
+            return medicamentos_tickets
+         
+        except mysql.connector.Error as err:
+            print("Erro ao acessar o banco de dados:", err)
+
+        finally:
+            if 'conexao' in locals() and conexao.is_connected():
+                cursor.close()
+                conexao.close()
+
+    def retrieve_medicines(self, medicamentos_tickets):
+        medicines = []
+        try:
+            conexao = mysql.connector.connect(
+                host="localhost",
+                user="root",
+                password="Softex2023",
+                database="farmacia"
+            )
+
+            cursor = conexao.cursor()
+
+            for medicine in medicines:
+                cursor.execute("SELECT id_medicamento, quantidade FROM itens_ticket WHERE id_ticket = %s", (medicamentos_tickets['id_ticket'],))
+                itens = cursor.fetchall()
+                for item in itens:
+                    medicines.append({'id_medicamento': item[0], 'quantidade': item[1]})
+            print("Medicamenteos", medicines)
+
+            return medicines
+
+        except mysql.connector.Error as err:
+            print("Erro ao acessar o banco de dados:", err)
+
+        finally:
+            if 'conexao' in locals() and conexao.is_connected():
+                cursor.close()
+                conexao.close()
+
+    def create_ticket(self, paciente, setor_nome):
+        try:
+            conexao = mysql.connector.connect(
+                host="localhost",
+                user="root",
+                password="Softex2023",
+                database="farmacia"
+            )
+
+            cursor = conexao.cursor()
+
+            # Inserir os dados do ticket na tabela 'tickets'
+            cursor.execute("""
+                INSERT INTO tickets (paciente, setor_nome)
+                VALUES (%s, %s)
+            """, (paciente, setor_nome))
+
+            # Commit para salvar as alterações
+            conexao.commit()
+
+            print("Ticket criado com sucesso.")
+
+        except Exception as e:
+            print(f"Erro ao criar ticket: {e}")
+
+        finally:
+            # Fechar o cursor e a conexão
+            cursor.close()
+            conexao.close()   
+
+
+    def create_medicamento(self, nome, quantidade, pose):
+        try:
+            conexao = mysql.connector.connect(
+                host="localhost",
+                user="root",
+                password="Softex2023",
+                database="farmacia"
+            )
+
+            cursor = conexao.cursor()
+
+            cursor.execute("""
+                INSERT INTO medicamentos (nome, quantidade, pose)
+                VALUES (%s, %s, %s)
+            """, (nome, quantidade, pose))
+
+            # Commit para salvar as alterações
+            conexao.commit()
+
+            print("Medicamento criado com sucesso.")
+
+        except Exception as e:
+            print(f"Erro ao criar medicamento: {e}")
+        finally:
+            # Fechar cursor e conexão
+            cursor.close()
+            conexao.close()
+
+    def addMedicines(self, id_ticket, nome, quantidade):
+        try:
+            conexao = mysql.connector.connect(
+                host="localhost",
+                user="root",
+                password="Softex2023",
+                database="farmacia"
+            )
+
+            cursor = conexao.cursor()
+
+            # Buscar informações do medicamento
+            cursor.execute("""
+                SELECT id, pose, quantidade FROM medicamentos WHERE nome = %s
+            """, (nome,))
+            medicamento_info = cursor.fetchone()  # Recupera a primeira linha do resultado
+
+            # Verificar se o medicamento foi encontrado
+            if medicamento_info:
+                id_medicamento = medicamento_info[0]
+                pose = medicamento_info[1]
+                estoque_atual = medicamento_info[2]
+
+                if estoque_atual < quantidade:
+                    raise ValueError("Quantidade insuficiente em estoque.")
+
+                # Subtrair a quantidade do estoque
+                novo_estoque = estoque_atual - quantidade
+                cursor.execute("""
+                    UPDATE medicamentos SET quantidade = %s WHERE id = %s
+                """, (novo_estoque, id_medicamento))
+
+                # Buscar informações do ticket com base no ID fornecido
+                cursor.execute("""
+                    SELECT paciente, setor_nome, status_processo FROM tickets WHERE id = %s
+                """, (id_ticket,))
+                ticket_info = cursor.fetchone()
+
+                # Verificar se o ticket foi encontrado
+                if ticket_info:
+                    paciente = ticket_info[0]
+                    setor_nome = ticket_info[1]
+                    status_processo = ticket_info[2]
+
+                    # Inserir a associação entre o ticket e o medicamento na tabela 'medicamentos_tickets'
+                    cursor.execute("""
+                        INSERT INTO medicamentos_tickets (id_ticket, paciente, setor_nome, id_medicamento, nome, quantidade, pose, status_processo)
+                        VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
+                    """, (id_ticket, paciente, setor_nome, id_medicamento, nome, quantidade, pose, status_processo))
+
+                    # Commit para salvar as alterações
+                    conexao.commit()
+
+                    print("Medicamento adicionado ao ticket com sucesso.")
+                else:
+                    print("Ticket não encontrado.")
+            else:
+                print("Medicamento não encontrado.")
+
+        except Exception as e:
+            print(f"Erro ao adicionar medicamento ao ticket: {e}")
+        finally:
+            # Fechar cursor e conexão
+            cursor.close()
+            conexao.close()
 
 if __name__ == "__main__":
     robot = TestRobot()
+    

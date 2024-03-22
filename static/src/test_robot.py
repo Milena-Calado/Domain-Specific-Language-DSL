@@ -124,7 +124,39 @@ class TestRobot(AbstractRobot, ABC):
 
         messagebox.showinfo("Attention", "The operation is over.")
 
-    def retrieve_tickets(self):
+    def read_tickets(block):
+        path_file = block.value_to_code("PATH_FILE", block.NO_CATEGORY)
+        save_var_name = block.field_variable("SAVE_VAR_NAME")
+        code = f"{save_var_name} = open({path_file}).read()"
+        return code
+
+        blockly.Blocks["read_tickets"] = {
+            "init": lambda: None,
+            "jsonInit": {
+                "message0": "read tickets of %1 save data to %2",
+                "args0": [
+                    {
+                        "type": "input_value",
+                        "name": "PATH_FILE",
+                        "check": "String",
+                    },
+                    {
+                        "type": "field_variable",
+                        "name": "SAVE_VAR_NAME",
+                        "variable": "tickets",
+                    },
+                ],
+                "inputsInline": True,
+                "previousStatement": None,
+                "nextStatement": None,
+                "tooltip": "Read tickets from a Python file and save the data to a variable.",
+                "helpUrl": "",
+                "colour": blockly.Colours["python"].primary,
+            },
+            "pythonGenerator": read_tickets,
+        }
+
+    def read_tickets(self):
         try:
             conexao = mysql.connector.connect(
                 host="localhost",
@@ -150,7 +182,7 @@ class TestRobot(AbstractRobot, ABC):
                 cursor.close()
                 conexao.close()
 
-    def retrieve_medicines(self, medicamentos_tickets):
+    def read_medicines(self, medicamentos_tickets):
         medicines = []
         try:
             conexao = mysql.connector.connect(

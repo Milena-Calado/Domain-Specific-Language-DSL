@@ -123,16 +123,16 @@ Blockly.Python['moveJoints'] = function(block) {
   
   Blockly.Blocks.moveCartesian = {
     init: function () {
-        this.setPreviousStatement(true, null);
-        this.setNextStatement(true, null);
-        this.setColour(65);
-        this.appendDummyInput()
-            .appendField("move to cartesian");
-        this.appendValueInput("pose_list")
-            .setCheck("Array")
-            .appendField("Poses [x, y, z, roll, pitch, yaw]:");
-        this.setTooltip("Configure the robot movement with Cartesian coordinates.");
-        this.setHelpUrl("");
+      this.setPreviousStatement(true, null);
+      this.setNextStatement(true, null);
+      this.setColour(65);
+      this.appendDummyInput()
+          .appendField("move to cartesian");
+      this.appendValueInput("pose_list")
+          .setCheck("Array")
+          .appendField("Poses [x, y, z, roll, pitch, yaw]:");
+      this.setTooltip("Configure the robot movement with Cartesian coordinates.");
+      this.setHelpUrl("");
     }
 };
 
@@ -146,18 +146,18 @@ Blockly.Python['moveCartesian'] = function(block) {
 
 Blockly.Blocks.movePose = {
   init: function () {
-      this.setPreviousStatement(true, null);
-      this.setNextStatement(true, null);
-      this.setColour(230);
-      this.appendDummyInput()
-          .appendField("move pose to")
-          .appendField(new Blockly.FieldVariable("item"), "VAR_NAME")
-      // this.appendValueInput("pose_list")
-      //     .setCheck("Array")
-      //     .appendField("Poses [x, y, z, roll, pitch, yaw]:");
-      this.setTooltip("Configure the robot movement with Cartesian coordinates.");
-      this.setColour(65);
-      this.setHelpUrl("");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.appendDummyInput()
+        .appendField("move pose to")
+        .appendField(new Blockly.FieldVariable("pose"), "VAR_NAME")
+    // this.appendValueInput("pose_list")
+    //     .setCheck("Array")
+    //     .appendField("Poses [x, y, z, roll, pitch, yaw]:");
+    this.setTooltip("Configure the robot movement with Cartesian coordinates.");
+    this.setColour(65);
+    this.setHelpUrl("");
   }
 };
 
@@ -197,8 +197,8 @@ Blockly.Blocks.close_tool = {
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
     this.setColour(120);
-  this.setTooltip("This function closes the gripper and tries to detect an object.");
-  this.setHelpUrl("");
+    this.setTooltip("This function closes the gripper and tries to detect an object.");
+    this.setHelpUrl("");
   }
 };
 
@@ -210,14 +210,14 @@ Blockly.Python['close_tool'] = function(block) {
 };
 
 
-Blockly.Blocks.retrieve_tickets = {
+Blockly.Blocks.read_tickets = {
   init: function() {
     this.appendValueInput("PATH_FILE")
         .setCheck("String")
-        .appendField("read tickets of")
+        .appendField("read tickets of")        
     this.appendDummyInput()
         .appendField("save data to")
-        .appendField(new Blockly.FieldVariable("variable"), "SAVE_VAR_NAME");
+        .appendField(new Blockly.FieldVariable("tickets"), "SAVE_VAR_NAME");
     this.setInputsInline(true);    
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);    
@@ -226,22 +226,19 @@ Blockly.Blocks.retrieve_tickets = {
   }
 };
 
-
-
-// Bloco 'retrieve_tickets'
-Blockly.Python['retrieve_tickets'] = function(block) {  
-  var code = 'obj.retrieve_tickets()\n';
+ // Bloco 'read_tickets'
+ Blockly.Python['read_tickets'] = function(block) {  
+  var code = 'obj.read_tickets()\n';
   return code;
 };
 
-
-Blockly.Blocks.retrieve_medicines = {
+Blockly.Blocks.read_medicines = {
   init: function() {
     this.appendDummyInput()         
-        .appendField("retrieve medicines of")
-        .appendField(new Blockly.FieldVariable("item"), "VAR_NAME")
-        .appendField("to")
-        .appendField(new Blockly.FieldVariable("save_data"), "SAVE_VAR_NAME"); // Adiciona o campo para a variável de salvamento
+        .appendField("read medicines of")
+        .appendField(new Blockly.FieldVariable("tickets"), "VAR_NAME")
+        .appendField("save data to")
+        .appendField(new Blockly.FieldVariable("medicines"), "SAVE_VAR_NAME"); // Adiciona o campo para a variável de salvamento
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);      
     this.setTooltip("");
@@ -249,58 +246,57 @@ Blockly.Blocks.retrieve_medicines = {
   }
 };
   
-// Bloco 'retrieve_medicines'
-Blockly.Python['retrieve_medicines'] = function(block) {
+// Bloco 'read_medicines'
+Blockly.Python['read_medicines'] = function(block) {
   var varName = Blockly.Python.variableDB_.getName(block.getFieldValue('VAR_NAME'), Blockly.Variables.NAME_TYPE);
   var saveVarName = Blockly.Python.variableDB_.getName(block.getFieldValue('SAVE_VAR_NAME'), Blockly.Variables.NAME_TYPE);
   // Gere o código para recuperar os medicamentos e salvá-los
-  var code = 'obj.retrieve_medicines(' + varName + ', ' + saveVarName + ')'; // Coloque o código de geração aqui
+  var code = 'obj.read_medicines(' + varName + ', ' + saveVarName + ')'; // Coloque o código de geração aqui
   return code;
 };
 
-Blockly.Blocks.retrieve_pose = {
+
+Blockly.Blocks.read_pose = {
   init: function() {
     this.appendDummyInput()
-        .appendField("retrieve pose of")
-        .appendField(new Blockly.FieldVariable("item"), "VAR_NAME")
-        .appendField("to")
-        .appendField(new Blockly.FieldVariable("save_data"), "SAVE_VAR_NAME"); 
+        .appendField("read pose of")
+        .appendField(new Blockly.FieldVariable("medicine"), "VAR_NAME")
+        .appendField("save data to")
+        .appendField(new Blockly.FieldVariable("pose"), "SAVE_VAR_NAME"); 
     this.setPreviousStatement(true, null);
-    this.setNextStatement(true, null);     
+    this.setNextStatement(true, null);      
     this.setTooltip("");
     this.setHelpUrl("");
   }
 };
 
-//bloco 'retrieve_pose'
-Blockly.Python['retrieve_pose'] = function(block) {
+//bloco 'read_pose'
+Blockly.Python['read_pose'] = function(block) {
   var variable_var_name = Blockly.Python.variableDB_.getName(block.getFieldValue('VAR_NAME'), Blockly.Variables.NAME_TYPE);
   var saveVarName = Blockly.Python.variableDB_.getName(block.getFieldValue('SAVE_VAR_NAME'), Blockly.Variables.NAME_TYPE);
-  var code = 'obj.retrieve_pose(' + variable_var_name + ',  '+ saveVarName + ')\n';
+  var code = 'obj.read_pose(' + variable_var_name + ', ' + saveVarName + ')\n';
   return code;
 };
 
-
-
-Blockly.Blocks.retrieve_quantity = {
+Blockly.Blocks.read_quantity = {
   init: function() {
     this.appendDummyInput()            
-        .appendField("retrieve quantity of")
-        .appendField(new Blockly.FieldVariable("item"), "VAR_NAME")
-        .appendField("to")
-        .appendField(new Blockly.FieldVariable("save_data"), "SAVE_VAR_NAME"); 
+        .appendField("read quantity of")
+        .appendField(new Blockly.FieldVariable("medicine"), "VAR_NAME")
+        .appendField("save data to")
+        .appendField(new Blockly.FieldVariable("quantity"), "SAVE_VAR_NAME"); 
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);      
-  this.setTooltip("");
-  this.setHelpUrl("");
+    this.setTooltip("");
+    this.setHelpUrl("");
   }
 };
 
-// Bloco 'retrieve_quantity'
-Blockly.Python['retrieve_quantity'] = function(block) {  
+// Bloco 'read_quantity'
+Blockly.Python['read_quantity'] = function(block) {  
   var variable_var_name = Blockly.Python.variableDB_.getName(block.getFieldValue('VAR_NAME'), Blockly.Variables.NAME_TYPE);
   var saveVarName = Blockly.Python.variableDB_.getName(block.getFieldValue('SAVE_VAR_NAME'), Blockly.Variables.NAME_TYPE);
-  var code = 'obj.retrieve_quantity(' + variable_var_name + ', ' + saveVarName + ')\n';
+  var code = 'obj.read_quantity(' + variable_var_name + ', ' + saveVarName + ')\n';
   return code;
 };
 
@@ -310,8 +306,8 @@ Blockly.Blocks.wait_dispensed = {
         .appendField("wait for the dispensed signal");
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);      
-  this.setTooltip("");
-  this.setHelpUrl("");
+    this.setTooltip("");
+    this.setHelpUrl("");
   }
 };
 
@@ -341,29 +337,29 @@ Blockly.Python['createDatabase'] = function(block) {
 };
 
 
-  Blockly.Blocks.mysqlConnection = {
-    init: function() {
-      this.appendDummyInput()
-          .appendField("connect to MySQL database");
-      this.appendValueInput("host")
-          .setCheck("String")
-          .appendField("Host:");
-      this.appendValueInput("user")
-          .setCheck("String")
-          .appendField("Usuário:");
-      this.appendValueInput("password")
-          .setCheck("String")
-          .appendField("Senha:");
-      this.appendValueInput("database")
-          .setCheck("String")
-          .appendField("Banco de Dados:");
-      this.setPreviousStatement(true, null);
-      this.setNextStatement(true, null);
-      this.setColour(230);
-      this.setTooltip("Connects to the MySQL database.");
-      this.setHelpUrl("");
-    }
-  };
+Blockly.Blocks.mysqlConnection = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("connect to MySQL database");
+    this.appendValueInput("host")
+        .setCheck("String")
+        .appendField("Host:");
+    this.appendValueInput("user")
+        .setCheck("String")
+        .appendField("Usuário:");
+    this.appendValueInput("password")
+        .setCheck("String")
+        .appendField("Senha:");
+    this.appendValueInput("database")
+        .setCheck("String")
+        .appendField("Banco de Dados:");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Connects to the MySQL database.");
+    this.setHelpUrl("");
+  }
+};
 
   // Bloco 'mysqlConnection'
 Blockly.Python['mysqlConnection'] = function(block) {
@@ -488,13 +484,13 @@ Blockly.Python['addMedicines'] = function(block) {
 
 Blockly.Blocks.tigeciclina = {
   init: function () {
-      this.setPreviousStatement(true, null);
-      this.setNextStatement(true, null);
-      this.setColour(150);
-      this.appendDummyInput()
-          .appendField("Medicine - Tigeciclina");
-      this.setTooltip("Configure the robot movement with Cartesian coordinates.");
-      this.setHelpUrl("");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(150);
+    this.appendDummyInput()
+        .appendField("Medicine - Tigeciclina");
+    this.setTooltip("Configure the robot movement with Cartesian coordinates.");
+    this.setHelpUrl("");
   }
 };
 
@@ -505,14 +501,14 @@ Blockly.Python['tigeciclina'] = function(block) {
 };
 
 Blockly.Blocks.fentanila = {
-init: function () {
-  this.setPreviousStatement(true, null);
-  this.setNextStatement(true, null);
-  this.setColour(150);
-  this.appendDummyInput()
-      .appendField("Medicamento - Fentanila");
-  this.setTooltip("Configure the robot movement with Cartesian coordinates.");
-  this.setHelpUrl("");
+  init: function () {
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(150);
+    this.appendDummyInput()
+        .appendField("Medicamento - Fentanila");
+    this.setTooltip("Configure the robot movement with Cartesian coordinates.");
+    this.setHelpUrl("");
 }
 };
 
@@ -550,7 +546,7 @@ Blockly.Blocks.safety = {
     this.setColour(65);
     this.appendDummyInput()
         .appendField("safety pose");
-        this.appendValueInput("joints_list")
+    this.appendValueInput("joints_list")
         .setCheck("Array")
         .appendField("Joints:");      
     this.setTooltip("Configure robot movement with joint values.");

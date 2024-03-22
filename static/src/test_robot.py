@@ -20,7 +20,7 @@ class TestRobot(AbstractRobot, ABC):
     def __init__(self):
         super().__init__()
         self.count = 0
-        
+
     def execute_python_script(self, file_path):
         try:
             subprocess.run(["python", file_path], check=True)
@@ -30,18 +30,17 @@ class TestRobot(AbstractRobot, ABC):
         except subprocess.CalledProcessError as e:
             print(f"An error occurred while executing the script: {str(e)}")
 
-       
     def connect(self, connection_ip: str = "192.168.2.10"):
         print("using Test Robot")
-        print(f'Connecting to robot with IP: {connection_ip}')
+        print(f"Connecting to robot with IP: {connection_ip}")
         sleep(0.001)
 
     def disconnect(self):
-        print('Disconnecting from robot...')
+        print("Disconnecting from robot...")
         sleep(0.001)
 
     def check_error(self):
-        print('Checking error...')
+        print("Checking error...")
         sleep(0.001)
         if self.count >= 5:
             return False
@@ -50,72 +49,80 @@ class TestRobot(AbstractRobot, ABC):
             return True
 
     def clear_faults(self):
-        print('Clearing faults...')
+        print("Clearing faults...")
         sleep(0.001)
 
     def move_to_home(self):
-        print('Moving to home...')
+        print("Moving to home...")
         sleep(0.001)
 
     def move_joints(self, joints_list):
-        print(f'Moving joints from position: {joints_list[0]}, {joints_list[1]}, {joints_list[2]}, '
-              f'{joints_list[3]}, {joints_list[4]}, {joints_list[5]}')
+        print(
+            f"Moving joints from position: {joints_list[0]}, {joints_list[1]}, {joints_list[2]}, "
+            f"{joints_list[3]}, {joints_list[4]}, {joints_list[5]}"
+        )
         sleep(0.001)
         return True
 
     def move_cartesiann(self, pose_list):
-        print(f'Moving cartesian pose from position: {pose_list[0]}, {pose_list[1]}, {pose_list[2]}, {pose_list[3]}, '
-              f'{pose_list[4]}, {pose_list[5]}')
+        print(
+            f"Moving cartesian pose from position: {pose_list[0]}, {pose_list[1]}, {pose_list[2]}, {pose_list[3]}, "
+            f"{pose_list[4]}, {pose_list[5]}"
+        )
         sleep(0.001)
         return True
 
     def move_cartesian(self, pose_list):
-        print(f'Moving cartesian pose from position: {pose_list[0]}, {pose_list[1]}, {pose_list[2]}, {pose_list[3]}, '
-              f'{pose_list[4]}, {pose_list[5]}')
+        print(
+            f"Moving cartesian pose from position: {pose_list[0]}, {pose_list[1]}, {pose_list[2]}, {pose_list[3]}, "
+            f"{pose_list[4]}, {pose_list[5]}"
+        )
         sleep(0.001)
         return True
 
     def close_tool(self):
-        print(f'Closing tool')
+        print(f"Closing tool")
         sleep(0.001)
         return True
 
     def open_tool(self, value):
-        print(f'Opening tool with value: {value}')
+        print(f"Opening tool with value: {value}")
         sleep(0.001)
 
     def get_joint_angles(self):
-        print('Getting joint angles...')
+        print("Getting joint angles...")
         sleep(0.001)
         return [0, 0, 0, 0, 0, 0]
 
     def get_joint_angles_vision(self):
-        print('Getting joint angles from vision...')
+        print("Getting joint angles from vision...")
         joint_angles = {}
         for joint_angle in range(1, 7):
             joint_angles[f"theta_{joint_angle}"] = 0
         return joint_angles
 
     def get_cartesian(self):
-        print('Getting cartesian pose...')
+        print("Getting cartesian pose...")
         sleep(0.001)
         return [0, 0, 0, 0, 0, 0]
 
     def apply_emergency_stop(self):
-        print('Applying emergency stop...')
+        print("Applying emergency stop...")
         sleep(0.001)
 
     def inverse_kinematics(self, pose_list):
-        print(f'Calculating inverse kinematics from position: {pose_list[0]}, {pose_list[1]}, {pose_list[2]}, '
-              f'{pose_list[3]}, {pose_list[4]}, {pose_list[5]}')
+        print(
+            f"Calculating inverse kinematics from position: {pose_list[0]}, {pose_list[1]}, {pose_list[2]}, "
+            f"{pose_list[3]}, {pose_list[4]}, {pose_list[5]}"
+        )
         sleep(0.001)
-        return [0, 0, 0, 0, 0, 0]  
+        return [0, 0, 0, 0, 0, 0]
 
     def alerta_operacao_terminou(self):
         root = tk.Tk()
-        root.withdraw()  
+        root.withdraw()
 
-        messagebox.showinfo("Atenção", "A operação terminou.")    
+        messagebox.showinfo("Attention", "The operation is over.")
 
     def retrieve_tickets(self):
         try:
@@ -123,7 +130,7 @@ class TestRobot(AbstractRobot, ABC):
                 host="localhost",
                 user="root",
                 password="Softex2023",
-                database="farmacia"
+                database="farmacia",
             )
 
             cursor = conexao.cursor()
@@ -134,12 +141,12 @@ class TestRobot(AbstractRobot, ABC):
             print("medicamentos_tickets", medicamentos_tickets)
 
             return medicamentos_tickets
-         
+
         except mysql.connector.Error as err:
             print("Erro ao acessar o banco de dados:", err)
 
         finally:
-            if 'conexao' in locals() and conexao.is_connected():
+            if "conexao" in locals() and conexao.is_connected():
                 cursor.close()
                 conexao.close()
 
@@ -150,16 +157,19 @@ class TestRobot(AbstractRobot, ABC):
                 host="localhost",
                 user="root",
                 password="Softex2023",
-                database="farmacia"
+                database="farmacia",
             )
 
             cursor = conexao.cursor()
 
             for medicine in medicines:
-                cursor.execute("SELECT id_medicamento, quantidade FROM itens_ticket WHERE id_ticket = %s", (medicamentos_tickets['id_ticket'],))
+                cursor.execute(
+                    "SELECT id_medicamento, quantidade FROM itens_ticket WHERE id_ticket = %s",
+                    (medicamentos_tickets["id_ticket"],),
+                )
                 itens = cursor.fetchall()
                 for item in itens:
-                    medicines.append({'id_medicamento': item[0], 'quantidade': item[1]})
+                    medicines.append({"id_medicamento": item[0], "quantidade": item[1]})
             print("Medicamenteos", medicines)
 
             return medicines
@@ -168,7 +178,7 @@ class TestRobot(AbstractRobot, ABC):
             print("Erro ao acessar o banco de dados:", err)
 
         finally:
-            if 'conexao' in locals() and conexao.is_connected():
+            if "conexao" in locals() and conexao.is_connected():
                 cursor.close()
                 conexao.close()
 
@@ -178,30 +188,39 @@ class TestRobot(AbstractRobot, ABC):
                 host="localhost",
                 user="root",
                 password="Softex2023",
-                database="farmacia"
+                database="farmacia",
             )
 
             cursor = conexao.cursor()
 
             # Inserir os dados do ticket na tabela 'tickets'
-            cursor.execute("""
+            cursor.execute(
+                """
                 INSERT INTO tickets (paciente, setor_nome)
                 VALUES (%s, %s)
-            """, (paciente, setor_nome))
+            """,
+                (paciente, setor_nome),
+            )
+
+            # Capturar o ID do último ticket inserido
+            ticket_id = cursor.lastrowid
 
             # Commit para salvar as alterações
             conexao.commit()
 
             print("Ticket criado com sucesso.")
 
+            # Retornar o ID do ticket
+            return ticket_id
+
         except Exception as e:
             print(f"Erro ao criar ticket: {e}")
+            return None
 
         finally:
             # Fechar o cursor e a conexão
             cursor.close()
-            conexao.close()   
-
+            conexao.close()
 
     def create_medicamento(self, nome, quantidade, pose):
         try:
@@ -209,15 +228,18 @@ class TestRobot(AbstractRobot, ABC):
                 host="localhost",
                 user="root",
                 password="Softex2023",
-                database="farmacia"
+                database="farmacia",
             )
 
             cursor = conexao.cursor()
 
-            cursor.execute("""
+            cursor.execute(
+                """
                 INSERT INTO medicamentos (nome, quantidade, pose)
                 VALUES (%s, %s, %s)
-            """, (nome, quantidade, pose))
+            """,
+                (nome, quantidade, pose),
+            )
 
             # Commit para salvar as alterações
             conexao.commit()
@@ -237,16 +259,21 @@ class TestRobot(AbstractRobot, ABC):
                 host="localhost",
                 user="root",
                 password="Softex2023",
-                database="farmacia"
+                database="farmacia",
             )
 
             cursor = conexao.cursor()
 
             # Buscar informações do medicamento
-            cursor.execute("""
+            cursor.execute(
+                """
                 SELECT id, pose, quantidade FROM medicamentos WHERE nome = %s
-            """, (nome,))
-            medicamento_info = cursor.fetchone()  # Recupera a primeira linha do resultado
+            """,
+                (nome,),
+            )
+            medicamento_info = (
+                cursor.fetchone()
+            )  # Recupera a primeira linha do resultado
 
             # Verificar se o medicamento foi encontrado
             if medicamento_info:
@@ -259,14 +286,20 @@ class TestRobot(AbstractRobot, ABC):
 
                 # Subtrair a quantidade do estoque
                 novo_estoque = estoque_atual - quantidade
-                cursor.execute("""
+                cursor.execute(
+                    """
                     UPDATE medicamentos SET quantidade = %s WHERE id = %s
-                """, (novo_estoque, id_medicamento))
+                """,
+                    (novo_estoque, id_medicamento),
+                )
 
                 # Buscar informações do ticket com base no ID fornecido
-                cursor.execute("""
+                cursor.execute(
+                    """
                     SELECT paciente, setor_nome, status_processo FROM tickets WHERE id = %s
-                """, (id_ticket,))
+                """,
+                    (id_ticket,),
+                )
                 ticket_info = cursor.fetchone()
 
                 # Verificar se o ticket foi encontrado
@@ -276,10 +309,22 @@ class TestRobot(AbstractRobot, ABC):
                     status_processo = ticket_info[2]
 
                     # Inserir a associação entre o ticket e o medicamento na tabela 'medicamentos_tickets'
-                    cursor.execute("""
+                    cursor.execute(
+                        """
                         INSERT INTO medicamentos_tickets (id_ticket, paciente, setor_nome, id_medicamento, nome, quantidade, pose, status_processo)
                         VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
-                    """, (id_ticket, paciente, setor_nome, id_medicamento, nome, quantidade, pose, status_processo))
+                    """,
+                        (
+                            id_ticket,
+                            paciente,
+                            setor_nome,
+                            id_medicamento,
+                            nome,
+                            quantidade,
+                            pose,
+                            status_processo,
+                        ),
+                    )
 
                     # Commit para salvar as alterações
                     conexao.commit()
@@ -297,6 +342,6 @@ class TestRobot(AbstractRobot, ABC):
             cursor.close()
             conexao.close()
 
+
 if __name__ == "__main__":
     robot = TestRobot()
-    

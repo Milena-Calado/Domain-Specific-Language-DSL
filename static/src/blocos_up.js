@@ -1,7 +1,7 @@
 Blockly.Blocks['execute_python_script'] = {
   init: function() {
     this.appendDummyInput()
-        .appendField("Create database");
+        .appendField("create database");
     this.appendValueInput("PATH FILE")
         .setCheck("String")  
     this.setInputsInline(true);    
@@ -16,7 +16,7 @@ Blockly.Blocks['execute_python_script'] = {
 Blockly.Blocks['connectToDatabase'] = {
   init: function() {
     this.appendDummyInput()
-        .appendField("Connect database");
+        .appendField("connect database");
     this.appendValueInput("PATH FILE")
         .setCheck("String")  
     this.setInputsInline(true);    
@@ -30,7 +30,7 @@ Blockly.Blocks['connectToDatabase'] = {
 Blockly.Blocks.connectToRobot = {
   init: function() {
     this.appendDummyInput()
-        .appendField("Connect to robot")
+        .appendField("connect to robot")
         .appendField("IP:")
         .appendField(new Blockly.FieldTextInput("'192.168.2.10'"), "connection_ip");
     this.setPreviousStatement(true, null);
@@ -43,7 +43,7 @@ Blockly.Blocks.connectToRobot = {
 Blockly.Blocks.disconnectFromRobot = {
   init: function() {
     this.appendDummyInput()
-        .appendField("Disconnect the robot");
+        .appendField("disconnect the robot");
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);    
     this.setTooltip("Terminate the connection with the robot.");
@@ -54,7 +54,7 @@ Blockly.Blocks.disconnectFromRobot = {
 Blockly.Blocks['move_to_home'] = {
   init: function() {
     this.appendDummyInput()
-        .appendField("Move to home");
+        .appendField("move to home");
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
     this.setColour(65);
@@ -68,7 +68,7 @@ Blockly.Blocks.moveJoints = {
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
     this.appendDummyInput()
-        .appendField("Move joints");
+        .appendField("move joints");
     this.appendValueInput("joints_list")
         .setCheck("Array")
         .appendField("Joints:");      
@@ -84,7 +84,7 @@ Blockly.Blocks.moveCartesian = {
       this.setNextStatement(true, null);
       this.setColour(230);
       this.appendDummyInput()
-          .appendField("Move to cartesian");
+          .appendField("move to cartesian");
       this.appendValueInput("pose_list")
           .setCheck("Array")
           .appendField("Poses [x, y, z, roll, pitch, yaw]:");
@@ -100,10 +100,11 @@ Blockly.Blocks.movePose = {
       this.setNextStatement(true, null);
       this.setColour(230);
       this.appendDummyInput()
-          .appendField("Move to Pose");
-      this.appendValueInput("pose_list")
-          .setCheck("Array")
-          .appendField("Poses [x, y, z, roll, pitch, yaw]:");
+          .appendField("move pose to")
+          .appendField(new Blockly.FieldVariable("item"), "VAR_NAME")
+      // this.appendValueInput("pose_list")
+      //     .setCheck("Array")
+      //     .appendField("Poses [x, y, z, roll, pitch, yaw]:");
       this.setTooltip("Configure the robot movement with Cartesian coordinates.");
       this.setColour(65);
       this.setHelpUrl("");
@@ -114,7 +115,7 @@ Blockly.Blocks.movePose = {
 Blockly.Blocks.open_tool = {
   init: function() {
     this.appendDummyInput()
-        .appendField("Open tool");                        
+        .appendField("open tool");                        
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
     this.setColour(120);
@@ -127,7 +128,7 @@ Blockly.Blocks.open_tool = {
 Blockly.Blocks.close_tool = {
   init: function() {
     this.appendDummyInput()
-        .appendField("Close tool");
+        .appendField("close tool");
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
     this.setColour(120);
@@ -135,44 +136,61 @@ Blockly.Blocks.close_tool = {
  this.setHelpUrl("");
   }
 };
-  
+
 Blockly.Blocks.retrieve_tickets = {
   init: function() {
+    this.appendValueInput("PATH_FILE")
+        .setCheck("String")
+        .appendField("read tickets of")        
     this.appendDummyInput()
-        .appendField("Retrieve tickets");
+        .appendField("save data to")
+        .appendField(new Blockly.FieldVariable("variable"), "SAVE_VAR_NAME");
+    this.setInputsInline(true);    
     this.setPreviousStatement(true, null);
-    this.setNextStatement(true, null);
+    this.setNextStatement(true, null);    
+    this.setTooltip("Read tickets from a Python file and save the data to a variable.");
+    this.setHelpUrl("");
+  }
+};
+
+
+
+Blockly.Blocks.retrieve_medicines = {
+  init: function() {
+    this.appendDummyInput()         
+        .appendField("retrieve medicines of")
+        .appendField(new Blockly.FieldVariable("item"), "VAR_NAME")
+        .appendField("to")
+        .appendField(new Blockly.FieldVariable("save_data"), "SAVE_VAR_NAME"); // Adiciona o campo para a variável de salvamento
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);      
     this.setTooltip("");
     this.setHelpUrl("");
   }
 };
 
-Blockly.Blocks.retrieve_medicines = {
+Blockly.Blocks.retrieve_pose = {
   init: function() {
-    this.appendDummyInput()         
-        .appendField("Retrieve Medicines");
+    this.appendDummyInput()
+        .appendField("retrieve pose of")
+        .appendField(new Blockly.FieldVariable("item"), "VAR_NAME")
+        .appendField("to")
+        .appendField(new Blockly.FieldVariable("save_data"), "SAVE_VAR_NAME"); 
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);      
-  this.setTooltip("");
-  this.setHelpUrl("");
+    this.setTooltip("");
+    this.setHelpUrl("");
   }
 };
 
-Blockly.Blocks.retrieve_pose = {
-  init: function() {
-    this.appendDummyInput()            
-        .appendField("Retrieve Pose");
-    this.setPreviousStatement(true, null);
-    this.setNextStatement(true, null);      
-  this.setTooltip("");
-  this.setHelpUrl("");
-  }
-};
 
 Blockly.Blocks.retrieve_quantity = {
   init: function() {
     this.appendDummyInput()            
-        .appendField("Retrieve Quantity");
+        .appendField("retrieve quantity of")
+        .appendField(new Blockly.FieldVariable("item"), "VAR_NAME")
+        .appendField("to")
+        .appendField(new Blockly.FieldVariable("save_data"), "SAVE_VAR_NAME"); 
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);      
   this.setTooltip("");
@@ -183,7 +201,7 @@ Blockly.Blocks.retrieve_quantity = {
 Blockly.Blocks.wait_dispensed = {
   init: function() {
     this.appendDummyInput()            
-        .appendField("Wait for the dispensed signal");
+        .appendField("wait for the dispensed signal");
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);      
   this.setTooltip("");
@@ -195,7 +213,7 @@ Blockly.Blocks.wait_dispensed = {
 Blockly.Blocks.createDatabase = {
   init: function() {
     this.appendDummyInput()
-        .appendField("Create Database");  
+        .appendField("create Database");  
     this.setNextStatement(true, null);
     this.setColour(230);
     this.setTooltip("Creates a database and tables in MySQL.");
@@ -206,7 +224,7 @@ Blockly.Blocks.createDatabase = {
 Blockly.Blocks.mysqlConnection = {
   init: function() {
     this.appendDummyInput()
-        .appendField("Connect to MySQL database");
+        .appendField("connect to MySQL database");
     this.appendValueInput("host")
         .setCheck("String")
         .appendField("Host:");
@@ -229,7 +247,7 @@ Blockly.Blocks.mysqlConnection = {
 Blockly.Blocks['createTickets'] = {
   init: function() {
     this.appendDummyInput()
-        .appendField("Create ticket");
+        .appendField("create ticket");
     this.appendValueInput("paciente")
         .setCheck("String")
         .setAlign(Blockly.ALIGN_RIGHT)
@@ -255,7 +273,7 @@ Blockly.Blocks['createTickets'] = {
 Blockly.Blocks['createMedicines'] = {
   init: function() {
     this.appendDummyInput()
-        .appendField("Create Medicine");    
+        .appendField("create medicine");    
     this.appendValueInput("nome")
         .setCheck("String")
         .setAlign(Blockly.ALIGN_RIGHT)
@@ -280,7 +298,7 @@ Blockly.Blocks['createMedicines'] = {
 Blockly.Blocks['addMedicines'] = {
   init: function() {
     this.appendDummyInput()
-        .appendField("Add medicine:");
+        .appendField("add medicine:");
     this.appendValueInput("nome")
         .setCheck("String")
         .setAlign(Blockly.ALIGN_RIGHT)
@@ -340,7 +358,7 @@ Blockly.Blocks.safety = {
     this.setNextStatement(true, null);
     this.setColour(65);
     this.appendDummyInput()
-        .appendField("Safety pose");
+        .appendField("safety pose");
         this.appendValueInput("joints_list")
         .setCheck("Array")
         .appendField("Joints:");      
@@ -353,7 +371,7 @@ Blockly.Blocks.safety = {
 Blockly.Blocks['move_to_end'] = {
   init: function() {
     this.appendDummyInput()
-        .appendField("Move to end of trajectory");
+        .appendField("move to safety pose trajectory");
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
     this.setColour(65);
@@ -480,17 +498,15 @@ Blockly.Python['addMedicines'] = function(block) {
   while (parentBlock != null) {
     if (parentBlock.type == 'createTickets') { // Verificar se o bloco pai é do tipo createTickets
       id_ticket = parentBlock.id; // Capturar o ID do bloco
+      console.log('ID do bloco pai:', id_ticket); // Adicione este console.log para verificar se o ID está sendo capturado corretamente
       break; // Parar o loop se o bloco pai for encontrado
     }
     parentBlock = parentBlock.getParent(); // Obter o bloco pai do bloco pai atual
   }  
-
-  // Se não encontrarmos um bloco do tipo 'createTickets', o ID do ticket permanece vazio
-
-  // Gerar o código Python
   var code = 'obj.addMedicines("' + id_ticket + '", ' + value_nome + ', ' + value_quantidade + ')\n';
   return code;
 };
+
 
  // Bloco 'retrieve_tickets'
 Blockly.Python['retrieve_tickets'] = function(block) {  
@@ -499,20 +515,29 @@ Blockly.Python['retrieve_tickets'] = function(block) {
 };
 
 // Bloco 'retrieve_medicines'
-Blockly.Python['retrieve_medicines'] = function(block) {  
-  var code = 'obj.retrieve_medicines()\n';
+Blockly.Python['retrieve_medicines'] = function(block) {
+  var varName = Blockly.Python.variableDB_.getName(block.getFieldValue('VAR_NAME'), Blockly.Variables.NAME_TYPE);
+  var saveVarName = Blockly.Python.variableDB_.getName(block.getFieldValue('SAVE_VAR_NAME'), Blockly.Variables.NAME_TYPE);
+  // Gere o código para recuperar os medicamentos e salvá-los
+  var code = 'obj.retrieve_medicines(' + varName + ', ' + saveVarName + ')'; // Coloque o código de geração aqui
   return code;
 };
 
-// Bloco 'retrieve_pose'
-Blockly.Python['retrieve_pose'] = function(block) {  
-  var code = 'obj.retrieve_pose()\n';
+
+//bloco 'retrieve_pose'
+Blockly.Python['retrieve_pose'] = function(block) {
+  var variable_var_name = Blockly.Python.variableDB_.getName(block.getFieldValue('VAR_NAME'), Blockly.Variables.NAME_TYPE);
+  var saveVarName = Blockly.Python.variableDB_.getName(block.getFieldValue('SAVE_VAR_NAME'), Blockly.Variables.NAME_TYPE);
+  var code = 'obj.retrieve_pose(' + variable_var_name + ', ' + saveVarName + ')\n';
   return code;
 };
+
 
 // Bloco 'retrieve_quantity'
 Blockly.Python['retrieve_quantity'] = function(block) {  
-  var code = 'obj.retrieve_quantity()\n';
+  var variable_var_name = Blockly.Python.variableDB_.getName(block.getFieldValue('VAR_NAME'), Blockly.Variables.NAME_TYPE);
+  var saveVarName = Blockly.Python.variableDB_.getName(block.getFieldValue('SAVE_VAR_NAME'), Blockly.Variables.NAME_TYPE);
+  var code = 'obj.retrieve_quantity(' + variable_var_name + ', ' + saveVarName + ')\n';
   return code;
 };
 

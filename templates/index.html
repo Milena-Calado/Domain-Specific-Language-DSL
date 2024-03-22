@@ -53,8 +53,8 @@
 <body>
   <nav class="black darken-2">
     <div class="nav-wrapper" style="width: 90%; margin: 0 auto;">
-          <a href="#!" class="brand-logo" style="margin-left: 5%; margin-top:0%">
-              <img alt="logo" src="static/img/KiDSL_logo.png" class="fixed-image" style="width: 120px;">
+          <a href="#!" class="brand-logo" style="margin-left: 5%; margin: top 50px;">
+              <img alt="logo" src="static/img/H-ArmDSL.png" class="fixed-image" style="width: 120px;">
               <!-- <img alt="logo" src="static/img/KiDLS__1_-removebg-preview.png" style="width: 100px; height: auto; margin-top: 10px;"> -->
           </a>
           <ul class="right hide-on-med-and-down">      
@@ -522,16 +522,25 @@
       
       <category name="Robotic" colour="500">
         <block type="connectToRobot"></block>
-        <block type="connectToDatabase">
+        <!-- <block type="connectToDatabase">
           <value name="PATH FILE">
             <block type="text">
               <field name="TEXT">Path file</field>
             </block>
           </value>
+        </block>         -->
+       
+        <block type="retrieve_tickets">
+          <value name="PATH_FILE">
+            <block type="text">
+              <field name="TEXT">Path file</field>
+            </block>
+          </value>
         </block>
-        <block type="retrieve_tickets"></block>
+     
+        
         <block type="retrieve_medicines"></block> 
-        <block type="retrieve_pose"></block>    
+        <block type="retrieve_pose"></block>  
         <block type="retrieve_quantity"></block>
         <block type="wait_dispensed"></block> 
         
@@ -542,8 +551,8 @@
       </category>     
       
       <category name="Movements" colour="65">  
-        <block type="movePose">
-          <value name="pose_list">
+        <block type="movePose"> </block> 
+          <!-- <value name="pose_list">
             <block type="lists_create_with" inline="true">
               <mutation items="6"></mutation>
               <value name="ADD0">
@@ -577,8 +586,8 @@
                 </block>
               </value>
             </block>
-          </value>
-        </block>            
+          </value> -->
+                  
         <block type="move_to_home"></block>
         <block type="move_to_end"></block>
         <block type="moveJoints">

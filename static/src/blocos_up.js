@@ -262,7 +262,7 @@ Blockly.Blocks['createTickets'] = {
     this.appendValueInput("paciente")
         .setCheck("String")
         .setAlign(Blockly.ALIGN_RIGHT)
-        .appendField("pacient:");
+        .appendField("patient:");
     this.appendValueInput("setorNome")
         .setCheck("String")
         .setAlign(Blockly.ALIGN_RIGHT)
@@ -521,12 +521,20 @@ Blockly.Python['addMedicines'] = function(block) {
   return code;
 };
 
+// Bloco 'read_tickets'
 
- // Bloco 'read_tickets'
-Blockly.Python['read_tickets'] = function(block) {  
-  var code = 'obj.read_tickets()\n';
+
+ Blockly.Python['read_tickets'] = function(block) {
+  var value_path_file = Blockly.Python.valueToCode(block, 'PATH_FILE', Blockly.Python.ORDER_ATOMIC);
+  var variable_save_var_name = Blockly.Python.variableDB_.getName(block.getFieldValue('SAVE_VAR_NAME'), Blockly.Variables.NAME_TYPE);  
+  var code = variable_save_var_name + " = []\n";
+  code += "with open(" + value_path_file + ", 'r') as f:\n";
+  code += Blockly.Python.INDENT + "for line in f:\n";
+  code += Blockly.Python.INDENT + Blockly.Python.INDENT + variable_save_var_name + ".append(line.strip())\n";
+  var code = 'obj.read_tickets(' + value_path_file + ', ' + variable_save_var_name + ')\n';
   return code;
 };
+
 
 // Bloco 'read_medicines'
 Blockly.Python['read_medicines'] = function(block) {

@@ -124,63 +124,21 @@ class TestRobot(AbstractRobot, ABC):
 
         messagebox.showinfo("Attention", "The operation is over.")
 
-    def read_tickets(block):
-        path_file = block.value_to_code("PATH_FILE", block.NO_CATEGORY)
-        save_var_name = block.field_variable("SAVE_VAR_NAME")
-        code = f"{save_var_name} = open({path_file}).read()"
-        return code
+    def read_tickets(path_file, save_var_name):
+        """
+        Reads tickets from a file and stores them in a list.
 
-        blockly.Blocks["read_tickets"] = {
-            "init": lambda: None,
-            "jsonInit": {
-                "message0": "read tickets of %1 save data to %2",
-                "args0": [
-                    {
-                        "type": "input_value",
-                        "name": "PATH_FILE",
-                        "check": "String",
-                    },
-                    {
-                        "type": "field_variable",
-                        "name": "SAVE_VAR_NAME",
-                        "variable": "tickets",
-                    },
-                ],
-                "inputsInline": True,
-                "previousStatement": None,
-                "nextStatement": None,
-                "tooltip": "Read tickets from a Python file and save the data to a variable.",
-                "helpUrl": "",
-                "colour": blockly.Colours["python"].primary,
-            },
-            "pythonGenerator": read_tickets,
-        }
+        Args:
+        - path_file (str): The path to the file containing the tickets.
+        - save_var_name (list): The variable name to store the tickets.
 
-    def read_tickets(self):
-        try:
-            conexao = mysql.connector.connect(
-                host="localhost",
-                user="root",
-                password="Softex2023",
-                database="farmacia",
-            )
-
-            cursor = conexao.cursor()
-
-            cursor.execute("SELECT * FROM medicamentos_tickets")
-            medicamentos_tickets = cursor.fetchall()
-
-            print("medicamentos_tickets", medicamentos_tickets)
-
-            return medicamentos_tickets
-
-        except mysql.connector.Error as err:
-            print("Erro ao acessar o banco de dados:", err)
-
-        finally:
-            if "conexao" in locals() and conexao.is_connected():
-                cursor.close()
-                conexao.close()
+        Returns:
+        - None
+        """
+        save_var_name = []  # Inicializa a lista vazia para armazenar os tickets
+        with open(path_file, "r") as f:
+            for line in f:
+                save_var_name.append(line.strip())
 
     def read_medicines(self, medicamentos_tickets):
         medicines = []

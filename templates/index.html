@@ -444,15 +444,20 @@
       <category name="Functions" colour="#995ba5" custom="PROCEDURE"></category>
       <sep></sep>
     
-      <category name="Tickets" colour="230">
+      <category name="Database" colour="130">
+      <block type="execute_python_script">
+        <value name="PATH FILE">
+          <block type="text">
+            <field name="TEXT">Path file</field>
+        </block>
+        </value>
+      </block>  
+    </category>     
+
+      <sep></sep>
+      <category name="Tickets" colour="50">
         <!-- <block type="createDatabase"> </block>         -->
-        <block type="execute_python_script">
-          <value name="PATH FILE">
-            <block type="text">
-              <field name="TEXT">Path file</field>
-          </block>
-          </value>
-      </block>       
+       
         <block type="createMedicines">
           <value name="nome">
             <block type="text" id="vW0@1$[;a5h+@Fg8Xq$[">
@@ -494,6 +499,17 @@
               </block>
           </value>
         </block>       
+        <block type="read_tickets">
+          <value name="PATH_FILE">
+            <block type="text">
+              <field name="TEXT">Path file</field>
+            </block>
+          </value>
+        </block>    
+        
+        <block type="read_medicines"></block> 
+        <block type="read_pose"></block>  
+        <block type="read_quantity"></block>
         <!-- <block type="mysqlConnection">
           <value name="host">
             <block type="text">
@@ -520,7 +536,7 @@
       </category>
       <sep></sep>
       
-      <category name="Robotic" colour="500">
+      <category name="Robot" colour="500">
         <block type="connectToRobot"></block>
         <!-- <block type="connectToDatabase">
           <value name="PATH FILE">
@@ -530,27 +546,16 @@
           </value>
         </block>         -->
        
-        <block type="read_tickets">
-          <value name="PATH_FILE">
-            <block type="text">
-              <field name="TEXT">Path file</field>
-            </block>
-          </value>
-        </block>
-     
         
-        <block type="read_medicines"></block> 
-        <block type="read_pose"></block>  
-        <block type="read_quantity"></block>
         <block type="wait_dispensed"></block> 
         
         <block type="disconnectFromRobot"></block>
       </category>
       
-                  
-      </category>     
-      
+      <sep></sep>       
       <category name="Movements" colour="65">  
+        <block type="open_tool"></block>
+        <block type="close_tool"></block>  
         <block type="movePose"> </block> 
           <!-- <value name="pose_list">
             <block type="lists_create_with" inline="true">
@@ -589,6 +594,7 @@
           </value> -->
                   
         <block type="move_to_home"></block>
+        <block type="move_to_drop"></block>
         <block type="move_to_end"></block>
         <block type="moveJoints">
           <value name="joints_list">

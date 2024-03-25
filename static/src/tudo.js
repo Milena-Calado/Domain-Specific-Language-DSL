@@ -92,9 +92,26 @@ Blockly.Python['disconnectFromRobot'] = function(block) {
     }
   };    
 
-
+  
 // Bloco 'move_to_home'
 Blockly.Python['move_to_home'] = function(block) {
+  var code = 'obj.move_joints([10.291,42.895,106.288,267.739,332.335,92.869])\nobj.move_joints([8.789, 340.573, 144.698, 269.934, 71.139, 90.942])\n';
+  return code;
+};
+
+Blockly.Blocks['move_to_drop'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("move to drop");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(65);
+    this.setTooltip("Move the robot to drop position.");
+  }
+};
+
+// Bloco 'move_to_drop'
+Blockly.Python['move_to_drop'] = function(block) {
   var code = 'obj.move_joints([10.291,42.895,106.288,267.739,332.335,92.869])\nobj.move_joints([8.789, 340.573, 144.698, 269.934, 71.139, 90.942])\n';
   return code;
 };
@@ -221,7 +238,7 @@ Blockly.Blocks.read_tickets = {
     this.setInputsInline(true);    
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);    
-    this.setTooltip("Read tickets from a Python file and save the data to a variable.");
+    this.setTooltip("Read tickets and save the data to a variable.");
     this.setHelpUrl("");
   }
 };
@@ -378,20 +395,20 @@ Blockly.Blocks['createTickets'] = {
     this.appendValueInput("paciente")
         .setCheck("String")
         .setAlign(Blockly.ALIGN_RIGHT)
-        .appendField("Pacient:");
+        .appendField("pacient:");
     this.appendValueInput("setorNome")
         .setCheck("String")
         .setAlign(Blockly.ALIGN_RIGHT)
-        .appendField("Sector Name:");
+        .appendField("sector name:");
     this.appendStatementInput("medicamentos")
         .setCheck(["addMedicines"]) // Permitir 'addMedicines'
         .setAlign(Blockly.ALIGN_RIGHT)
-        .appendField("Medicines:");
+        .appendField("medicines:");
     this.setInputsInline(false);
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
     this.setColour(230);
-    this.setTooltip("Cria registros de tickets no banco de dados da farmácia.");
+    this.setTooltip("Creates ticket records in the pharmacy database.");
     this.setHelpUrl("");
   }
 };
@@ -414,15 +431,15 @@ Blockly.Blocks['createMedicines'] = {
     this.appendValueInput("nome")
         .setCheck("String")
         .setAlign(Blockly.ALIGN_RIGHT)
-        .appendField("Medicine name:"); 
+        .appendField("medicine name:"); 
     this.appendValueInput("quantidade")
         .setCheck("Number")
         .setAlign(Blockly.ALIGN_RIGHT)
-        .appendField("Quantity:");
+        .appendField("quantity:");
     this.appendValueInput("pose")
         .setCheck("String")
         .setAlign(Blockly.ALIGN_RIGHT)
-        .appendField("Pose:");   
+        .appendField("pose:");   
     this.setInputsInline(false);
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
@@ -445,20 +462,20 @@ Blockly.Python['createMedicines'] = function(block) {
 Blockly.Blocks['addMedicines'] = {
   init: function() {
     this.appendDummyInput()
-        .appendField("add medicine:");   
+        .appendField("add medicine:");
     this.appendValueInput("nome")
         .setCheck("String")
         .setAlign(Blockly.ALIGN_RIGHT)
-        .appendField("Name");
+        .appendField("name:");
     this.appendValueInput("quantidade")
         .setCheck("Number")
         .setAlign(Blockly.ALIGN_RIGHT)
-        .appendField("Quantity");
+        .appendField("quantity:");
     this.setInputsInline(false);
-    this.setPreviousStatement(true, null);
-    this.setNextStatement(true, null);
+    this.setPreviousStatement(true, "addMedicines");
+    this.setNextStatement(true, "addMedicines");
     this.setColour(230);
-    this.setTooltip("");
+    this.setTooltip("Add medication to the ticket.");
     this.setHelpUrl("");
   }
 };

@@ -124,7 +124,7 @@ class TestRobot(AbstractRobot, ABC):
 
         messagebox.showinfo("Attention", "The operation is over.")
 
-    def read_tickets(path_file, save_var_name):
+    def read_tickets(self, path_file, tickets):
         """
         Reads tickets from a file and stores them in a list.
 
@@ -135,12 +135,12 @@ class TestRobot(AbstractRobot, ABC):
         Returns:
         - None
         """
-        save_var_name = []  # Inicializa a lista vazia para armazenar os tickets
+        tickets = []  # Inicializa a lista vazia para armazenar os tickets
         with open(path_file, "r") as f:
             for line in f:
-                save_var_name.append(line.strip())
+                tickets.append(line.strip())
 
-    def read_medicines(self, medicamentos_tickets):
+    def read_medicines(self, tickets, medicines):
         medicines = []
         try:
             conexao = mysql.connector.connect(
@@ -155,14 +155,81 @@ class TestRobot(AbstractRobot, ABC):
             for medicine in medicines:
                 cursor.execute(
                     "SELECT id_medicamento, quantidade FROM itens_ticket WHERE id_ticket = %s",
-                    (medicamentos_tickets["id_ticket"],),
+                    (tickets["id_ticket"],),
                 )
                 itens = cursor.fetchall()
                 for item in itens:
                     medicines.append({"id_medicamento": item[0], "quantidade": item[1]})
-            print("Medicamenteos", medicines)
+            print("Medicines:", medicines)
 
             return medicines
+
+        except mysql.connector.Error as err:
+            print("Erro ao acessar o banco de dados:", err)
+
+        finally:
+            if "conexao" in locals() and conexao.is_connected():
+                cursor.close()
+                conexao.close()
+
+    def read_pose(self, medicines_list, pose):
+        poses = []
+        try:
+            conexao = mysql.connector.connect(
+                host="localhost",
+                user="root",
+                password="Softex2023",
+                database="farmacia",
+            )
+
+            cursor = conexao.cursor()
+
+            for medicine in medicines_list:
+                cursor.execute(
+                    "SELECT pose FROM medicamentos WHERE id = %s",
+                    (medicine["id_medicamento"],),
+                )
+                pose = cursor.fetchone()
+                poses.append(
+                    {"id_medicamento": medicine["id_medicamento"], "pose": pose[0]}
+                )
+
+            return poses
+
+        except mysql.connector.Error as err:
+            print("Erro ao acessar o banco de dados:", err)
+
+        finally:
+            if "conexao" in locals() and conexao.is_connected():
+                cursor.close()
+                conexao.close()
+
+    def read_quantity(self, medicines, quantity):
+        quantities = []
+        try:
+            conexao = mysql.connector.connect(
+                host="localhost",
+                user="root",
+                password="Softex2023",
+                database="farmacia",
+            )
+
+            cursor = conexao.cursor()
+
+            for medicine in medicines:
+                cursor.execute(
+                    "SELECT quantidade FROM itens_ticket WHERE id_medicamento = %s",
+                    (medicine["id_medicamento"],),
+                )
+                quantity = cursor.fetchone()
+                quantities.append(
+                    {
+                        "id_medicamento": medicine["id_medicamento"],
+                        "quantidade": quantity[0],
+                    }
+                )
+
+            return quantities
 
         except mysql.connector.Error as err:
             print("Erro ao acessar o banco de dados:", err)

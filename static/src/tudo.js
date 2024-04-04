@@ -273,8 +273,7 @@ Blockly.Blocks.read_medicines = {
 Blockly.Python['read_medicines'] = function(block) {
   var varName = Blockly.Python.variableDB_.getName(block.getFieldValue('VAR_NAME'), Blockly.Variables.NAME_TYPE);
   var saveVarName = Blockly.Python.variableDB_.getName(block.getFieldValue('SAVE_VAR_NAME'), Blockly.Variables.NAME_TYPE);
-  // Gere o código para recuperar os medicamentos e salvá-los
-  var code = 'obj.read_medicines(' + varName + ', ' + saveVarName + ')'; // Coloque o código de geração aqui
+  var code = 'obj.read_medicines(' + varName + ', ' + saveVarName + ')\n'; // Coloque o código de geração aqui
   return code;
 };
 

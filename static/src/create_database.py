@@ -1,11 +1,7 @@
 import mysql.connector
 
 # Conectar ao MySQL
-conexao = mysql.connector.connect(
-    host="localhost",
-    user="root",
-    password="Softex2023"
-)
+conexao = mysql.connector.connect(host="localhost", user="root", password="Softex2023")
 
 cursor = conexao.cursor()
 
@@ -19,36 +15,47 @@ cursor.execute("CREATE DATABASE IF NOT EXISTS farmacia")
 cursor.execute("USE farmacia")
 
 # Criar a tabela 'tickets' se não existir
-cursor.execute("""
+cursor.execute(
+    """
     CREATE TABLE IF NOT EXISTS tickets (
-        id INT AUTO_INCREMENT PRIMARY KEY,
+        id_ticket INT AUTO_INCREMENT PRIMARY KEY,
         paciente VARCHAR(255) NOT NULL,
         setor_nome VARCHAR(255),
         status_processo BOOLEAN DEFAULT FALSE
     )
-""")
+"""
+)
 
 # Criar a tabela 'medicamentos' se não existir
-cursor.execute("""
+cursor.execute(
+    """
     CREATE TABLE IF NOT EXISTS medicamentos (
-        id INT AUTO_INCREMENT PRIMARY KEY,
+        id_medicamento INT AUTO_INCREMENT PRIMARY KEY,
         nome VARCHAR(255) NOT NULL,
         quantidade INT NOT NULL,
         pose VARCHAR(50)
     )
-""")
+"""
+)
 
 # Criar a tabela 'medicamentos_tickets' para armazenar os medicamentos associados aos tickets
-cursor.execute("""
+cursor.execute(
+    """
     CREATE TABLE IF NOT EXISTS medicamentos_tickets (
         id_ticket INT,
+        paciente VARCHAR(255),
+        setor_nome VARCHAR(255),
         id_medicamento INT,
+        nome VARCHAR(255),
         quantidade INT,
         pose VARCHAR(50),
-        FOREIGN KEY (id_ticket) REFERENCES tickets(id),
-        FOREIGN KEY (id_medicamento) REFERENCES medicamentos(id)
+        status_processo VARCHAR(50),
+        FOREIGN KEY (id_ticket) REFERENCES tickets(id_ticket),
+        FOREIGN KEY (id_medicamento) REFERENCES medicamentos(id_medicamento)
     )
-""")
+"""
+)
+
 
 # Commit para salvar as alterações
 conexao.commit()

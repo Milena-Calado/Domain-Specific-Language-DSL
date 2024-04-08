@@ -310,7 +310,7 @@ class TestRobot(AbstractRobot, ABC):
             cursor.close()
             conexao.close()
 
-    def addMedicines(self, id_ticket, nome, quantidade):
+    def addMedicines(self, paciente, nome, quantidade):
         try:
             conexao = mysql.connector.connect(
                 host="localhost",
@@ -324,13 +324,11 @@ class TestRobot(AbstractRobot, ABC):
             # Buscar informações do medicamento
             cursor.execute(
                 """
-                SELECT id, pose, quantidade FROM medicamentos WHERE nome = %s
+                SELECT id_medicamento, pose, quantidade FROM medicamentos WHERE nome = %s
             """,
                 (nome,),
             )
-            medicamento_info = (
-                cursor.fetchone()
-            )  # Recupera a primeira linha do resultado
+            medicamento_info = cursor.fetchone()
 
             # Verificar se o medicamento foi encontrado
             if medicamento_info:
@@ -350,45 +348,36 @@ class TestRobot(AbstractRobot, ABC):
                     (novo_estoque, id_medicamento),
                 )
 
-                # Buscar informações do ticket com base no ID fornecido
+                # Aqui você precisa obter o id_ticket e outras informações necessárias para a tabela medicamentos_tickets
+                # Suponha que você tenha o id_ticket disponível
+                id_ticket = 1
+
+                # Suponha que você tenha as informações do ticket disponíveis
+                setor_nome = "Nome do setor"
+                status_processo = "Status do processo"
+
+                # Inserir a associação entre o ticket e o medicamento na tabela 'medicamentos_tickets'
                 cursor.execute(
                     """
-                    SELECT paciente, setor_nome, status_processo FROM tickets WHERE id = %s
+                    INSERT INTO medicamentos_tickets (id_ticket, paciente, setor_nome, id_medicamento, nome, quantidade, pose, status_processo)
+                    VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
                 """,
-                    (id_ticket,),
+                    (
+                        id_ticket,
+                        paciente,  # Você não tem o nome do paciente disponível aqui, pois ele não está sendo passado como argumento
+                        setor_nome,
+                        id_medicamento,
+                        nome,
+                        quantidade,
+                        pose,
+                        status_processo,
+                    ),
                 )
-                ticket_info = cursor.fetchone()
 
-                # Verificar se o ticket foi encontrado
-                if ticket_info:
-                    paciente = ticket_info[0]
-                    setor_nome = ticket_info[1]
-                    status_processo = ticket_info[2]
+                # Commit para salvar as alterações
+                conexao.commit()
 
-                    # Inserir a associação entre o ticket e o medicamento na tabela 'medicamentos_tickets'
-                    cursor.execute(
-                        """
-                        INSERT INTO medicamentos_tickets (id_ticket, paciente, setor_nome, id_medicamento, nome, quantidade, pose, status_processo)
-                        VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
-                    """,
-                        (
-                            id_ticket,
-                            paciente,
-                            setor_nome,
-                            id_medicamento,
-                            nome,
-                            quantidade,
-                            pose,
-                            status_processo,
-                        ),
-                    )
-
-                    # Commit para salvar as alterações
-                    conexao.commit()
-
-                    print("Medicamento adicionado ao ticket com sucesso.")
-                else:
-                    print("Ticket não encontrado.")
+                print("Medicamento adicionado ao ticket com sucesso.")
             else:
                 print("Medicamento não encontrado.")
 

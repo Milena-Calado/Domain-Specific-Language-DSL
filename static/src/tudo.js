@@ -422,7 +422,7 @@ Blockly.Blocks['createTickets'] = {
 Blockly.Python['createTickets'] = function(block) {
   var value_paciente = Blockly.Python.valueToCode(block, 'paciente', Blockly.Python.ORDER_ATOMIC);
   var value_setorNome = Blockly.Python.valueToCode(block, 'setorNome', Blockly.Python.ORDER_ATOMIC);
-  var statements_medicamentos = Blockly.JavaScript.statementToCode(block, 'medicamentos');
+  var statements_medicamentos = Blockly.Python.statementToCode(block, 'medicamentos');
 
   // Generate Python code to create ticket with provided data
   var code = 'obj.create_ticket(' + value_paciente + ', ' + value_setorNome + ', ' + statements_medicamentos + ')\n';
@@ -502,6 +502,7 @@ Blockly.Python['addMedicines'] = function(block) {
   var code = 'obj.addMedicines("' + id_ticket + '", ' + value_nome + ', ' + value_quantidade + ')\n';
   return code;
 };
+
 
 
 Blockly.Blocks.tigeciclina = {

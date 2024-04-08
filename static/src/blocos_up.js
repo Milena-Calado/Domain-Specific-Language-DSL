@@ -280,6 +280,7 @@ Blockly.Blocks['createTickets'] = {
   }
 };
 
+
 Blockly.Blocks['createMedicines'] = {
   init: function() {
     this.appendDummyInput()
@@ -376,7 +377,6 @@ Blockly.Blocks.safety = {
     this.setHelpUrl("");
 }
 };
-
 
 Blockly.Blocks['move_to_end'] = {
   init: function() {
@@ -487,8 +487,9 @@ Blockly.Python['mysqlConnection'] = function(block) {
 Blockly.Python['createTickets'] = function(block) {
   var value_paciente = Blockly.Python.valueToCode(block, 'paciente', Blockly.Python.ORDER_ATOMIC);
   var value_setorNome = Blockly.Python.valueToCode(block, 'setorNome', Blockly.Python.ORDER_ATOMIC);
-  var statements_medicamentos = Blockly.JavaScript.statementToCode(block, 'medicamentos');
+  var statements_medicamentos = Blockly.Python.statementToCode(block, 'medicamentos');
 
+  // Generate Python code to create ticket with provided data
   var code = 'obj.create_ticket(' + value_paciente + ', ' + value_setorNome + ', ' + statements_medicamentos + ')\n';
   return code;
 };

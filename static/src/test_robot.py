@@ -1,4 +1,5 @@
 from abc import ABC
+from logging import root
 from time import sleep
 import subprocess
 import mysql.connector
@@ -123,6 +124,11 @@ class TestRobot(AbstractRobot, ABC):
         root.withdraw()
 
         messagebox.showinfo("Attention", "The operation is over.")
+
+        # Trazer a janela de alerta para frente
+        root.lift()
+        root.attributes("-topmost", True)
+        root.after_idle(root.attributes, "-topmost", False)
 
     def read_tickets(self, path_file, tickets):
         """
@@ -391,3 +397,4 @@ class TestRobot(AbstractRobot, ABC):
 
 if __name__ == "__main__":
     robot = TestRobot()
+    

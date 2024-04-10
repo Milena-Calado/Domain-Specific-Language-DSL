@@ -1,4 +1,4 @@
-<h2 align="center"> KiDSL </h2>
+<h2 align="center"> H-ArmDSL </h2>
 
 <h3 align="center"> A graphical domain-specific language for specifying missions of robotic arms</h3>
 
@@ -57,6 +57,7 @@ O video de execução da aplicação pode ser acessado no arquivo milena_almeida
 
 <h3 align="center">🛠️ Ferramentas utilizadas</h3>
 
+* MySQL
 * HTML5
 * CSS3
 * JS
